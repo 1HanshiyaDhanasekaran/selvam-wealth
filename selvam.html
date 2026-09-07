@@ -1,0 +1,2919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="செல்வம்">
+<meta name="theme-color" content="#16a34a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>செல்வம் — உங்கள் செல்வம்</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f6f1;
+  --bg2:#efeee7;
+  --surface:#ffffff;
+  --surface2:#faf9f4;
+  --border:#e7e4d9;
+  --border2:#dad6c7;
+  --text:#1c231e;
+  --text2:#2a352c;
+  --muted:#767c72;
+  --muted2:#96988e;
+  --green:#16a34a;
+  --green2:#22c55e;
+  --green-light:#dcfce7;
+  --green-dark:#14532d;
+  --red:#dc2626;
+  --red-light:#fee2e2;
+  --blue:#2563eb;
+  --blue-light:#dbeafe;
+  --amber:#d97706;
+  --amber-light:#fef3c7;
+  --purple:#7c3aed;
+  --purple-light:#ede9fe;
+  --accent:#16a34a;
+  --accent2:#15803d;
+}
+body.theme-dark{
+  --bg:#10150f;
+  --bg2:#161d13;
+  --surface:#1a2117;
+  --surface2:#20281c;
+  --border:#2b3527;
+  --border2:#3a4633;
+  --text:#eef3ea;
+  --text2:#dde6d8;
+  --muted:#93a08c;
+  --muted2:#71806b;
+  --green-light:#1d3327;
+}
+body.hide-balance .nw-value,body.hide-balance .nw-stat-value,body.hide-balance .s-value,body.hide-balance .health-ring-num,body.hide-balance .rr-value{filter:blur(7px);user-select:none}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;transition:background 0.2s,color 0.2s}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.app{display:flex;min-height:100vh}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:14px 0;margin-bottom:18px;background:var(--bg)}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;transition:all 0.15s;flex-shrink:0}
+.icon-btn:hover{border-color:var(--green);background:var(--green-light)}
+.user-chip{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 14px 4px 4px;cursor:pointer;transition:all 0.15s}
+.user-chip:hover{border-color:var(--green)}
+.user-avatar-sm{width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
+.user-chip-name{font-size:13px;font-weight:600;color:var(--text2)}
+
+/* QUICK ADD */
+.quick-add-label{font-size:10.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin:22px 0 10px}
+.quick-add-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.quick-tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:all 0.15s;border:none;font-family:'Plus Jakarta Sans',sans-serif}
+.quick-tile:hover{border:1px solid var(--green);box-shadow:0 4px 14px rgba(22,163,74,0.1);transform:translateY(-2px)}
+.quick-tile-ico{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+.quick-tile-label{font-size:12px;font-weight:600;color:var(--text2)}
+@media(max-width:700px){.quick-add-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* SIDEBAR */
+.sidebar{width:248px;background:var(--surface);border-right:1px solid var(--border);padding:0;display:flex;flex-direction:column;position:fixed;height:100vh;top:0;left:0;overflow-y:auto;z-index:100;box-shadow:2px 0 12px rgba(22,163,74,0.06)}
+.logo-wrap{padding:24px 20px 20px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,var(--green-dark) 0%,var(--green) 100%)}
+.logo-tamil{font-family:'Noto Serif Tamil',serif;font-size:26px;font-weight:700;color:#ffffff;letter-spacing:0.02em;line-height:1}
+.logo-latin{font-size:12px;font-weight:700;color:rgba(255,255,255,0.92);letter-spacing:0.32em;text-transform:uppercase;margin-top:7px;font-family:'Plus Jakarta Sans',sans-serif}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.65);letter-spacing:0.1em;text-transform:uppercase;margin-top:3px}
+.logo-tag{font-size:11px;color:rgba(255,255,255,0.85);margin-top:8px;font-weight:400}
+nav{padding:12px 10px;flex:1}
+.nav-section{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);padding:8px 10px 4px;margin-top:4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;cursor:pointer;font-size:13.5px;color:var(--muted);transition:all 0.15s;border:none;background:none;text-align:left;width:100%;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500}
+.nav-item:hover{background:var(--green-light);color:var(--green-dark)}
+.nav-item.active{background:var(--green-light);color:var(--green);font-weight:600}
+.nav-item.active .nav-icon{background:var(--green);color:#fff}
+.nav-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;background:var(--bg2);flex-shrink:0;transition:all 0.15s}
+.sidebar-footer{padding:14px;border-top:1px solid var(--border)}
+.cur-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px}
+.cur-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;font-weight:600}
+.cur-btns{display:flex;flex-wrap:wrap;gap:5px}
+.cur-btn{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;transition:all 0.15s;font-family:'Plus Jakarta Sans',sans-serif}
+.cur-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+.cur-btn:hover:not(.active){border-color:var(--green);color:var(--green)}
+.cur-add-row{display:flex;gap:5px;margin-top:6px}
+.cur-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font-size:11px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;outline:none}
+.cur-input:focus{border-color:var(--green)}
+
+/* MAIN */
+.main{margin-left:248px;flex:1;padding:32px 36px;max-width:calc(100vw - 248px)}
+.page{display:none;animation:fadeUp 0.3s ease both}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* PAGE HEADER */
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.page-title{font-family:'Noto Serif Tamil',serif;font-size:28px;font-weight:700;color:var(--text);line-height:1.1}
+.page-sub{color:var(--muted);font-size:13px;margin-top:4px}
+.hdr-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;white-space:nowrap}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:var(--accent2)}
+.btn-outline{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-outline:hover{background:var(--green-light);border-color:var(--green);color:var(--green)}
+.btn-ghost{background:transparent;color:var(--muted);border:none;padding:6px 10px}
+.btn-ghost:hover{color:var(--green)}
+.btn-danger{background:var(--red-light);color:var(--red);border:1px solid #fca5a5}
+.btn-danger:hover{background:#fecaca}
+.btn-sm{padding:6px 12px;font-size:12px;border-radius:8px}
+.btn-amber{background:var(--amber-light);color:var(--amber);border:1px solid #fcd34d}
+
+/* NET WORTH HERO */
+.nw-hero{background:linear-gradient(135deg,var(--green-dark) 0%,#15803d 50%,var(--green) 100%);border-radius:20px;padding:28px 32px;margin-bottom:24px;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative;overflow:hidden}
+.nw-hero::before{content:'செல்வம்';position:absolute;right:-10px;bottom:-20px;font-family:'Noto Serif Tamil',serif;font-size:120px;opacity:0.06;line-height:1;pointer-events:none}
+.nw-label{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;opacity:0.75;margin-bottom:6px;font-weight:600}
+.nw-value{font-family:'Noto Serif Tamil',serif;font-size:46px;font-weight:700;line-height:1}
+.nw-sub{font-size:13px;opacity:0.8;margin-top:6px}
+.nw-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;font-size:12px;margin-top:8px;backdrop-filter:blur(4px)}
+.nw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.15);border-radius:12px;overflow:hidden}
+.nw-stat{background:rgba(255,255,255,0.08);padding:16px 20px;text-align:center;backdrop-filter:blur(4px)}
+.nw-stat-label{font-size:10px;opacity:0.7;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;font-weight:600}
+.nw-stat-value{font-family:'Noto Serif Tamil',serif;font-size:20px;font-weight:700}
+.nw-stat-sub{font-size:11px;opacity:0.65;margin-top:2px}
+
+/* STATS GRID */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;position:relative;overflow:hidden;transition:box-shadow 0.2s}
+.stat-card:hover{box-shadow:0 4px 16px rgba(22,163,74,0.1)}
+.stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+.stat-card.green::after{background:var(--green)}
+.stat-card.red::after{background:var(--red)}
+.stat-card.blue::after{background:var(--blue)}
+.stat-card.amber::after{background:var(--amber)}
+.stat-card.purple::after{background:var(--purple)}
+.stat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px}
+.stat-icon.green{background:var(--green-light);color:var(--green-dark)}
+.stat-icon.red{background:var(--red-light);color:var(--red)}
+.stat-icon.blue{background:var(--blue-light);color:var(--blue)}
+.stat-icon.amber{background:var(--amber-light);color:var(--amber)}
+.stat-icon.purple{background:var(--purple-light);color:var(--purple)}
+.s-label{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.s-value{font-family:'Noto Serif Tamil',serif;font-size:22px;font-weight:700;line-height:1;color:var(--text)}
+.s-sub{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.card-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--border)}
+.card-title{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.05em}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse}
+th{padding:11px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;border-bottom:1px solid var(--border);background:var(--surface2)}
+td{padding:13px 16px;border-bottom:1px solid var(--border);font-size:13.5px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+.asset-name{font-weight:600;color:var(--text)}
+.asset-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.type-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-bank{background:var(--blue-light);color:var(--blue)}
+.badge-equity{background:var(--purple-light);color:var(--purple)}
+.badge-mf{background:#fce7f3;color:#be185d}
+.badge-epf{background:#ecfdf5;color:#059669}
+.badge-ppf{background:#ecfdf5;color:#059669}
+.badge-nps{background:#fef3c7;color:#b45309}
+.badge-sgb{background:#fef9c3;color:#854d0e}
+.badge-realestate{background:var(--amber-light);color:var(--amber)}
+.badge-gold{background:#fef9c3;color:#854d0e}
+.badge-vehicle{background:#e0f2fe;color:#0369a1}
+.badge-insurance{background:#dcfce7;color:#15803d}
+.badge-crypto{background:#f3e8ff;color:#6d28d9}
+.badge-fd{background:#dbeafe;color:#1d4ed8}
+.badge-loan{background:var(--red-light);color:var(--red)}
+.badge-other{background:#f1f5f9;color:#475569}
+.val-pos{color:var(--green);font-weight:700;font-family:'Noto Serif Tamil',serif;font-size:15px}
+.val-neg{color:var(--red);font-weight:700;font-family:'Noto Serif Tamil',serif;font-size:15px}
+.action-cell{display:flex;gap:6px}
+
+/* DONUT */
+.donut-wrap{display:flex;align-items:center;gap:20px;padding:16px 18px}
+.donut-legend{display:flex;flex-direction:column;gap:7px;flex:1}
+.legend-row{display:flex;align-items:center;gap:8px;font-size:12.5px}
+.legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.legend-lbl{color:var(--muted);flex:1}
+.legend-val{font-weight:600;color:var(--text)}
+.legend-pct{color:var(--muted);font-size:11px;min-width:32px;text-align:right}
+
+/* SAVINGS RATE */
+.savings-bar-wrap{padding:16px 18px}
+.sr-row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px}
+.progress-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:14px}
+.progress-fill{height:100%;border-radius:4px;transition:width 0.6s ease}
+
+/* MONTH NAV */
+.month-nav{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.month-btn{background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:6px 12px;cursor:pointer;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.15s}
+.month-btn:hover{border-color:var(--green);color:var(--green)}
+.month-label{font-family:'Noto Serif Tamil',serif;font-size:18px;font-weight:700;min-width:160px;text-align:center}
+
+/* INCOME/EXPENSE SUMMARY */
+.income-exp-hero{display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:20px}
+.ie-item{padding:20px 24px}
+.ie-item+.ie-item{border-left:1px solid var(--border)}
+.ie-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:6px}
+.ie-value{font-family:'Noto Serif Tamil',serif;font-size:28px;font-weight:700;line-height:1}
+.ie-value.inc{color:var(--green)}
+.ie-value.exp{color:var(--red)}
+.ie-value.bal{color:var(--text)}
+.ie-sub{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* EXPENSE ITEM */
+.exp-list{display:flex;flex-direction:column;gap:8px}
+.exp-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;transition:background 0.15s}
+.exp-item:hover{background:var(--surface2)}
+.exp-cat-dot{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.exp-info{flex:1}
+.exp-name{font-weight:600;font-size:13.5px}
+.exp-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.exp-amt{font-family:'Noto Serif Tamil',serif;font-size:16px;font-weight:700;color:var(--red);flex-shrink:0}
+
+/* GOALS */
+.goal-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:10px;transition:box-shadow 0.2s}
+.goal-item:hover{box-shadow:0 2px 12px rgba(22,163,74,0.08)}
+.goal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.goal-name{font-weight:700;font-size:14.5px}
+.goal-target{font-size:12px;color:var(--muted)}
+.goal-progress-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:5px}
+.goal-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.goal-fill{height:100%;border-radius:3px;background:var(--green);transition:width 0.6s}
+.goal-fill.amber{background:var(--amber)}
+.goal-fill.red{background:var(--red)}
+.goal-meta-row{display:flex;gap:12px;margin-top:8px}
+.goal-tag{font-size:11px;background:var(--green-light);color:var(--green);padding:2px 8px;border-radius:20px;font-weight:600}
+
+/* ESSENTIALS */
+.ess-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.ess-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;position:relative}
+.ess-card.ok{border-color:#bbf7d0}
+.ess-card.warn{border-color:#fde68a}
+.ess-card.bad{border-color:#fca5a5}
+.ess-status{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:10px}
+.ess-status.ok{background:var(--green-light)}
+.ess-status.warn{background:var(--amber-light)}
+.ess-status.bad{background:var(--red-light)}
+.ess-name{font-weight:700;font-size:13.5px;margin-bottom:4px}
+.ess-detail{font-size:12px;color:var(--muted);line-height:1.5}
+.ess-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;margin-top:6px}
+.ess-badge.ok{background:var(--green-light);color:var(--green)}
+.ess-badge.warn{background:var(--amber-light);color:var(--amber)}
+.ess-badge.bad{background:var(--red-light);color:var(--red)}
+
+/* SNAPSHOTS */
+.snap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.snap-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:all 0.2s}
+.snap-card:hover{border-color:var(--green);box-shadow:0 2px 12px rgba(22,163,74,0.1)}
+.snap-date{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.snap-value{font-family:'Noto Serif Tamil',serif;font-size:22px;font-weight:700;color:var(--green)}
+.snap-change{font-size:12px;margin-top:4px}
+.snap-change.up{color:var(--green)}
+.snap-change.down{color:var(--red)}
+
+/* FILTER */
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.filter-chip{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);cursor:pointer;background:transparent;color:var(--muted);transition:all 0.15s;font-family:'Plus Jakarta Sans',sans-serif}
+.filter-chip:hover{border-color:var(--green);color:var(--green)}
+.filter-chip.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* SEARCH */
+.search-wrap{position:relative}
+.search-inp{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 14px 9px 36px;font-size:13.5px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;outline:none;width:220px;transition:border-color 0.15s}
+.search-inp:focus{border-color:var(--green)}
+.search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:500;padding:20px}
+.overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:18px;width:100%;max-width:540px;padding:28px;max-height:92vh;overflow-y:auto;animation:fadeUp 0.25s ease;box-shadow:0 20px 60px rgba(0,0,0,0.15)}
+.modal-wide{max-width:900px}
+.modal-title{font-family:'Noto Serif Tamil',serif;font-size:22px;font-weight:700;margin-bottom:20px;color:var(--text)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grp{margin-bottom:14px}
+.form-lbl{display:block;font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.form-inp,.form-sel,.form-ta{width:100%;padding:10px 13px;border:1px solid var(--border2);border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;background:var(--surface2);color:var(--text);outline:none;transition:border-color 0.15s}
+.form-inp:focus,.form-sel:focus,.form-ta:focus{border-color:var(--green);background:#fff}
+.form-sel option{background:var(--surface)}
+.form-ta{resize:vertical;min-height:72px;line-height:1.5}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;border-top:1px solid var(--border);padding-top:16px}
+
+/* SHARE PANEL */
+.share-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.share-opt{display:flex;align-items:center;gap:12px;padding:13px 15px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.15s}
+.share-opt:hover{border-color:var(--green);background:var(--green-light)}
+.share-ico{width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--muted)}
+.share-ttl{font-weight:600;font-size:13.5px}
+.share-dsc{font-size:11.5px;color:var(--muted);margin-top:1px}
+.share-arr{margin-left:auto;color:var(--muted)}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#fff;border:1px solid var(--border2);border-radius:12px;padding:12px 18px;font-size:13.5px;display:flex;align-items:center;gap:10px;transform:translateY(80px);opacity:0;transition:all 0.3s ease;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.1);font-weight:500}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-left:3px solid var(--green)}
+.toast.error{border-left:3px solid var(--red)}
+.toast.warn{border-left:3px solid var(--amber)}
+
+/* EMPTY */
+.empty{text-align:center;padding:50px 20px;color:var(--muted)}
+.empty-ico{font-size:44px;margin-bottom:12px;opacity:0.4}
+.empty-txt{font-size:14px;font-weight:500}
+.empty-sub{font-size:12px;margin-top:5px}
+
+/* PROFILE */
+.profile-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;max-width:560px;margin-bottom:20px}
+.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--green-dark),var(--green));display:flex;align-items:center;justify-content:center;font-size:26px;font-family:'Noto Serif Tamil',serif;font-weight:700;color:#fff;flex-shrink:0}
+.avatar-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.av-name{font-family:'Noto Serif Tamil',serif;font-size:20px;font-weight:700}
+.av-email{font-size:12px;color:var(--muted);margin-top:2px}
+
+/* RENEWAL ALERT */
+.renewal-alert{background:var(--amber-light);border:1px solid #fcd34d;border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:13px}
+.info-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:12.5px;line-height:1.7;color:var(--muted)}
+.imp-steps{display:flex;gap:6px;margin-bottom:18px}
+.imp-step{flex:1;height:4px;border-radius:4px;background:var(--border)}
+.imp-step.done{background:var(--green)}
+.imp-seg{display:flex;gap:8px;margin-bottom:16px}
+.imp-seg-btn{flex:1;padding:12px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface2);cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:var(--muted);text-align:center;transition:all .15s}
+.imp-seg-btn.active{border-color:var(--green);background:var(--green-light);color:var(--green-dark)}
+.imp-drop{border:1.5px dashed var(--border2);border-radius:12px;padding:22px;text-align:center;cursor:pointer;font-size:12.5px;color:var(--muted);transition:all .15s}
+.imp-drop:hover{border-color:var(--green)}
+.imp-tablewrap{max-height:360px;overflow:auto;border:1px solid var(--border);border-radius:10px;margin-top:10px}
+.imp-tablewrap table{font-size:12.5px}
+.imp-tablewrap th,.imp-tablewrap td{padding:8px 10px;white-space:nowrap}
+.imp-dup{font-size:10.5px;color:var(--amber);font-weight:600}
+.imp-map-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;align-items:center}
+.imp-map-row label{font-size:12.5px;font-weight:600;color:var(--text)}
+.imp-summary{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--muted)}
+.imp-summary strong{color:var(--text)}
+.info-box strong{color:var(--text2)}
+
+
+/* NAV BADGE */
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:9.5px;font-weight:700;border-radius:8px;padding:1px 5px;min-width:14px;text-align:center}
+.topbar-badge{position:absolute;top:-2px;right:-2px;background:var(--red);color:#fff;font-size:9px;font-weight:700;border-radius:7px;padding:0 4px;min-width:13px;line-height:13px;text-align:center;border:2px solid var(--bg)}
+
+/* CALENDAR */
+.cal-grid-head{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+.cal-grid-head div{text-align:center;font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-cell{aspect-ratio:1;border-radius:10px;border:1px solid var(--border);padding:6px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:all 0.15s;background:var(--surface2)}
+.cal-cell:hover{border-color:var(--green)}
+.cal-cell.empty{background:transparent;border:none;cursor:default}
+.cal-cell.today{border-color:var(--green);box-shadow:0 0 0 1px var(--green)}
+.cal-cell.selected{background:var(--green-light);border-color:var(--green)}
+.cal-day-num{font-size:11.5px;font-weight:600;color:var(--text2)}
+.cal-day-amt{font-size:10px;font-weight:700;color:var(--red)}
+.cal-day-dots{display:flex;gap:2px}
+.cal-dot{width:5px;height:5px;border-radius:50%;display:inline-block}
+@media(max-width:700px){.cal-day-amt{font-size:8.5px}.cal-cell{padding:4px}}
+
+/* ADVISOR */
+.health-hero{display:flex;align-items:center;gap:28px;background:linear-gradient(135deg,var(--green-dark) 0%,#15803d 50%,var(--green) 100%);border-radius:20px;padding:26px 30px;margin-bottom:20px;color:#fff;flex-wrap:wrap}
+.health-ring-wrap{position:relative;width:112px;height:112px;flex-shrink:0}
+.health-ring-score{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.health-ring-num{font-family:'Noto Serif Tamil',serif;font-size:30px;font-weight:700;line-height:1}
+.health-ring-den{font-size:10px;opacity:0.75;margin-top:1px}
+.health-info{flex:1;min-width:200px}
+.health-rating{font-family:'Noto Serif Tamil',serif;font-size:22px;font-weight:700;margin-bottom:4px}
+.health-desc{font-size:13px;opacity:0.85;line-height:1.5}
+.health-breakdown{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap}
+.hb-item{min-width:110px}
+.hb-label{font-size:10px;text-transform:uppercase;letter-spacing:0.06em;opacity:0.75;margin-bottom:4px}
+.hb-track{height:5px;background:rgba(255,255,255,0.25);border-radius:3px;overflow:hidden;width:100%}
+.hb-fill{height:100%;background:#fff;border-radius:3px}
+.hb-val{font-size:11px;margin-top:3px;opacity:0.85}
+
+.alloc-row{margin-bottom:14px}
+.alloc-row-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}
+.alloc-row-top .lbl{font-weight:600;color:var(--text2)}
+.alloc-dual-track{height:9px;background:var(--bg2);border-radius:5px;position:relative;overflow:visible}
+.alloc-dual-fill{height:100%;border-radius:5px;background:var(--green)}
+.alloc-target-mark{position:absolute;top:-3px;width:2px;height:15px;background:var(--text2);border-radius:1px}
+.alloc-legend-row{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-top:10px}
+.alloc-legend-row span{display:flex;align-items:center;gap:5px}
+.alloc-dot{width:8px;height:8px;border-radius:2px}
+
+.risk-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-top:6px}
+.risk-conservative{background:var(--blue-light);color:var(--blue)}
+.risk-moderate{background:var(--amber-light);color:var(--amber)}
+.risk-aggressive{background:var(--red-light);color:var(--red)}
+
+.insight-card{display:flex;gap:12px;padding:13px 16px;border-radius:12px;border:1px solid var(--border);margin-bottom:8px;align-items:flex-start;background:var(--surface)}
+.insight-card.good{border-left:3px solid var(--green);background:var(--green-light)}
+.insight-card.warn{border-left:3px solid var(--amber);background:var(--amber-light)}
+.insight-card.bad{border-left:3px solid var(--red);background:var(--red-light)}
+.insight-card.info{border-left:3px solid var(--blue);background:var(--blue-light)}
+.insight-ico{font-size:17px;flex-shrink:0;margin-top:1px}
+.insight-txt{font-size:13px;line-height:1.5;color:var(--text2)}
+
+.retire-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:20px}
+.retire-results{display:flex;flex-direction:column;gap:12px}
+.rr-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.rr-label{font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);font-weight:700;margin-bottom:4px}
+.rr-value{font-family:'Noto Serif Tamil',serif;font-size:19px;font-weight:700;color:var(--text)}
+.rr-value.accent{color:var(--green)}
+.rr-value.warn{color:var(--amber)}
+.rr-sub{font-size:11px;color:var(--muted);margin-top:2px}
+@media(max-width:900px){.retire-grid{grid-template-columns:1fr}}
+
+.goal-sip{font-size:11px;color:var(--green-dark);background:var(--green-light);padding:5px 10px;border-radius:8px;margin-top:8px;font-weight:600}
+
+@media(max-width:900px){
+  .sidebar{width:64px;padding:0}
+  .logo-wrap{padding:16px 10px;text-align:center}
+  .logo-sub,.logo-tag,.logo-latin,.logo-tamil-text{display:none}
+  .logo-tamil{font-size:18px}
+  .nav-section,.nav-item span:not(.nav-icon),.sidebar-footer{display:none}
+  .nav-item{justify-content:center;padding:10px}
+  .main{margin-left:64px;padding:20px 16px;max-width:calc(100vw - 64px)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .two-col,.three-col,.income-exp-hero,.ess-grid{grid-template-columns:1fr}
+  .nw-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo-wrap">
+    <div class="logo-tamil">செல்வம்</div>
+    <div class="logo-latin">Selvam</div>
+    <div class="logo-tag" id="logo-tag">Track your true wealth</div>
+  </div>
+  <nav>
+    <div class="nav-section">Overview</div>
+    <button class="nav-item active" onclick="nav('dashboard')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span><span>Dashboard</span></button>
+    <button class="nav-item" onclick="nav('calendar')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span>Calendar</span></button>
+    <button class="nav-item" onclick="nav('notifications')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span><span>Notifications</span><span class="nav-badge" id="nav-notif-badge" style="display:none"></span></button>
+    <div class="nav-section">Money Flow</div>
+    <button class="nav-item" onclick="nav('income')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></span><span>Income</span></button>
+    <button class="nav-item" onclick="nav('expenses')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><span>Expenses</span></button>
+    <button class="nav-item" onclick="nav('daily')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span><span>Daily Tracker</span></button>
+    <div class="nav-section">Assets</div>
+    <button class="nav-item" onclick="nav('assets')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><span>Portfolio</span></button>
+    <div class="nav-section">Planning</div>
+    <button class="nav-item" onclick="nav('goals')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span><span>Goals</span></button>
+    <button class="nav-item" onclick="nav('essentials')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg></span><span>Essentials Check</span></button>
+    <button class="nav-item" onclick="nav('advisor')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span><span>Advisor</span></button>
+    <div class="nav-section">Account</div>
+    <button class="nav-item" onclick="nav('profile')"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span>Profile</span></button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="cur-box">
+      <div class="cur-label">Currency</div>
+      <div class="cur-btns" id="cur-btns"></div>
+      <div class="cur-add-row">
+        <input class="cur-input" id="cur-add-inp" placeholder="e.g. USD" maxlength="5">
+        <button class="btn btn-outline btn-sm" onclick="addCur()" style="padding:4px 9px;font-size:11px">+</button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<div class="topbar">
+  <button class="icon-btn" onclick="nav('notifications')" id="topbar-bell-btn" title="Notifications" style="position:relative">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <span class="topbar-badge" id="topbar-bell-badge" style="display:none"></span>
+  </button>
+  <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></button>
+  <button class="icon-btn" onclick="toggleHideBalance()" id="hide-balance-btn" title="Hide balances"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+  <div class="user-chip" onclick="nav('profile')">
+    <div class="user-avatar-sm" id="topbar-avatar">ச</div>
+    <span class="user-chip-name" id="topbar-username">Profile</span>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="page active" id="page-dashboard">
+  <div class="page-header">
+    <div><h1 class="page-title" id="dash-greeting-title">Wealth 🌿</h1><p class="page-sub" id="dash-date"></p></div>
+    <div class="hdr-actions">
+      <button class="btn btn-outline btn-sm" onclick="openShare()">Share</button>
+    </div>
+  </div>
+  <div class="nw-hero">
+    <div>
+      <div class="nw-label" id="dash-nw-label">Net Worth — நிகர செல்வம்</div>
+      <div class="nw-value" id="dash-nw">—</div>
+      <div class="nw-sub" id="dash-nw-sub">Loading…</div>
+      <div class="nw-badge" id="dash-nw-badge">tracking your wealth</div>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="nav('assets')" style="align-self:center">View Portfolio →</button>
+  </div>
+  <div class="quick-add-label">Quick Add</div>
+  <div class="quick-add-grid">
+    <button class="quick-tile" onclick="openAddDaily()"><div class="quick-tile-ico" style="background:var(--red-light);color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></div><div class="quick-tile-label">Expense</div></button>
+    <button class="quick-tile" onclick="openAddIncome()"><div class="quick-tile-ico" style="background:var(--green-light);color:var(--green-dark)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></div><div class="quick-tile-label">Income</div></button>
+    <button class="quick-tile" onclick="openAddAsset()"><div class="quick-tile-ico" style="background:var(--blue-light);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><div class="quick-tile-label">Asset</div></button>
+    <button class="quick-tile" onclick="nav('calendar')"><div class="quick-tile-ico" style="background:var(--purple-light);color:var(--purple)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="quick-tile-label">Calendar</div></button>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><span class="card-title">This Month</span><button class="btn btn-ghost btn-sm" onclick="nav('income')">Details →</button></div>
+      <div class="savings-bar-wrap" id="dash-monthly"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Notifications</span><button class="btn btn-ghost btn-sm" onclick="nav('notifications')">All →</button></div>
+      <div id="dash-notif-preview"></div>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><span class="card-title">Essentials Check</span><button class="btn btn-ghost btn-sm" onclick="nav('essentials')">Review →</button></div>
+      <div id="dash-essentials-preview" style="padding:16px"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Recent Expenses</span><button class="btn btn-ghost btn-sm" onclick="nav('daily')">View all →</button></div>
+      <div id="dash-recent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CALENDAR -->
+<div class="page" id="page-calendar">
+  <div class="page-header">
+    <div><h1 class="page-title">Calendar</h1><p class="page-sub">Your daily spending at a glance</p></div>
+    <div class="hdr-actions">
+      <button class="icon-btn" onclick="calShiftMonth(-1)" title="Previous month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <span id="cal-month-label" style="font-weight:700;font-size:14px;padding:0 4px;align-self:center;min-width:130px;text-align:center"></span>
+      <button class="icon-btn" onclick="calShiftMonth(1)" title="Next month"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
+  </div>
+  <div class="card" style="padding:16px">
+    <div class="cal-grid-head" id="cal-grid-head"></div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div style="display:flex;gap:16px;margin-top:12px;font-size:11px;color:var(--muted)">
+      <span style="display:flex;align-items:center;gap:5px"><span class="cal-dot" style="background:var(--purple)"></span>Goal deadline</span>
+      <span style="display:flex;align-items:center;gap:5px"><span class="cal-dot" style="background:var(--amber)"></span>Insurance renewal</span>
+    </div>
+  </div>
+  <div class="card" id="cal-day-detail-card" style="display:none;margin-top:16px">
+    <div class="card-header"><span class="card-title" id="cal-day-title">Day</span><button class="btn btn-green btn-sm" onclick="openAddDailyForCalDay()">+ Add Expense</button></div>
+    <div id="cal-day-list"></div>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div class="page" id="page-notifications">
+  <div class="page-header">
+    <div><h1 class="page-title">Notifications</h1><p class="page-sub">Things that need your attention</p></div>
+  </div>
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-header"><span class="card-title">Daily Reminder</span></div>
+    <div style="padding:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div style="font-size:12.5px;color:var(--muted);max-width:340px">Get a nudge to log today's expenses. Works while Selvam is open in a browser tab.</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <input class="form-inp" id="notif-remind-time" type="time" value="20:00" style="width:110px" oninput="localStorage.setItem('selvam_reminder_time', this.value)">
+        <button class="btn btn-outline btn-sm" id="notif-remind-toggle" onclick="toggleDailyReminder()">Enable</button>
+      </div>
+    </div>
+  </div>
+  <div id="notif-list"></div>
+</div>
+
+<!-- INCOME -->
+<div class="page" id="page-income">
+  <div class="page-header">
+    <div><h1 class="page-title">Income</h1><p class="page-sub">Salary, freelance & other income</p></div>
+    <div class="hdr-actions">
+      <button class="btn btn-outline" onclick="openStatementImport('bank')">📄 Import statement</button>
+      <button class="btn btn-green" onclick="openAddIncome()">+ Add Income</button>
+    </div>
+  </div>
+  <div class="month-nav">
+    <button class="month-btn" onclick="changeMonth(-1)">◀</button>
+    <div class="month-label" id="inc-month-lbl"></div>
+    <button class="month-btn" onclick="changeMonth(1)">▶</button>
+  </div>
+  <div class="income-exp-hero" id="inc-summary"></div>
+  <div class="card">
+    <div class="card-header"><span class="card-title">Income Sources</span></div>
+    <div id="inc-table"></div>
+  </div>
+</div>
+
+<!-- EXPENSES -->
+<div class="page" id="page-expenses">
+  <div class="page-header">
+    <div><h1 class="page-title">Expenses</h1><p class="page-sub">Fixed & recurring monthly expenses</p></div>
+    <div class="hdr-actions">
+      <button class="btn btn-outline" onclick="openStatementImport('bank')">📄 Import statement</button>
+      <button class="btn btn-green" onclick="openAddFixedExp()">+ Add Expense</button>
+    </div>
+  </div>
+  <div class="month-nav">
+    <button class="month-btn" onclick="changeMonth(-1)">◀</button>
+    <div class="month-label" id="exp-month-lbl"></div>
+    <button class="month-btn" onclick="changeMonth(1)">▶</button>
+  </div>
+  <div class="income-exp-hero" id="exp-summary"></div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><span class="card-title">Fixed Expenses</span><button class="btn btn-ghost btn-sm" onclick="openAddFixedExp()">+ Add</button></div>
+      <div id="fixed-exp-list"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Daily Expenses This Month</span></div>
+      <div id="monthly-daily-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<!-- DAILY TRACKER -->
+<div class="page" id="page-daily">
+  <div class="page-header">
+    <div><h1 class="page-title">Daily Tracker</h1><p class="page-sub">Every spend — auto-counted in monthly</p></div>
+    <div class="hdr-actions">
+      <div class="search-wrap"><span class="search-ico">🔍</span><input class="search-inp" id="daily-search" placeholder="Search…" oninput="renderDaily()"></div>
+      <button class="btn btn-outline" onclick="openStatementImport('bank')">📄 Import statement</button>
+      <button class="btn btn-green" onclick="openAddDaily()">+ Add</button>
+    </div>
+  </div>
+  <div class="filter-bar" id="daily-cats"></div>
+  <div class="exp-list" id="daily-list"></div>
+</div>
+
+<!-- ASSETS -->
+<div class="page" id="page-assets">
+  <div class="page-header">
+    <div><h1 class="page-title">Portfolio</h1><p class="page-sub" id="asset-count"></p></div>
+    <div class="hdr-actions">
+      <div class="search-wrap"><span class="search-ico">🔍</span><input class="search-inp" id="asset-search" placeholder="Search…" oninput="renderAssets()"></div>
+      <button class="btn btn-outline btn-sm" onclick="takeSnapshot()">Snapshot</button>
+      <button class="btn btn-outline" onclick="openStatementImport('holdings')">📄 Import statement</button>
+      <button class="btn btn-green" onclick="openAddAsset()">+ Add Asset</button>
+    </div>
+  </div>
+  <div class="nw-hero" style="margin-bottom:20px">
+    <div>
+      <div class="nw-label">Net Worth</div>
+      <div class="nw-value" id="nw-value">—</div>
+      <div class="nw-sub" id="nw-sub2">Assets minus Liabilities</div>
+    </div>
+    <div class="nw-grid" id="nw-grid2"></div>
+  </div>
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-header"><span class="card-title">Asset Breakdown</span></div>
+    <div class="donut-wrap" style="padding:20px">
+      <svg width="140" height="140" viewBox="0 0 140 140" id="nw-donut"></svg>
+      <div class="donut-legend" id="nw-legend"></div>
+    </div>
+  </div>
+  <div class="filter-bar" id="asset-filters"></div>
+  <div class="card" style="margin-bottom:20px"><div id="asset-table"></div></div>
+  <div class="card">
+    <div class="card-header"><span class="card-title">Net Worth History</span><button class="btn btn-outline btn-sm" onclick="takeSnapshot()">Take Snapshot</button></div>
+    <div class="snap-grid" id="snap-grid" style="padding:16px"></div>
+  </div>
+</div>
+
+<!-- GOALS -->
+<div class="page" id="page-goals">
+  <div class="page-header">
+    <div><h1 class="page-title">Goals — இலக்குகள்</h1><p class="page-sub">Track your financial milestones</p></div>
+    <div class="hdr-actions"><button class="btn btn-green" onclick="openAddGoal()">+ Add Goal</button></div>
+  </div>
+  <div id="goals-list"></div>
+</div>
+
+<!-- ESSENTIALS CHECK -->
+<div class="page" id="page-essentials">
+  <div class="page-header">
+    <div><h1 class="page-title">Essentials Check</h1><p class="page-sub">Are your financial basics covered?</p></div>
+  </div>
+  <div class="card" style="margin-bottom:20px"><div id="ess-summary" style="padding:16px"></div></div>
+  <div class="ess-grid" id="ess-grid"></div>
+  <div class="card">
+    <div class="card-header"><span class="card-title">Insurance Renewals</span></div>
+    <div id="renewal-list" style="padding:8px"></div>
+  </div>
+</div>
+
+<!-- ADVISOR -->
+<div class="page" id="page-advisor">
+  <div class="page-header">
+    <div><h1 class="page-title">Advisor</h1><p class="page-sub">Your personal wealth check-up</p></div>
+  </div>
+
+  <div class="health-hero">
+    <div class="health-ring-wrap">
+      <svg width="112" height="112" viewBox="0 0 112 112">
+        <circle cx="56" cy="56" r="48" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="10"/>
+        <circle id="health-ring-circle" cx="56" cy="56" r="48" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" transform="rotate(-90 56 56)"/>
+      </svg>
+      <div class="health-ring-score"><div class="health-ring-num" id="health-score-num">—</div><div class="health-ring-den">/ 100</div></div>
+    </div>
+    <div class="health-info">
+      <div class="health-rating" id="health-rating">Financial Health</div>
+      <div class="health-desc" id="health-desc">Add your income, expenses and assets to see your score.</div>
+      <div class="health-breakdown" id="health-breakdown"></div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-header"><span class="card-title">Asset Allocation vs. Target</span></div>
+      <div style="padding:18px" id="alloc-panel"></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">Risk Profile</span></div>
+      <div style="padding:18px" id="risk-panel"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-header"><span class="card-title">Insights & Recommendations</span></div>
+    <div style="padding:16px" id="insights-panel"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="card-title">Retirement / FIRE Planner</span></div>
+    <div class="retire-grid">
+      <div>
+        <div class="form-row">
+          <div class="form-grp"><label class="form-lbl">Current Age</label><input class="form-inp" id="rp-age" type="number" oninput="saveRetirementPlan()" placeholder="e.g. 32"></div>
+          <div class="form-grp"><label class="form-lbl">Retirement Age</label><input class="form-inp" id="rp-retireage" type="number" oninput="saveRetirementPlan()" placeholder="e.g. 60"></div>
+        </div>
+        <div class="form-grp"><label class="form-lbl">Current Monthly Expenses</label><input class="form-inp" id="rp-expense" type="number" oninput="saveRetirementPlan()" placeholder="Defaults to your tracked spend"></div>
+        <div class="form-row">
+          <div class="form-grp"><label class="form-lbl">Expected Return (% p.a.)</label><input class="form-inp" id="rp-return" type="number" step="0.1" oninput="saveRetirementPlan()" placeholder="e.g. 11"></div>
+          <div class="form-grp"><label class="form-lbl">Inflation (% p.a.)</label><input class="form-inp" id="rp-inflation" type="number" step="0.1" oninput="saveRetirementPlan()" placeholder="e.g. 6"></div>
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);line-height:1.6">Uses your current net worth as the starting corpus, grown at your expected return, against inflation-adjusted expenses in retirement.</div>
+      </div>
+      <div class="retire-results" id="retire-results"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div class="page" id="page-profile">
+  <div class="page-header"><div><h1 class="page-title">Profile</h1><p class="page-sub">Your account & data</p></div></div>
+  <div class="profile-card">
+    <div style="font-weight:700;font-size:14px;margin-bottom:14px">Settings</div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl settings-lbl">Language</label>
+        <div class="cur-btns" id="lang-btns" style="margin-top:2px">
+          <button class="cur-btn" id="lang-btn-en" onclick="setLang('en')">English</button>
+          <button class="cur-btn" id="lang-btn-ta" onclick="setLang('ta')">தமிழ்</button>
+        </div>
+      </div>
+      <div class="form-grp"><label class="form-lbl settings-lbl">Appearance</label>
+        <div class="cur-btns" style="margin-top:2px">
+          <button class="cur-btn" id="theme-btn-light" onclick="setTheme('light')">Light</button>
+          <button class="cur-btn" id="theme-btn-dark" onclick="setTheme('dark')">Dark</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="profile-card">
+    <div class="avatar-row">
+      <div class="avatar" id="profile-av">ச</div>
+      <div><div class="av-name" id="profile-name">செல்வம்</div><div class="av-email" id="profile-email">Not set</div></div>
+    </div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl">Name</label><input class="form-inp" id="p-name" placeholder="Your name" oninput="saveProfile()"></div>
+      <div class="form-grp"><label class="form-lbl">Email</label><input class="form-inp" id="p-email" placeholder="email@example.com" oninput="saveProfile()"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl">Monthly Income (approx)</label><input class="form-inp" id="p-income" type="number" placeholder="e.g. 80000" oninput="saveProfile()"></div>
+      <div class="form-grp"><label class="form-lbl">Base Currency</label>
+        <select class="form-sel" id="p-cur" onchange="saveProfile()"><option>INR</option><option>USD</option><option>GBP</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl">Age</label><input class="form-inp" id="p-age" type="number" placeholder="e.g. 32" oninput="saveProfile()"></div>
+      <div class="form-grp"><label class="form-lbl">Risk Tolerance</label>
+        <select class="form-sel" id="p-risk" onchange="saveProfile()">
+          <option value="conservative">Conservative</option>
+          <option value="moderate" selected>Moderate</option>
+          <option value="aggressive">Aggressive</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="profile-card">
+    <div style="font-weight:700;font-size:14px;margin-bottom:4px">Backup & Restore</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Everything stays on this device — no account, no cloud, nothing sent anywhere. Selvam automatically keeps a few recent restore points here as a safety net, and you can download a full backup file anytime to move data between your phone, Windows, and Mac.</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="btn btn-green" onclick="exportJSON()" style="justify-content:flex-start">⬇ Download backup (JSON)</button>
+      <button class="btn btn-outline" onclick="document.getElementById('import-file').click()" style="justify-content:flex-start">⬆ Restore from backup file</button>
+      <button class="btn btn-outline" onclick="exportText()" style="justify-content:flex-start">Export summary report</button>
+      <input type="file" id="import-file" accept=".json" hidden onchange="importJSON(this)">
+    </div>
+    <div class="info-box" style="margin-top:14px">
+      <strong>Moving to a new device (iOS, Android, Windows, Mac)?</strong> Tap <strong>Download backup</strong> here, send that file to the new device (AirDrop, email, USB, whatever you normally use), open Selvam there, then tap <strong>Restore from backup file</strong> and pick it.
+    </div>
+    <div style="margin-top:18px;border-top:1px solid var(--border);padding-top:14px">
+      <div style="font-weight:600;font-size:12.5px;margin-bottom:2px">Automatic restore points</div>
+      <div style="font-size:11.5px;color:var(--muted);margin-bottom:10px">Saved on this device automatically — up to 5, one per day at most, only kept if something actually changed.</div>
+      <div id="autobackup-list"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+      <button class="btn btn-danger" onclick="clearAll()" style="justify-content:flex-start">Clear all data</button>
+    </div>
+  </div>
+</div>
+
+
+</main>
+</div>
+
+<!-- ADD ASSET MODAL -->
+<div class="overlay" id="modal-asset">
+<div class="modal">
+  <h2 class="modal-title" id="modal-asset-title">Add Asset</h2>
+  <div class="form-grp">
+    <label class="form-lbl">Asset Class</label>
+    <select class="form-sel" id="a-type" onchange="updateAssetFields()">
+      <option value="bank">🏦 Bank / FD / Savings</option>
+      <option value="equity">📈 Stocks / Equity</option>
+      <option value="mf">📊 Mutual Funds / SIP</option>
+      <option value="epf">🏛️ EPF</option>
+      <option value="ppf">🏛️ PPF</option>
+      <option value="nps">🏛️ NPS</option>
+      <option value="sgb">🪙 SGBs / Gold Bonds</option>
+      <option value="gold">🪙 Physical Gold</option>
+      <option value="realestate">🏠 Real Estate</option>
+      <option value="vehicle">🚗 Vehicle</option>
+      <option value="crypto">₿ Crypto</option>
+      <option value="insurance">🛡️ Insurance</option>
+      <option value="loan">📉 Liability / Loan</option>
+      <option value="other">📋 Other</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Name / Label</label><input class="form-inp" id="a-name" placeholder="e.g. SBI Savings, HDFC MF"></div>
+    <div class="form-grp"><label class="form-lbl">Institution</label><input class="form-inp" id="a-inst" placeholder="e.g. SBI, Zerodha"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Current Value</label><input class="form-inp" id="a-value" type="number" placeholder="0.00"></div>
+    <div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="a-cur"></select></div>
+  </div>
+  <div id="a-extra"></div>
+  <div class="form-grp"><label class="form-lbl">Notes</label><textarea class="form-ta" id="a-notes" placeholder="Any details…" rows="2"></textarea></div>
+  <div class="modal-actions">
+    <button class="btn btn-outline" onclick="closeModal('modal-asset')">Cancel</button>
+    <button class="btn btn-green" onclick="saveAsset()" id="save-asset-btn">Save Asset</button>
+  </div>
+</div>
+</div>
+
+<!-- ADD INCOME MODAL -->
+<div class="overlay" id="modal-income">
+<div class="modal">
+  <h2 class="modal-title">Add Income</h2>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Label</label><input class="form-inp" id="i-name" placeholder="e.g. Salary, Freelance"></div>
+    <div class="form-grp"><label class="form-lbl">Source</label><input class="form-inp" id="i-source" placeholder="e.g. Company name"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Amount</label><input class="form-inp" id="i-amount" type="number" placeholder="0.00"></div>
+    <div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="i-cur"></select></div>
+  </div>
+  <div class="form-grp"><label class="form-lbl">Month</label><input class="form-inp" id="i-month" type="month"></div>
+  <div class="modal-actions">
+    <button class="btn btn-outline" onclick="closeModal('modal-income')">Cancel</button>
+    <button class="btn btn-green" onclick="saveIncome()">Save Income</button>
+  </div>
+</div>
+</div>
+
+<!-- ADD FIXED EXPENSE MODAL -->
+<div class="overlay" id="modal-fexp">
+<div class="modal">
+  <h2 class="modal-title">Add Fixed Expense</h2>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Description</label><input class="form-inp" id="fe-name" placeholder="e.g. Rent, EMI"></div>
+    <div class="form-grp"><label class="form-lbl">Category</label>
+      <select class="form-sel" id="fe-cat">
+        <option>🏠 Rent / EMI</option><option>📱 Subscriptions</option>
+        <option>⚡ Utilities</option><option>🎓 Education</option>
+        <option>💊 Insurance Premium</option><option>💳 Loan EMI</option>
+        <option>💰 Other</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Amount</label><input class="form-inp" id="fe-amount" type="number" placeholder="0.00"></div>
+    <div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="fe-cur"></select></div>
+  </div>
+  <div class="form-grp"><label class="form-lbl">Month</label><input class="form-inp" id="fe-month" type="month"></div>
+  <div class="modal-actions">
+    <button class="btn btn-outline" onclick="closeModal('modal-fexp')">Cancel</button>
+    <button class="btn btn-green" onclick="saveFixedExp()">Save</button>
+  </div>
+</div>
+</div>
+
+<!-- ADD DAILY EXPENSE MODAL -->
+<div class="overlay" id="modal-daily">
+<div class="modal">
+  <h2 class="modal-title" id="daily-modal-ttl">Add Daily Expense</h2>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Description</label><input class="form-inp" id="d-name" placeholder="e.g. Lunch, Auto fare"></div>
+    <div class="form-grp"><label class="form-lbl">Category</label>
+      <select class="form-sel" id="d-cat">
+        <option value="🍽️ Food">🍽️ Food</option>
+        <option value="🚌 Transport">🚌 Transport</option>
+        <option value="🛒 Groceries">🛒 Groceries</option>
+        <option value="💊 Health">💊 Health</option>
+        <option value="🎮 Entertainment">🎮 Entertainment</option>
+        <option value="👗 Shopping">👗 Shopping</option>
+        <option value="📱 Bills">📱 Bills</option>
+        <option value="🎓 Education">🎓 Education</option>
+        <option value="🏠 Home">🏠 Home</option>
+        <option value="💰 Other">💰 Other</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Amount</label><input class="form-inp" id="d-amount" type="number" placeholder="0.00"></div>
+    <div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="d-cur"></select></div>
+  </div>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Date</label><input class="form-inp" id="d-date" type="date"></div>
+    <div class="form-grp"><label class="form-lbl">Notes</label><input class="form-inp" id="d-notes" placeholder="Optional"></div>
+  </div>
+  <div class="modal-actions">
+    <button class="btn btn-outline" onclick="closeModal('modal-daily')">Cancel</button>
+    <button class="btn btn-green" onclick="saveDaily()" id="save-daily-btn">Save</button>
+  </div>
+</div>
+</div>
+
+<!-- ADD GOAL MODAL -->
+<div class="overlay" id="modal-goal">
+<div class="modal">
+  <h2 class="modal-title">Add Goal — இலக்கு</h2>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Goal Name</label><input class="form-inp" id="g-name" placeholder="e.g. Retirement, Emergency Fund"></div>
+    <div class="form-grp"><label class="form-lbl">Category</label>
+      <select class="form-sel" id="g-cat">
+        <option>🏖️ Retirement</option><option>🆘 Emergency Fund</option>
+        <option>🎓 Child Education</option><option>🏠 Home Purchase</option>
+        <option>✈️ Travel</option><option>🚗 Vehicle</option><option>💰 Other</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Target Amount</label><input class="form-inp" id="g-target" type="number" placeholder="0.00"></div>
+    <div class="form-grp"><label class="form-lbl">Current Saved</label><input class="form-inp" id="g-current" type="number" placeholder="0.00"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="g-cur"></select></div>
+    <div class="form-grp"><label class="form-lbl">Target Date</label><input class="form-inp" id="g-date" type="date"></div>
+  </div>
+  <div class="form-grp"><label class="form-lbl">Expected Return (% p.a., optional)</label><input class="form-inp" id="g-return" type="number" step="0.1" placeholder="e.g. 8"></div>
+  <div class="modal-actions">
+    <button class="btn btn-outline" onclick="closeModal('modal-goal')">Cancel</button>
+    <button class="btn btn-green" onclick="saveGoal()">Save Goal</button>
+  </div>
+</div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="overlay" id="modal-share">
+<div class="modal">
+  <h2 class="modal-title">Share / Export</h2>
+  <div class="share-opts">
+    <div class="share-opt" onclick="copyClipboard()"><div class="share-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg></div><div><div class="share-ttl">Copy to Clipboard</div><div class="share-dsc">Text summary of your wealth</div></div><div class="share-arr">→</div></div>
+    <div class="share-opt" onclick="exportJSON()"><div class="share-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><div><div class="share-ttl">Download JSON Backup</div><div class="share-dsc">Full data export</div></div><div class="share-arr">→</div></div>
+    <div class="share-opt" onclick="exportText()"><div class="share-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div><div><div class="share-ttl">Export Text Report</div><div class="share-dsc">Printable summary</div></div><div class="share-arr">→</div></div>
+    <div class="share-opt" onclick="emailReport()"><div class="share-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></div><div><div class="share-ttl">Email Report</div><div class="share-dsc">Open in mail client</div></div><div class="share-arr">→</div></div>
+  </div>
+  <div class="modal-actions"><button class="btn btn-outline" onclick="closeModal('modal-share')">Close</button></div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- STATEMENT IMPORT WIZARD -->
+<div class="overlay" id="modal-stmt">
+<div class="modal modal-wide">
+  <h2 class="modal-title" id="stmt-title">Import Statement</h2>
+  <div class="imp-steps"><div class="imp-step" id="imp-step-1"></div><div class="imp-step" id="imp-step-2"></div><div class="imp-step" id="imp-step-3"></div></div>
+
+  <!-- STEP 1: source -->
+  <div id="stmt-step1">
+    <div class="imp-seg" id="stmt-mode-seg">
+      <button class="imp-seg-btn" id="stmt-mode-bank" onclick="setStmtMode('bank')">🏦 Bank Statement<br><span style="font-weight:400;font-size:11px">Income &amp; expenses</span></button>
+      <button class="imp-seg-btn" id="stmt-mode-holdings" onclick="setStmtMode('holdings')">📈 Investment / Loan Statement<br><span style="font-weight:400;font-size:11px">Assets &amp; liabilities</span></button>
+    </div>
+    <div class="form-grp">
+      <label class="form-lbl" id="stmt-cur-lbl">Statement currency</label>
+      <div style="display:flex;gap:8px;align-items:center">
+        <select class="form-sel" id="stmt-currency" style="flex:1"></select>
+        <input class="cur-input" id="stmt-cur-add-inp" placeholder="e.g. EUR" maxlength="5" style="width:80px">
+        <button class="btn btn-outline btn-sm" onclick="addStmtCur()" style="padding:8px 12px">+</button>
+      </div>
+      <div class="info-box" style="margin-top:8px" id="stmt-cur-hint">Every row you import here will be tagged with this currency — pick the one your statement is actually in (e.g. INR for a Zerodha statement, GBP for a UK pension), regardless of your display currency. You can hold accounts in multiple currencies and switch your display currency anytime from Profile.</div>
+    </div>
+    <div class="imp-drop" onclick="document.getElementById('stmt-file').click()">
+      <div style="font-size:22px;margin-bottom:6px">📤</div>
+      <div><strong>Click to upload a CSV / Excel file</strong></div>
+      <div style="margin-top:4px">or paste the rows below — the first row should be the column headers</div>
+    </div>
+    <input type="file" id="stmt-file" accept=".csv,.txt,.tsv" hidden onchange="handleStmtFile(this)">
+    <div class="form-grp" style="margin-top:12px">
+      <textarea class="form-ta" id="stmt-paste" rows="6" placeholder="Date,Narration,Withdrawal Amt,Deposit Amt&#10;01/09/2026,SWIGGY BANGALORE,450.00,&#10;02/09/2026,SALARY CREDIT,,85000.00"></textarea>
+    </div>
+    <div class="info-box" id="stmt-hint">Most banks let you download statements as CSV/Excel from netbanking (Account → Statements). If yours only offers PDF, open it and copy-paste the transaction table here.</div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal('modal-stmt')">Cancel</button>
+      <button class="btn btn-green" onclick="parseStmtInput()">Continue →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: column mapping -->
+  <div id="stmt-step2" style="display:none">
+    <div style="font-size:13px;color:var(--muted);margin-bottom:14px">We guessed which column is which — check them before continuing. <span id="stmt-rowcount"></span></div>
+    <div id="stmt-map-fields"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="stmtGoStep(1)">← Back</button>
+      <button class="btn btn-green" onclick="buildStmtPreview()">Preview →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: preview & confirm -->
+  <div id="stmt-step3" style="display:none">
+    <div id="stmt-preview-summary" class="imp-summary"></div>
+    <div class="imp-tablewrap"><table id="stmt-preview-table"></table></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="stmtGoStep(2)">← Back</button>
+      <button class="btn btn-green" id="stmt-confirm-btn" onclick="confirmStmtImport()">Import selected</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ── STATE ──
+let S = {
+  assets:[],incomes:[],fixedExps:[],dailyExps:[],goals:[],snapshots:[],
+  currencies:['INR','USD','GBP'],
+  displayCur:'INR',
+  rates:{INR:1,USD:0.012,GBP:0.0095,EUR:0.011,SGD:0.016,AED:0.044},
+  profile:{name:'',email:'',income:0,currency:'INR',age:'',riskTolerance:'moderate'},
+  retirementPlan:{age:'',retireAge:'',monthlyExpense:'',returnPct:'',inflationPct:''},
+  viewMonth:new Date().toISOString().slice(0,7),
+  editAssetId:null,editDailyId:null,assetFilter:'all',dailyCatFilter:'All'
+};
+
+// Validates shape before merging into state, so a corrupted or partially
+// written localStorage entry can't crash the app on load — any field that
+// doesn't look right is simply left at its default instead of adopted.
+function load(){
+  try{
+    const s=localStorage.getItem('selvam_v1');
+    if(!s)return;
+    const parsed=JSON.parse(s);
+    if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))return;
+    ['assets','incomes','fixedExps','dailyExps','goals','snapshots','currencies'].forEach(k=>{
+      if(Array.isArray(parsed[k]))S[k]=parsed[k];
+    });
+    if(parsed.profile&&typeof parsed.profile==='object'&&!Array.isArray(parsed.profile))S.profile={...S.profile,...parsed.profile};
+    if(parsed.retirementPlan&&typeof parsed.retirementPlan==='object'&&!Array.isArray(parsed.retirementPlan))S.retirementPlan={...S.retirementPlan,...parsed.retirementPlan};
+    if(parsed.rates&&typeof parsed.rates==='object'&&!Array.isArray(parsed.rates))S.rates={...S.rates,...parsed.rates};
+    if(typeof parsed.displayCur==='string')S.displayCur=parsed.displayCur;
+    if(typeof parsed.viewMonth==='string')S.viewMonth=parsed.viewMonth;
+  }catch(e){
+    console.error('Selvam: saved data was corrupted, starting fresh.',e);
+  }
+}
+function save(){localStorage.setItem('selvam_v1',JSON.stringify(S));maybeAutoBackup();}
+load();
+
+// ── CURRENCY ──
+const SYM={INR:'₹',USD:'$',GBP:'£',EUR:'€',SGD:'S$',AED:'د.إ'};
+const FFLAGS={INR:'🇮🇳',USD:'🇺🇸',GBP:'🇬🇧',EUR:'🇪🇺',SGD:'🇸🇬',AED:'🇦🇪'};
+function sym(c){return SYM[c]||(c+' ');}
+function fmt(v,c){c=c||S.displayCur;return sym(c)+Number(v).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function escapeHtml(s){if(s==null)return'';return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function toDisplay(amt,from){return(amt/(S.rates[from]||1))*(S.rates[S.displayCur]||1);}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
+function fmtDate(iso){return iso?new Date(iso).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'—';}
+function fmtMonth(ym){const d=new Date(ym+'-01');return d.toLocaleDateString('en-IN',{month:'long',year:'numeric'});}
+
+function renderCurBtns(){
+  document.getElementById('cur-btns').innerHTML=S.currencies.map(c=>
+    `<button class="cur-btn ${S.displayCur===c?'active':''}" onclick="setDisplayCur('${c}')">${c}</button>`
+  ).join('');
+  ['a-cur','i-cur','fe-cur','d-cur','g-cur'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.innerHTML=S.currencies.map(c=>`<option value="${c}" ${c===S.displayCur?'selected':''}>${c}</option>`).join('');
+  });
+}
+function setDisplayCur(c){S.displayCur=c;save();renderCurBtns();renderAll();}
+function addCur(){
+  const inp=document.getElementById('cur-add-inp');
+  const code=inp.value.trim().toUpperCase().slice(0,5);
+  if(!code)return;
+  if(!S.currencies.includes(code))S.currencies.push(code);
+  inp.value='';save();renderCurBtns();showToast(code+' added','success');
+}
+
+// ── NAV ──
+let currentPage='dashboard';
+function nav(page,filter){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  const btn=document.querySelector(`[onclick*="nav('${page}')"]`)||document.querySelector(`[onclick*="nav('${page}','${filter||''}')"]`);
+  if(btn)btn.classList.add('active');
+  if(filter)S.assetFilter=filter;
+  currentPage=page;
+  renderPage(page);
+}
+function renderPage(p){
+  const fn={dashboard:renderDashboard,calendar:renderCalendar,notifications:renderNotifications,income:renderIncome,expenses:renderExpenses,daily:renderDaily,assets:renderAssets,goals:renderGoals,essentials:renderEssentials,profile:renderProfile,advisor:renderAdvisor};
+  if(fn[p])fn[p]();
+}
+function renderAll(){renderPage(currentPage);}
+
+// ── TOTALS ──
+function getTotals(){
+  const assets=S.assets.filter(a=>a.type!=='loan');
+  const liabs=S.assets.filter(a=>a.type==='loan');
+  const totalA=assets.reduce((s,a)=>s+toDisplay(a.value,a.currency),0);
+  const totalL=liabs.reduce((s,a)=>s+toDisplay(a.value,a.currency),0);
+  return{totalA,totalL,netWorth:totalA-totalL};
+}
+function getMonthTotals(m){
+  const inc=S.incomes.filter(x=>x.month===m).reduce((s,x)=>s+toDisplay(x.amount,x.currency),0);
+  const fixed=S.fixedExps.filter(x=>x.month===m).reduce((s,x)=>s+toDisplay(x.amount,x.currency),0);
+  const daily=S.dailyExps.filter(x=>x.date.startsWith(m)).reduce((s,x)=>s+toDisplay(x.amount,x.currency),0);
+  return{inc,fixed,daily,totalExp:fixed+daily,balance:inc-fixed-daily,savingsRate:inc>0?Math.round(((inc-fixed-daily)/inc)*100):0};
+}
+// Average real monthly spend (fixed + daily) over the last n months that have
+// any recorded expenses. Used for the emergency-fund target, since "6 months
+// of expenses" should mean actual essential spend, not gross income.
+function getAvgMonthlyExpense(n){
+  n=n||3;
+  const months=new Set();
+  S.fixedExps.forEach(x=>{if(x.month)months.add(x.month);});
+  S.dailyExps.forEach(x=>{if(x.date)months.add(x.date.slice(0,7));});
+  const recent=[...months].sort().slice(-n);
+  if(!recent.length)return 0;
+  const total=recent.reduce((sum,m)=>sum+getMonthTotals(m).totalExp,0);
+  return total/recent.length;
+}
+
+// ── DASHBOARD ──
+function renderDashboard(){
+  const today=new Date();
+  document.getElementById('dash-date').textContent=today.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  // Update greeting based on language
+  const greetEl = document.getElementById('dash-greeting-title');
+  if (greetEl) {
+    const name = S.profile.name || '';
+    if (lang === 'ta') {
+      greetEl.textContent = 'செல்வம் 🌿';
+    } else {
+      greetEl.textContent = name ? `Welcome, ${name} 🌿` : 'Your Wealth 🌿';
+    }
+  }
+  const{totalA,totalL,netWorth}=getTotals();
+  const m=new Date().toISOString().slice(0,7);
+  const mt=getMonthTotals(m);
+  document.getElementById('dash-nw').textContent=fmt(netWorth);
+  document.getElementById('dash-nw-sub').textContent=`${fmt(totalA)} ${t('dash_assets_lbl')} · ${fmt(totalL)} ${t('dash_liab_lbl')}`;
+  const lastSnap=S.snapshots.length?S.snapshots[S.snapshots.length-1]:null;
+  if(lastSnap&&lastSnap.netWorth){
+    const change=((netWorth-lastSnap.netWorth)/Math.abs(lastSnap.netWorth))*100;
+    document.getElementById('dash-nw-badge').textContent=`${change>=0?'↑':'↓'} ${Math.abs(change).toFixed(1)}% ${t('from_prev')} · ${S.assets.length} ${t('items_tracked')}`;
+  }else{
+    document.getElementById('dash-nw-badge').textContent=`${S.assets.length} ${t('items_tracked')}`;
+  }
+  const sr=mt.savingsRate;
+  document.getElementById('dash-monthly').innerHTML=`
+    <div class="sr-row"><span style="font-weight:600">${t('income_lbl')}</span><span style="color:var(--green);font-weight:700">${fmt(mt.inc)}</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:100%;background:var(--green-light)"></div></div>
+    <div class="sr-row"><span style="font-weight:600">${t('expenses_lbl_s')}</span><span style="color:var(--red);font-weight:700">${fmt(mt.totalExp)}</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:${mt.inc>0?Math.min(100,(mt.totalExp/mt.inc*100)).toFixed(1):0}%;background:${sr>50?'var(--red)':'var(--amber)'}"></div></div>
+    <div class="sr-row"><span style="font-weight:700">${t('savings_rate')}</span><span style="font-weight:700;color:${sr>=50?'var(--green)':sr>=30?'var(--amber)':'var(--red)'}">${sr}%</span></div>
+    <div style="font-size:11px;color:var(--muted);margin-top:4px">${fmtMonth(m)}</div>
+  `;
+  const recent=S.dailyExps.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
+  document.getElementById('dash-recent').innerHTML=recent.length?recent.map(e=>`
+    <div class="exp-item">
+      <div class="exp-cat-dot" style="background:#f1f5f9">${e.category?.split(' ')[0]||'•'}</div>
+      <div class="exp-info"><div class="exp-name">${e.name}</div><div class="exp-meta">${e.category||''} · ${fmtDate(e.date)}</div></div>
+      <div class="exp-amt">${fmt(toDisplay(e.amount,e.currency))}</div>
+    </div>`).join(''):`<div class="empty" style="padding:24px"><div class="empty-txt">No expenses logged yet</div><div class="empty-sub">Tap "Expense" above to start tracking today's spend</div></div>`;
+  const notifs=generateNotifications().slice(0,3);
+  document.getElementById('dash-notif-preview').innerHTML=notifs.length?notifs.map(n=>`
+    <div class="insight-card ${n.level}"><div class="insight-txt"><strong>${escapeHtml(n.title)}</strong><br>${escapeHtml(n.message)}</div></div>
+  `).join(''):`<div class="empty" style="padding:16px"><div class="empty-txt" style="font-size:12.5px">You're all caught up</div></div>`;
+  const essItems=computeEssentials();
+  const essOk=essItems.filter(i=>i.ok).length;
+  document.getElementById('dash-essentials-preview').innerHTML=`
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+      <div style="font-family:'Noto Serif Tamil',serif;font-size:22px;font-weight:700;color:${essOk===essItems.length?'var(--green)':'var(--text)'}">${essOk}/${essItems.length}</div>
+      <div class="progress-track" style="flex:1"><div class="progress-fill" style="width:${(essOk/essItems.length*100)}%;background:${essOk===essItems.length?'var(--green)':'var(--amber)'}"></div></div>
+    </div>
+    ${essItems.filter(i=>!i.ok).length?essItems.filter(i=>!i.ok).slice(0,2).map(i=>`<div style="font-size:12px;color:var(--muted);margin-bottom:4px">• ${i.label.replace(/^\S+\s/,'')}: ${i.badge}</div>`).join(''):`<div style="font-size:12px;color:var(--green-dark)">All essentials covered ✓</div>`}
+  `;
+  updateNotifBadge();
+}
+
+// ── DONUT ──
+const TYPE_COLORS={bank:'#16a34a',equity:'#7c3aed',mf:'#be185d',epf:'#059669',ppf:'#047857',nps:'#b45309',sgb:'#854d0e',gold:'#d97706',realestate:'#d97706',vehicle:'#0369a1',crypto:'#6d28d9',insurance:'#15803d',loan:'#dc2626',fd:'#2563eb',other:'#6b7280'};
+const TYPE_LABELS={bank:'Bank/FD',equity:'Equity',mf:'Mutual Funds',epf:'EPF',ppf:'PPF',nps:'NPS',sgb:'SGB/Gold Bonds',gold:'Gold',realestate:'Real Estate',vehicle:'Vehicle',crypto:'Crypto',insurance:'Insurance',loan:'Liabilities',fd:'FD',other:'Other'};
+
+function renderDonutChart(svgId,legendId,byType,size){
+  const total=Object.values(byType).reduce((s,v)=>s+Math.abs(v),0);
+  const svg=document.getElementById(svgId);
+  const leg=document.getElementById(legendId);
+  if(!total){svg.innerHTML='';if(leg)leg.innerHTML='';return;}
+  const cx=size/2,cy=size/2,r=size*0.4,inner=size*0.24;
+  let startAngle=-Math.PI/2,paths='',legend='';
+  for(const[type,val]of Object.entries(byType)){
+    if(!val)continue;
+    const pct=Math.abs(val)/total,angle=pct*2*Math.PI;
+    const x1=cx+r*Math.cos(startAngle),y1=cy+r*Math.sin(startAngle);
+    const x2=cx+r*Math.cos(startAngle+angle),y2=cy+r*Math.sin(startAngle+angle);
+    const ix1=cx+inner*Math.cos(startAngle),iy1=cy+inner*Math.sin(startAngle);
+    const ix2=cx+inner*Math.cos(startAngle+angle),iy2=cy+inner*Math.sin(startAngle+angle);
+    const large=angle>Math.PI?1:0;
+    const col=TYPE_COLORS[type]||'#888';
+    paths+=`<path d="M${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} L${ix2},${iy2} A${inner},${inner} 0 ${large},0 ${ix1},${iy1} Z" fill="${col}"/>`;
+    if(leg)legend+=`<div class="legend-row"><div class="legend-dot" style="background:${col};border-radius:3px"></div><span class="legend-lbl">${TYPE_LABELS[type]||type}</span><span class="legend-val">${fmt(Math.abs(val))}</span><span class="legend-pct">${(pct*100).toFixed(0)}%</span></div>`;
+    startAngle+=angle;
+  }
+  svg.innerHTML=paths;
+  if(leg)leg.innerHTML=legend;
+}
+
+// ── ASSETS / PORTFOLIO ──
+// ── INCOME ──
+function renderIncome(){
+  document.getElementById('inc-month-lbl').textContent=fmtMonth(S.viewMonth);
+  const mt=getMonthTotals(S.viewMonth);
+  document.getElementById('inc-summary').innerHTML=`
+    <div class="ie-item"><div class="ie-label">${t('inc_label')}</div><div class="ie-value inc">${fmt(mt.inc)}</div><div class="ie-sub">${S.incomes.filter(x=>x.month===S.viewMonth).length} ${t('inc_sources_lbl')}</div></div>
+    <div class="ie-item"><div class="ie-label">${t('inc_exp_lbl')}</div><div class="ie-value exp">${fmt(mt.totalExp)}</div><div class="ie-sub">${t('inc_fixdaily')}</div></div>
+    <div class="ie-item"><div class="ie-label">${t('inc_balance')}</div><div class="ie-value bal" style="color:${mt.balance>=0?'var(--green)':'var(--red)'}">${fmt(mt.balance)}</div><div class="ie-sub">${t('inc_sr')} ${mt.savingsRate}%</div></div>
+  `;
+  const incomes=S.incomes.filter(x=>x.month===S.viewMonth);
+  document.getElementById('inc-table').innerHTML=incomes.length?`<table>
+    <thead><tr><th>${t('th_label')}</th><th>${t('th_source')}</th><th>${t('th_amount')}</th><th>${t('th_actions')}</th></tr></thead>
+    <tbody>${incomes.map(x=>`<tr>
+      <td><div class="asset-name">${x.name}</div></td>
+      <td style="color:var(--muted)">${x.source||'—'}</td>
+      <td class="val-pos">${fmt(toDisplay(x.amount,x.currency))} <span style="font-size:11px;color:var(--muted)">(${x.currency})</span></td>
+      <td><div class="action-cell"><button class="btn btn-danger btn-sm" onclick="deleteIncome('${x.id}')">✕</button></div></td>
+    </tr>`).join('')}</tbody>
+  </table>`:`<div class="empty"><div class="empty-ico">💰</div><div class="empty-txt">${t('no_income')}</div></div>`;
+}
+
+// ── EXPENSES ──
+function renderExpenses(){
+  document.getElementById('exp-month-lbl').textContent=fmtMonth(S.viewMonth);
+  const mt=getMonthTotals(S.viewMonth);
+  document.getElementById('exp-summary').innerHTML=`
+    <div class="ie-item"><div class="ie-label">Total Expenses</div><div class="ie-value exp">${fmt(mt.totalExp)}</div><div class="ie-sub">Fixed + Daily</div></div>
+    <div class="ie-item"><div class="ie-label">Fixed</div><div class="ie-value" style="color:var(--amber)">${fmt(mt.fixed)}</div><div class="ie-sub">${S.fixedExps.filter(x=>x.month===S.viewMonth).length} items</div></div>
+    <div class="ie-item"><div class="ie-label">Daily</div><div class="ie-value exp">${fmt(mt.daily)}</div><div class="ie-sub">${S.dailyExps.filter(x=>x.date.startsWith(S.viewMonth)).length} entries</div></div>
+  `;
+  const fexps=S.fixedExps.filter(x=>x.month===S.viewMonth);
+  document.getElementById('fixed-exp-list').innerHTML=fexps.length?`<table>
+    <thead><tr><th>Description</th><th>Category</th><th>Amount</th><th></th></tr></thead>
+    <tbody>${fexps.map(x=>`<tr>
+      <td><div class="asset-name">${x.name}</div></td>
+      <td><span class="type-badge badge-other">${x.category||'Other'}</span></td>
+      <td class="val-neg">${fmt(toDisplay(x.amount,x.currency))}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteFixedExp('${x.id}')">✕</button></td>
+    </tr>`).join('')}</tbody>
+  </table>`:`<div class="empty" style="padding:28px"><div class="empty-ico" style="font-size:28px">📋</div><div class="empty-txt">No fixed expenses</div></div>`;
+  const dexps=S.dailyExps.filter(x=>x.date.startsWith(S.viewMonth)).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
+  document.getElementById('monthly-daily-wrap').innerHTML=dexps.length?`<div style="padding:8px">${dexps.map(e=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-bottom:1px solid var(--border)">
+      <div><div style="font-weight:600;font-size:13px">${e.name}</div><div style="font-size:11px;color:var(--muted)">${e.category} · ${fmtDate(e.date)}</div></div>
+      <div style="color:var(--red);font-weight:700;font-family:'Noto Serif Tamil',serif">${fmt(toDisplay(e.amount,e.currency))}</div>
+    </div>`).join('')}</div>`:`<div class="empty" style="padding:28px"><div class="empty-ico" style="font-size:28px">🛒</div><div class="empty-txt">No daily expenses</div></div>`;
+}
+
+// ── DAILY ──
+function renderDaily(){
+  const q=(document.getElementById('daily-search')||{}).value?.toLowerCase()||'';
+  const allCats=['All',...new Set(S.dailyExps.map(e=>e.category).filter(Boolean))];
+  document.getElementById('daily-cats').innerHTML=allCats.map(c=>
+    `<button class="filter-chip ${S.dailyCatFilter===c?'active':''}" onclick="S.dailyCatFilter='${c}';renderDaily()">${c}</button>`
+  ).join('');
+  const filtered=S.dailyExps.filter(e=>
+    (S.dailyCatFilter==='All'||e.category===S.dailyCatFilter)&&
+    (!q||e.name.toLowerCase().includes(q)||(e.notes||'').toLowerCase().includes(q))
+  ).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const CAT_BG={'🍽️ Food':'#fef3c7','🚌 Transport':'#dbeafe','🛒 Groceries':'#dcfce7','💊 Health':'#fee2e2','🎮 Entertainment':'#ede9fe','👗 Shopping':'#fce7f3','📱 Bills':'#fef9c3','🎓 Education':'#ecfdf5','🏠 Home':'#e0f2fe','💰 Other':'#f1f5f9'};
+  document.getElementById('daily-list').innerHTML=filtered.length?filtered.map(e=>`
+    <div class="exp-item">
+      <div class="exp-cat-dot" style="background:${CAT_BG[e.category]||'#f1f5f9'}">${e.category?.split(' ')[0]||'💰'}</div>
+      <div class="exp-info"><div class="exp-name">${e.name}</div><div class="exp-meta">${e.category||''} · ${fmtDate(e.date)}${e.notes?' · '+e.notes:''}</div></div>
+      <div class="exp-amt">${fmt(toDisplay(e.amount,e.currency))}</div>
+      <div class="action-cell">
+        <button class="btn btn-outline btn-sm" onclick="editDaily('${e.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteDaily('${e.id}')">✕</button>
+      </div>
+    </div>`).join(''):`<div class="empty"><div class="empty-ico">🛒</div><div class="empty-txt">No expenses found</div></div>`;
+}
+
+// ── ASSETS ──
+function renderAssets(){
+  const{totalA,totalL,netWorth}=getTotals();
+  document.getElementById('nw-value').textContent=fmt(netWorth);
+  document.getElementById('nw-sub2').textContent=`${fmt(totalA)} ${t('dash_assets_lbl')} · ${fmt(totalL)} ${t('dash_liab_lbl')}`;
+  document.getElementById('nw-grid2').innerHTML=`
+    <div class="nw-stat"><div class="nw-stat-label">${t('dash_assets_lbl')}</div><div class="nw-stat-value">${fmt(totalA)}</div><div class="nw-stat-sub">${S.assets.filter(a=>a.type!=='loan').length} ${t('nw_items')}</div></div>
+    <div class="nw-stat"><div class="nw-stat-label">${t('dash_liab_lbl')}</div><div class="nw-stat-value">${fmt(totalL)}</div><div class="nw-stat-sub">${S.assets.filter(a=>a.type==='loan').length} ${t('nw_loans')}</div></div>
+    <div class="nw-stat"><div class="nw-stat-label">${t('nw_total')}</div><div class="nw-stat-value">${fmt(netWorth)}</div><div class="nw-stat-sub">${t('nw_true')}</div></div>
+  `;
+  const byType={};S.assets.forEach(a=>{byType[a.type]=(byType[a.type]||0)+toDisplay(a.value,a.currency);});
+  renderDonutChart('nw-donut','nw-legend',byType,140);
+
+  const q=(document.getElementById('asset-search')||{}).value?.toLowerCase()||'';
+  const types=['all','bank','equity','mf','epf','ppf','nps','sgb','gold','realestate','vehicle','crypto','insurance','loan','other'];
+  const tlabels={all:'All',bank:'🏦 Bank',equity:'📈 Equity',mf:'📊 MF',epf:'🏛️ EPF',ppf:'🏛️ PPF',nps:'🏛️ NPS',sgb:'🪙 SGB',gold:'🪙 Gold',realestate:'🏠 Real Estate',vehicle:'🚗 Vehicle',crypto:'₿ Crypto',insurance:'🛡️ Insurance',loan:'📉 Liabilities',other:'📋 Other'};
+  document.getElementById('asset-filters').innerHTML=types.map(t=>
+    `<button class="filter-chip ${S.assetFilter===t?'active':''}" onclick="S.assetFilter='${t}';renderAssets()">${tlabels[t]}</button>`
+  ).join('');
+  const filtered=S.assets.filter(a=>(S.assetFilter==='all'||a.type===S.assetFilter)&&(!q||a.name.toLowerCase().includes(q)||(a.inst||'').toLowerCase().includes(q)));
+  document.getElementById('asset-count').textContent=`${filtered.length} asset${filtered.length!==1?'s':''}`;
+  document.getElementById('asset-table').innerHTML=filtered.length?buildAssetTable(filtered.slice().reverse()):`<div class="empty"><div class="empty-ico">💼</div><div class="empty-txt">No assets found</div></div>`;
+  renderSnapshots();
+}
+
+function buildAssetTable(assets){
+  return`<table>
+    <thead><tr><th>${t('th_asset')}</th><th>${t('th_type')}</th><th>${t('th_value')} (${S.displayCur})</th><th>${t('th_details')}</th><th>${t('th_actions')}</th></tr></thead>
+    <tbody>${assets.map(a=>{
+      const cv=toDisplay(a.value,a.currency),isLiab=a.type==='loan';
+      let details=a.inst||'';
+      if(a.type==='insurance')details=`${a.insurer||''} ${a.renewal?'· Renews: '+fmtDate(a.renewal):''}`;
+      if(a.type==='loan')details=`${a.lender||''} ${a.rate?'· '+a.rate+'% p.a.':''}`;
+      return`<tr>
+        <td><div class="asset-name">${escapeHtml(a.name)}</div><div class="asset-sub">${escapeHtml(details)}</div></td>
+        <td><span class="type-badge badge-${a.type}">${TYPE_LABELS[a.type]||a.type}</span></td>
+        <td class="${isLiab?'val-neg':'val-pos'}">${isLiab?'−':''}${fmt(Math.abs(cv))}</td>
+        <td style="font-size:12px;color:var(--muted)">${a.currency} ${a.notes?'· '+escapeHtml(a.notes.slice(0,30)):''}</td>
+        <td><div class="action-cell">
+          <button class="btn btn-outline btn-sm" onclick="openEditAsset('${a.id}')">✎</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteAsset('${a.id}')">✕</button>
+        </div></td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table>`;
+}
+
+// ── GOALS ──
+function renderGoals(){
+  document.getElementById('goals-list').innerHTML=S.goals.length?S.goals.map(g=>{
+    const cv=toDisplay(g.current,g.currency),tv=toDisplay(g.target,g.currency);
+    const pct=tv>0?Math.min(100,(cv/tv*100)):0;
+    return`<div class="goal-item">
+      <div class="goal-header">
+        <div><div class="goal-name">${escapeHtml(g.name)}</div><div class="goal-target">${escapeHtml(g.category||'')}</div></div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span style="font-family:'Noto Serif Tamil',serif;font-size:16px;font-weight:700;color:var(--green)">${pct.toFixed(0)}%</span>
+          <button class="btn btn-outline btn-sm" onclick="updateGoalProgress('${g.id}')">${t('goals_update')}</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteGoal('${g.id}')">✕</button>
+        </div>
+      </div>
+      <div class="goal-progress-row"><span>${fmt(cv)} ${t('goals_saved')}</span><span>${t('goals_target')} ${fmt(tv)}</span></div>
+      <div class="goal-bar"><div class="goal-fill ${pct<40?'red':pct<75?'amber':''}" style="width:${pct}%"></div></div>
+      <div class="goal-meta-row">
+        ${g.targetDate?`<span class="goal-tag">🗓 ${fmtDate(g.targetDate)}</span>`:''}
+        <span class="goal-tag">${t('goals_need')} ${fmt(Math.max(0,tv-cv))}</span>
+        ${g.expectedReturn?`<span class="goal-tag">📈 ${g.expectedReturn}% p.a.</span>`:''}
+      </div>
+      ${(()=>{const s=computeGoalSIP(g);if(!s)return'';return s.onTrack?`<div class="goal-sip">✓ On track at current savings, by ${fmtDate(g.targetDate)}</div>`:`<div class="goal-sip">💡 Invest ~${fmt(s.sip)}/month to hit this goal by ${fmtDate(g.targetDate)}${g.expectedReturn?` at ${g.expectedReturn}% p.a.`:' (assumes 8% p.a.)'}</div>`;})()}
+    </div>`;
+  }).join(''):`<div class="empty"><div class="empty-ico">🎯</div><div class="empty-txt">${t('goals_empty')}</div><div class="empty-sub">${t('goals_empty_sub')}</div></div>`;
+}
+
+// ── ESSENTIALS ──
+function computeEssentials(){
+  const insurance=S.assets.filter(a=>a.type==='insurance');
+  const health=insurance.filter(a=>a.instype==='health');
+  const term=insurance.filter(a=>a.instype==='term');
+  const emergency=S.goals.find(g=>g.name.toLowerCase().includes('emergency')||g.category?.toLowerCase().includes('emergency'));
+  const monthIncome=parseFloat(S.profile.income)||0;
+  const avgExpense=getAvgMonthlyExpense(3);
+  // Prefer real tracked spending; only fall back to an income-based estimate
+  // (70% of income, a common rule-of-thumb essential-spend ratio) when there's
+  // no expense history yet to base the target on.
+  const emergencyBasis=avgExpense>0?avgExpense:monthIncome*0.7;
+  const emergencyNeeded=emergencyBasis*6;
+  const emergencySaved=emergency?toDisplay(emergency.current,emergency.currency):0;
+  const totalHealthCover=health.reduce((s,a)=>s+parseFloat(a.cover||0),0);
+  const totalTermCover=term.reduce((s,a)=>s+parseFloat(a.cover||0),0);
+  const healthOk=totalHealthCover>=500000,healthWarn=totalHealthCover>0&&totalHealthCover<500000;
+  const termOk=totalTermCover>=5000000,termWarn=totalTermCover>0&&totalTermCover<5000000;
+  const emergencyPct=emergencyNeeded>0?(emergencySaved/emergencyNeeded*100):0;
+  const emOk=emergencyPct>=100,emWarn=emergencyPct>=60;
+  const{totalA,totalL}=getTotals();
+  const debtRatio=totalA>0?(totalL/totalA*100):0;
+  const debtOk=totalL===0||debtRatio<=20,debtWarn=debtRatio>20&&debtRatio<=40;
+  const retirementAssets=S.assets.filter(a=>['epf','ppf','nps'].includes(a.type));
+  const retirementTotal=retirementAssets.reduce((s,a)=>s+toDisplay(a.value,a.currency),0);
+  const retOk=retirementAssets.length>0&&retirementTotal>0;
+  return[
+    {key:'health',ok:healthOk,warn:healthWarn,label:t('ess_health'),
+      detail:totalHealthCover>0?`${fmt(totalHealthCover)} cover · ${health.length} polic${health.length!==1?'ies':'y'}`:t('ess_no_health'),
+      rec:t('ess_rec_health'),badge:healthOk?t('ess_covered'):healthWarn?t('ess_under'):t('ess_not')},
+    {key:'term',ok:termOk,warn:termWarn,label:t('ess_term'),
+      detail:totalTermCover>0?`${fmt(totalTermCover)} cover · ${term.length} polic${term.length!==1?'ies':'y'}`:t('ess_no_term'),
+      rec:t('ess_rec_term'),badge:termOk?t('ess_covered'):termWarn?t('ess_under'):t('ess_not')},
+    {key:'emergency',ok:emOk,warn:emWarn,label:t('ess_emergency'),
+      detail:emergencyNeeded>0?`${fmt(emergencySaved)} of ${fmt(emergencyNeeded)} (${emergencyPct.toFixed(0)}%)`:t('set_income_profile'),
+      rec:t('ess_rec_em'),badge:emOk?t('ess_full'):emWarn?t('ess_partial'):t('ess_not')},
+    {key:'debt',ok:debtOk,warn:debtWarn,label:t('ess_debt'),
+      detail:totalL>0?`${debtRatio.toFixed(0)}% ${t('ess_debt_ratio_lbl')}`:t('ess_no_debt'),
+      rec:t('ess_rec_debt'),badge:debtOk?t('ess_healthy'):debtWarn?t('ess_elevated'):t('ess_high')},
+    {key:'retirement',ok:retOk,warn:false,label:t('ess_retirement'),
+      detail:retOk?`${fmt(retirementTotal)} ${t('ess_retirement_saved')} · ${retirementAssets.length}`:t('ess_no_retirement'),
+      rec:t('ess_rec_retirement'),badge:retOk?t('ess_started'):t('ess_not')}
+  ];
+}
+function renderEssentials(){
+  const items=computeEssentials();
+  const okCount=items.filter(i=>i.ok).length;
+  document.getElementById('ess-summary').innerHTML=`
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="font-family:'Noto Serif Tamil',serif;font-size:26px;font-weight:700;color:${okCount===items.length?'var(--green)':'var(--text)'}">${okCount}/${items.length}</div>
+      <div style="flex:1">
+        <div class="progress-track"><div class="progress-fill" style="width:${(okCount/items.length*100)}%;background:${okCount===items.length?'var(--green)':'var(--amber)'}"></div></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">${okCount===items.length?t('ess_all_good'):`${okCount} ${t('ess_score')}`}</div>
+      </div>
+    </div>`;
+  document.getElementById('ess-grid').innerHTML=items.map(i=>`
+    <div class="ess-card ${i.ok?'ok':i.warn?'warn':'bad'}">
+      <div class="ess-status ${i.ok?'ok':i.warn?'warn':'bad'}">${i.ok?'✓':i.warn?'⚠':'✕'}</div>
+      <div class="ess-name">${i.label}</div>
+      <div class="ess-detail">${i.detail}<br>${i.rec}</div>
+      <span class="ess-badge ${i.ok?'ok':i.warn?'warn':'bad'}">${i.badge}</span>
+    </div>`).join('');
+  const insurance=S.assets.filter(a=>a.type==='insurance');
+  const now=new Date(),in30=new Date(now.getTime()+30*24*60*60*1000);
+  const upcoming=insurance.filter(a=>a.renewal&&new Date(a.renewal)<=in30&&new Date(a.renewal)>=now).sort((a,b)=>new Date(a.renewal)-new Date(b.renewal));
+  document.getElementById('renewal-list').innerHTML=upcoming.length?upcoming.map(a=>`
+    <div class="renewal-alert">⚠ <strong>${escapeHtml(a.name)}</strong> — ${t('renewal_due')} <strong>${fmtDate(a.renewal)}</strong>${a.premium?' · '+t('premium')+': '+fmt(a.premium,a.currency)+'/yr':''}</div>
+  `).join(''):`<div style="padding:12px;color:var(--muted);font-size:13px">${t('ess_no_renewal')}</div>`;
+}
+
+// ── SNAPSHOTS ──
+function renderSnapshots(){
+  document.getElementById('snap-grid').innerHTML=S.snapshots.length?S.snapshots.slice().reverse().map((s,i)=>{
+    const prev=S.snapshots.slice().reverse()[i+1];
+    const change=prev?((s.netWorth-prev.netWorth)/Math.abs(prev.netWorth)*100):null;
+    return`<div class="snap-card">
+      <div class="snap-date">${fmtDate(s.date)}</div>
+      <div class="snap-value">${fmt(s.netWorth)}</div>
+      ${change!==null?`<div class="snap-change ${change>=0?'up':'down'}">${change>=0?'↑':'↓'} ${Math.abs(change).toFixed(1)}% ${t('from_prev')}</div>`:`<div class="snap-change" style="color:var(--muted)">${t('first_snap')}</div>`}
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">${s.assets} ${t('snap_assets')} · ${s.currency}</div>
+    </div>`;
+  }).join(''):`<div class="empty" style="grid-column:1/-1"><div class="empty-ico">📸</div><div class="empty-txt">${t('snap_empty')}</div><div class="empty-sub">${t('snap_empty_sub')}</div></div>`;
+}
+
+function takeSnapshot(){
+  const{netWorth}=getTotals();
+  S.snapshots.push({id:uid(),date:new Date().toISOString().slice(0,10),netWorth,assets:S.assets.length,currency:S.displayCur});
+  save();renderSnapshots();showToast(t('toast_snapshot'),'success');
+  if(currentPage==='dashboard')renderDashboard();
+  if(currentPage==='notifications')renderNotifications();
+}
+
+// ── CALENDAR ──
+let calViewDate=new Date();
+let calSelectedDate=null;
+let calPrefillDate=null;
+function calShiftMonth(delta){calViewDate.setMonth(calViewDate.getMonth()+delta);calSelectedDate=null;renderCalendar();}
+function renderCalendar(){
+  const y=calViewDate.getFullYear(),mo=calViewDate.getMonth();
+  document.getElementById('cal-month-label').textContent=calViewDate.toLocaleDateString('en-IN',{month:'long',year:'numeric'});
+  const dowNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  document.getElementById('cal-grid-head').innerHTML=dowNames.map(d=>`<div>${d}</div>`).join('');
+  const firstDay=new Date(y,mo,1).getDay();
+  const daysInMonth=new Date(y,mo+1,0).getDate();
+  const todayStr=new Date().toISOString().slice(0,10);
+  const monthPrefix=`${y}-${String(mo+1).padStart(2,'0')}`;
+  const byDate={};
+  S.dailyExps.forEach(e=>{if(e.date&&e.date.startsWith(monthPrefix))byDate[e.date]=(byDate[e.date]||0)+toDisplay(e.amount,e.currency);});
+  const goalDates=new Set(S.goals.filter(g=>g.targetDate).map(g=>g.targetDate));
+  const renewalDates=new Set(S.assets.filter(a=>a.type==='insurance'&&a.renewal).map(a=>a.renewal));
+  let html='';
+  for(let i=0;i<firstDay;i++)html+=`<div class="cal-cell empty"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const dateStr=`${monthPrefix}-${String(d).padStart(2,'0')}`;
+    const amt=byDate[dateStr];
+    const isToday=dateStr===todayStr,isSel=dateStr===calSelectedDate;
+    let dots='';
+    if(goalDates.has(dateStr))dots+=`<span class="cal-dot" style="background:var(--purple)"></span>`;
+    if(renewalDates.has(dateStr))dots+=`<span class="cal-dot" style="background:var(--amber)"></span>`;
+    html+=`<div class="cal-cell ${isToday?'today':''} ${isSel?'selected':''}" onclick="calSelectDay('${dateStr}')">
+      <div class="cal-day-num">${d}</div>
+      <div class="cal-day-amt">${amt?fmt(amt):''}</div>
+      <div class="cal-day-dots">${dots}</div>
+    </div>`;
+  }
+  document.getElementById('cal-grid').innerHTML=html;
+  renderCalDayDetail();
+}
+function calSelectDay(dateStr){calSelectedDate=(calSelectedDate===dateStr)?null:dateStr;renderCalendar();}
+function renderCalDayDetail(){
+  const card=document.getElementById('cal-day-detail-card');
+  if(!calSelectedDate){card.style.display='none';return;}
+  card.style.display='block';
+  document.getElementById('cal-day-title').textContent=fmtDate(calSelectedDate);
+  const entries=S.dailyExps.filter(e=>e.date===calSelectedDate);
+  document.getElementById('cal-day-list').innerHTML=entries.length?entries.map(e=>`
+    <div class="exp-item">
+      <div class="exp-cat-dot" style="background:#f1f5f9">${e.category?.split(' ')[0]||'•'}</div>
+      <div class="exp-info"><div class="exp-name">${e.name}</div><div class="exp-meta">${e.category||''}${e.notes?' · '+e.notes:''}</div></div>
+      <div class="exp-amt">${fmt(toDisplay(e.amount,e.currency))}</div>
+      <div class="action-cell"><button class="btn btn-outline btn-sm" onclick="editDaily('${e.id}')">Edit</button></div>
+    </div>`).join(''):`<div class="empty" style="padding:20px"><div class="empty-txt">No expenses logged this day</div></div>`;
+}
+function openAddDailyForCalDay(){calPrefillDate=calSelectedDate;openAddDaily();}
+
+// ── NOTIFICATIONS ──
+function generateNotifications(){
+  const notifs=[];
+  const now=new Date();
+  const in30=new Date(now.getTime()+30*86400000);
+  computeEssentials().filter(i=>!i.ok).forEach(i=>{
+    notifs.push({level:i.warn?'warn':'bad',title:`${i.label.replace(/^\S+\s/,'')} needs attention`,message:`${i.detail} — ${i.rec}`,date:now.toISOString().slice(0,10)});
+  });
+  S.assets.filter(a=>a.type==='insurance'&&a.renewal).forEach(a=>{
+    const rd=new Date(a.renewal);
+    if(rd>=now&&rd<=in30){
+      const days=Math.ceil((rd-now)/86400000);
+      notifs.push({level:'warn',title:'Insurance renewal due',message:`${a.name} renews on ${fmtDate(a.renewal)} (${days} day${days!==1?'s':''} left).`,date:a.renewal});
+    }else if(rd<now){
+      notifs.push({level:'bad',title:'Insurance renewal overdue',message:`${a.name} was due to renew on ${fmtDate(a.renewal)}.`,date:a.renewal});
+    }
+  });
+  S.goals.forEach(g=>{
+    if(!g.targetDate)return;
+    const td=new Date(g.targetDate);
+    const cv=toDisplay(g.current,g.currency),tv=toDisplay(g.target,g.currency);
+    if(cv>=tv)return;
+    if(td>=now&&td<=in30){
+      const days=Math.ceil((td-now)/86400000);
+      notifs.push({level:'warn',title:'Goal deadline approaching',message:`"${g.name}" is due ${fmtDate(g.targetDate)} (${days} day${days!==1?'s':''} left) and isn't fully funded yet.`,date:g.targetDate});
+    }else if(td<now){
+      notifs.push({level:'bad',title:'Goal deadline passed',message:`"${g.name}" was due ${fmtDate(g.targetDate)} and isn't fully funded.`,date:g.targetDate});
+    }
+  });
+  const todayStr=now.toISOString().slice(0,10);
+  if(!S.dailyExps.some(e=>e.date===todayStr)){
+    notifs.push({level:'info',title:'No spend logged today',message:"Add today's expenses to keep your tracking streak going.",date:todayStr});
+  }
+  const m=now.toISOString().slice(0,7);
+  const mt=getMonthTotals(m);
+  if(mt.inc>0&&mt.savingsRate<20){
+    notifs.push({level:'warn',title:'Savings rate is low',message:`You've saved ${mt.savingsRate}% of income this month. Aim for at least 20%.`,date:todayStr});
+  }
+  const lastSnap=S.snapshots.length?S.snapshots[S.snapshots.length-1]:null;
+  if(!lastSnap||(now-new Date(lastSnap.date))/86400000>60){
+    notifs.push({level:'info',title:'Time for a net worth snapshot',message:"It's been a while — take a snapshot to track your progress.",date:todayStr});
+  }
+  const rank={bad:0,warn:1,good:2,info:3};
+  notifs.sort((a,b)=>(rank[a.level]-rank[b.level])||(a.date>b.date?1:-1));
+  return notifs;
+}
+function updateNotifBadge(){
+  const n=generateNotifications().length;
+  const navBadge=document.getElementById('nav-notif-badge');
+  const topBadge=document.getElementById('topbar-bell-badge');
+  if(navBadge){navBadge.style.display=n?'inline-block':'none';navBadge.textContent=n;}
+  if(topBadge){topBadge.style.display=n?'flex':'none';topBadge.textContent=n;}
+}
+function renderNotifications(){
+  const notifs=generateNotifications();
+  document.getElementById('notif-list').innerHTML=notifs.length?notifs.map(n=>`
+    <div class="insight-card ${n.level}"><div class="insight-txt"><strong>${escapeHtml(n.title)}</strong><br>${escapeHtml(n.message)}</div></div>
+  `).join(''):`<div class="empty" style="padding:30px"><div class="empty-txt">You're all caught up</div></div>`;
+  updateNotifBadge();
+  const enabled=localStorage.getItem('selvam_reminder_enabled')==='1';
+  const btn=document.getElementById('notif-remind-toggle');
+  if(btn)btn.textContent=enabled?'Disable':'Enable';
+  const timeEl=document.getElementById('notif-remind-time');
+  if(timeEl){const savedTime=localStorage.getItem('selvam_reminder_time');if(savedTime)timeEl.value=savedTime;}
+}
+function toggleDailyReminder(){
+  const enabled=localStorage.getItem('selvam_reminder_enabled')==='1';
+  if(!enabled){
+    if(!('Notification' in window)){showToast('Notifications not supported in this browser','error');return;}
+    Notification.requestPermission().then(perm=>{
+      if(perm==='granted'){
+        localStorage.setItem('selvam_reminder_enabled','1');
+        localStorage.setItem('selvam_reminder_time',document.getElementById('notif-remind-time').value||'20:00');
+        showToast('Daily reminder enabled','success');
+      }else{
+        showToast('Notification permission denied','error');
+      }
+      renderNotifications();
+    });
+  }else{
+    localStorage.setItem('selvam_reminder_enabled','0');
+    showToast('Daily reminder disabled','success');
+    renderNotifications();
+  }
+}
+function checkDailyReminder(){
+  if(localStorage.getItem('selvam_reminder_enabled')!=='1')return;
+  if(!('Notification' in window)||Notification.permission!=='granted')return;
+  const time=localStorage.getItem('selvam_reminder_time')||'20:00';
+  const now=new Date();
+  const hh=String(now.getHours()).padStart(2,'0'),mm=String(now.getMinutes()).padStart(2,'0');
+  const todayStr=now.toISOString().slice(0,10);
+  const lastFired=localStorage.getItem('selvam_reminder_last_fired');
+  if(`${hh}:${mm}`===time&&lastFired!==todayStr){
+    new Notification('Selvam',{body:"Don't forget to log today's expenses!"});
+    localStorage.setItem('selvam_reminder_last_fired',todayStr);
+  }
+}
+setInterval(checkDailyReminder,30000);
+
+// ── ADVISOR ──
+function getCurrentAllocation(){
+  const groups={equity:0,debt:0,gold:0,realestate:0,other:0};
+  S.assets.filter(a=>a.type!=='loan').forEach(a=>{
+    const v=toDisplay(a.value,a.currency);
+    if(['equity','mf','crypto'].includes(a.type))groups.equity+=v;
+    else if(['bank','fd','epf','ppf','nps'].includes(a.type))groups.debt+=v;
+    else if(['gold','sgb'].includes(a.type))groups.gold+=v;
+    else if(a.type==='realestate')groups.realestate+=v;
+    else groups.other+=v;
+  });
+  const total=Object.values(groups).reduce((s,v)=>s+v,0)||1;
+  const pct={};Object.keys(groups).forEach(k=>pct[k]=groups[k]/total*100);
+  return{groups,pct,total};
+}
+function getRecommendedAllocation(){
+  const age=parseFloat(S.profile.age)||35;
+  const risk=S.profile.riskTolerance||'moderate';
+  const baseEquity=Math.max(20,Math.min(85,100-age));
+  const adj={conservative:-15,moderate:0,aggressive:15}[risk]||0;
+  const equity=Math.max(15,Math.min(85,baseEquity+adj));
+  const gold=10;
+  const debt=Math.max(0,100-equity-gold);
+  return{equity,debt,gold};
+}
+function computeHealthScore(){
+  const{totalA,totalL}=getTotals();
+  const m=new Date().toISOString().slice(0,7);
+  const mt=getMonthTotals(m);
+  const srScore=mt.savingsRate>=30?25:mt.savingsRate>=20?20:mt.savingsRate>=10?12:mt.savingsRate>=0?6:0;
+  const liquid=S.assets.filter(a=>['bank','fd'].includes(a.type)).reduce((s,a)=>s+toDisplay(a.value,a.currency),0);
+  const avgMonthlyExp=mt.totalExp>0?mt.totalExp:((parseFloat(S.profile.income)||0)*0.6);
+  const emMonths=avgMonthlyExp>0?liquid/avgMonthlyExp:0;
+  const emScore=emMonths>=6?25:emMonths>=3?16:emMonths>=1?8:0;
+  const debtRatio=totalA>0?totalL/totalA:0;
+  const debtScore=debtRatio<=0.1?25:debtRatio<=0.3?18:debtRatio<=0.5?10:debtRatio<=0.8?4:0;
+  const insurance=S.assets.filter(a=>a.type==='insurance');
+  const hasHealth=insurance.some(a=>a.instype==='health');
+  const hasTerm=insurance.some(a=>a.instype==='term');
+  const protScore=(hasHealth?12:0)+(hasTerm?13:0);
+  const score=Math.round(srScore+emScore+debtScore+protScore);
+  let rating,desc;
+  if(score>=80){rating='Excellent';desc='Your finances are in great shape across savings, protection and debt.';}
+  else if(score>=60){rating='Good';desc='Solid foundation — a few areas below could use attention.';}
+  else if(score>=40){rating='Fair';desc='You\'re on your way, but some gaps could hold back your progress.';}
+  else{rating='Needs Attention';desc='A few foundational pieces are missing — start with the insights below.';}
+  return{score:Math.max(0,Math.min(100,score)),rating,desc,breakdown:[
+    {label:'Savings Rate',val:srScore,max:25},
+    {label:'Emergency Fund',val:emScore,max:25},
+    {label:'Debt Load',val:debtScore,max:25},
+    {label:'Protection',val:protScore,max:25}
+  ],emMonths,debtRatio};
+}
+function generateInsights(){
+  const insights=[];
+  const{totalA,totalL}=getTotals();
+  const m=new Date().toISOString().slice(0,7);
+  const mt=getMonthTotals(m);
+  const alloc=getCurrentAllocation();
+  const rec=getRecommendedAllocation();
+  if(mt.inc>0&&mt.savingsRate<20)insights.push({level:'warn',icon:'💡',text:`Your savings rate is ${mt.savingsRate}% this month. Aim for at least 20% to build wealth faster.`});
+  if(mt.savingsRate>=30)insights.push({level:'good',icon:'🎉',text:`Great job — you're saving ${mt.savingsRate}% of income this month.`});
+  const debtRatio=totalA>0?(totalL/totalA*100):0;
+  if(debtRatio>40)insights.push({level:'bad',icon:'⚠️',text:`Liabilities are ${debtRatio.toFixed(0)}% of your assets. Consider prioritizing high-interest debt paydown.`});
+  if(alloc.total>1&&Math.abs(alloc.pct.equity-rec.equity)>15){
+    insights.push({level:'warn',icon:'⚖️',text:alloc.pct.equity<rec.equity?`Your equity allocation (${alloc.pct.equity.toFixed(0)}%) is below the ${rec.equity.toFixed(0)}% suggested for your profile — you may be leaving growth on the table.`:`Your equity allocation (${alloc.pct.equity.toFixed(0)}%) is above the ${rec.equity.toFixed(0)}% suggested for your profile — consider rebalancing to manage risk.`});
+  }
+  if(alloc.pct.realestate>60)insights.push({level:'warn',icon:'🏠',text:`${alloc.pct.realestate.toFixed(0)}% of your net worth sits in real estate — a concentrated, illiquid position. Diversifying could reduce risk.`});
+  const insurance=S.assets.filter(a=>a.type==='insurance');
+  if(!insurance.some(a=>a.instype==='health'))insights.push({level:'bad',icon:'🏥',text:'No health insurance found. This is a foundational protection most advisors recommend first.'});
+  if(!insurance.some(a=>a.instype==='term'))insights.push({level:'bad',icon:'🛡️',text:'No term life insurance found — worth considering if others depend on your income.'});
+  if(S.goals.length===0)insights.push({level:'warn',icon:'🎯',text:'You haven\'t set any financial goals yet. Goals turn saving into a plan — add one to get started.'});
+  if(S.snapshots.length===0)insights.push({level:'info',icon:'📸',text:'Take your first net worth snapshot to start tracking progress over time.'});
+  if(insights.length===0)insights.push({level:'good',icon:'✅',text:'Your finances look well-balanced across the areas we track. Keep it up!'});
+  return insights;
+}
+function saveRetirementPlan(){
+  S.retirementPlan={
+    age:document.getElementById('rp-age').value,
+    retireAge:document.getElementById('rp-retireage').value,
+    monthlyExpense:document.getElementById('rp-expense').value,
+    returnPct:document.getElementById('rp-return').value,
+    inflationPct:document.getElementById('rp-inflation').value
+  };
+  save();renderRetirement();
+}
+function computeRetirement(){
+  const rp=S.retirementPlan||{};
+  const m=new Date().toISOString().slice(0,7);
+  const age=parseFloat(rp.age)||parseFloat(S.profile.age)||30;
+  const retireAge=parseFloat(rp.retireAge)||60;
+  const monthlyExpense=parseFloat(rp.monthlyExpense)||getMonthTotals(m).totalExp||((parseFloat(S.profile.income)||0)*0.6);
+  const returnPct=rp.returnPct!==''&&rp.returnPct!==undefined?parseFloat(rp.returnPct):11;
+  const inflationPct=rp.inflationPct!==''&&rp.inflationPct!==undefined?parseFloat(rp.inflationPct):6;
+  const years=Math.max(0,retireAge-age);
+  const futureMonthlyExpense=monthlyExpense*Math.pow(1+inflationPct/100,years);
+  const annualExpense=futureMonthlyExpense*12;
+  const realReturn=((1+returnPct/100)/(1+inflationPct/100))-1;
+  const corpus=realReturn>0.001?annualExpense/realReturn:annualExpense*25;
+  const{netWorth}=getTotals();
+  const fvCurrent=netWorth*Math.pow(1+returnPct/100,years);
+  const shortfall=Math.max(0,corpus-fvCurrent);
+  const r=returnPct/100/12,n=years*12;
+  let sip=0;
+  if(shortfall>0&&n>0){sip=r>0?shortfall/(((Math.pow(1+r,n)-1)/r)*(1+r)):shortfall/n;}
+  const progressPct=corpus>0?Math.min(100,fvCurrent/corpus*100):0;
+  return{age,retireAge,years,monthlyExpense,futureMonthlyExpense,annualExpense,corpus,fvCurrent,shortfall,sip,progressPct};
+}
+function renderRetirement(){
+  const rp=S.retirementPlan||{};
+  document.getElementById('rp-age').value=rp.age||'';
+  document.getElementById('rp-retireage').value=rp.retireAge||'';
+  document.getElementById('rp-expense').value=rp.monthlyExpense||'';
+  document.getElementById('rp-return').value=rp.returnPct||'';
+  document.getElementById('rp-inflation').value=rp.inflationPct||'';
+  const r=computeRetirement();
+  if(r.years<=0){
+    document.getElementById('retire-results').innerHTML=`<div class="empty" style="padding:20px"><div class="empty-txt" style="font-size:13px">Set a retirement age later than your current age to see projections.</div></div>`;
+    return;
+  }
+  document.getElementById('retire-results').innerHTML=`
+    <div class="rr-item"><div class="rr-label">Corpus needed at retirement</div><div class="rr-value">${fmt(r.corpus)}</div><div class="rr-sub">${r.years} years away · ${fmt(r.futureMonthlyExpense)}/mo expenses then</div></div>
+    <div class="rr-item"><div class="rr-label">Projected from current assets</div><div class="rr-value accent">${fmt(r.fvCurrent)}</div><div class="rr-sub">${r.progressPct.toFixed(0)}% of goal, growing at current net worth</div></div>
+    <div class="rr-item"><div class="rr-label">${r.shortfall>0?'Suggested monthly SIP':'Status'}</div><div class="rr-value ${r.shortfall>0?'warn':'accent'}">${r.shortfall>0?fmt(r.sip)+'/mo':'✓ On track'}</div><div class="rr-sub">${r.shortfall>0?`To close a projected shortfall of ${fmt(r.shortfall)}`:'Your current trajectory covers your projected needs'}</div></div>
+  `;
+}
+function renderAdvisor(){
+  const h=computeHealthScore();
+  document.getElementById('health-score-num').textContent=h.score;
+  document.getElementById('health-rating').textContent=h.rating;
+  document.getElementById('health-desc').textContent=h.desc;
+  const circumference=2*Math.PI*48;
+  const circle=document.getElementById('health-ring-circle');
+  circle.setAttribute('stroke-dasharray',circumference);
+  circle.setAttribute('stroke-dashoffset',circumference*(1-h.score/100));
+  document.getElementById('health-breakdown').innerHTML=h.breakdown.map(b=>`
+    <div class="hb-item"><div class="hb-label">${b.label}</div><div class="hb-track"><div class="hb-fill" style="width:${(b.val/b.max*100)}%"></div></div><div class="hb-val">${b.val}/${b.max}</div></div>
+  `).join('');
+
+  const alloc=getCurrentAllocation();
+  const rec=getRecommendedAllocation();
+  const rows=[
+    {key:'equity',label:'Equity / MF / Crypto',color:'#7c3aed',target:rec.equity},
+    {key:'debt',label:'Bank / FD / EPF / PPF / NPS',color:'#2563eb',target:rec.debt},
+    {key:'gold',label:'Gold / SGB',color:'#d97706',target:rec.gold},
+    {key:'realestate',label:'Real Estate',color:'#16a34a',target:null},
+    {key:'other',label:'Other',color:'#6b7280',target:null}
+  ];
+  document.getElementById('alloc-panel').innerHTML=rows.filter(r=>alloc.groups[r.key]>0||r.target!==null).map(r=>{
+    const cur=alloc.pct[r.key]||0;
+    return`<div class="alloc-row">
+      <div class="alloc-row-top"><span class="lbl">${r.label}</span><span>${cur.toFixed(0)}%${r.target!==null?` <span style="color:var(--muted)">(target ${r.target.toFixed(0)}%)</span>`:''}</span></div>
+      <div class="alloc-dual-track"><div class="alloc-dual-fill" style="width:${Math.min(100,cur)}%;background:${r.color}"></div>${r.target!==null?`<div class="alloc-target-mark" style="left:${Math.min(100,r.target)}%"></div>`:''}</div>
+    </div>`;
+  }).join('')+`<div style="font-size:11px;color:var(--muted);margin-top:6px">The vertical mark shows the suggested target for your age & risk profile. Real estate & other holdings aren't rebalanced against a target.</div>`;
+
+  const riskLabel=(S.profile.riskTolerance||'moderate');
+  const riskDisplay={conservative:'Conservative',moderate:'Moderate',aggressive:'Aggressive'}[riskLabel];
+  const impliedEquity=alloc.pct.equity||0;
+  let impliedRisk='Conservative';
+  if(impliedEquity>=60)impliedRisk='Aggressive';else if(impliedEquity>=35)impliedRisk='Moderate';
+  document.getElementById('risk-panel').innerHTML=`
+    <div style="font-size:12.5px;color:var(--muted);margin-bottom:4px">Your stated profile</div>
+    <span class="risk-badge risk-${riskLabel}">${riskDisplay}</span>
+    <div style="font-size:12.5px;color:var(--muted);margin:16px 0 4px">What your portfolio implies</div>
+    <span class="risk-badge risk-${impliedRisk.toLowerCase()}">${impliedRisk} (${impliedEquity.toFixed(0)}% equity)</span>
+    <div style="font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6">${impliedRisk.toLowerCase()===riskLabel?'Your actual holdings line up with your stated risk tolerance.':'Your holdings imply a different risk level than you\'ve stated in Profile — worth a rebalancing look.'}</div>
+  `;
+
+  const insights=generateInsights();
+  document.getElementById('insights-panel').innerHTML=insights.map(i=>`
+    <div class="insight-card ${i.level}"><div class="insight-ico">${i.icon}</div><div class="insight-txt">${i.text}</div></div>
+  `).join('');
+
+  renderRetirement();
+}
+
+// ── PROFILE ──
+function renderProfile(){
+  document.getElementById('p-name').value=S.profile.name||'';
+  document.getElementById('p-email').value=S.profile.email||'';
+  document.getElementById('p-income').value=S.profile.income||'';
+  document.getElementById('p-cur').value=S.profile.currency||'INR';
+  document.getElementById('p-age').value=S.profile.age||'';
+  document.getElementById('p-risk').value=S.profile.riskTolerance||'moderate';
+  updateProfileDisplay();
+}
+function saveProfile(){
+  S.profile.name=document.getElementById('p-name').value;
+  S.profile.email=document.getElementById('p-email').value;
+  S.profile.income=parseFloat(document.getElementById('p-income').value)||0;
+  S.profile.currency=document.getElementById('p-cur').value;
+  S.profile.age=document.getElementById('p-age').value;
+  S.profile.riskTolerance=document.getElementById('p-risk').value;
+  save();updateProfileDisplay();
+}
+function updateProfileDisplay(){
+  const n=S.profile.name||'செல்வம்';
+  document.getElementById('profile-name').textContent=n;
+  document.getElementById('profile-email').textContent=S.profile.email||'Not set';
+  document.getElementById('profile-av').textContent=n[0]||'ச';
+  updateTopbarProfile();
+}
+
+// ── ADD / EDIT ASSET ──
+function openAddAsset(){
+  S.editAssetId=null;
+  document.getElementById('modal-asset-title').textContent='Add Asset';
+  document.getElementById('save-asset-btn').textContent='Save Asset';
+  document.getElementById('a-name').value='';document.getElementById('a-inst').value='';
+  document.getElementById('a-value').value='';document.getElementById('a-notes').value='';
+  document.getElementById('a-type').value='bank';
+  renderCurBtns();document.getElementById('a-extra').innerHTML='';
+  document.getElementById('modal-asset').classList.add('open');
+}
+function openEditAsset(id){
+  const a=S.assets.find(x=>x.id===id);if(!a)return;
+  S.editAssetId=id;
+  document.getElementById('modal-asset-title').textContent='Edit Asset';
+  document.getElementById('save-asset-btn').textContent='Update';
+  document.getElementById('a-name').value=a.name||'';
+  document.getElementById('a-inst').value=a.inst||'';
+  document.getElementById('a-value').value=a.value||'';
+  document.getElementById('a-notes').value=a.notes||'';
+  document.getElementById('a-type').value=a.type||'bank';
+  renderCurBtns();document.getElementById('a-cur').value=a.currency||S.displayCur;
+  updateAssetFields(a);
+  document.getElementById('modal-asset').classList.add('open');
+}
+function updateAssetFields(prefill){
+  const t=document.getElementById('a-type').value;let html='';
+  if(t==='equity')html=`<div class="form-row"><div class="form-grp"><label class="form-lbl">Ticker / Symbol</label><input class="form-inp" id="a-ticker" placeholder="e.g. RELIANCE, INFY" value="${prefill?.ticker||''}"></div><div class="form-grp"><label class="form-lbl">Qty / Units</label><input class="form-inp" id="a-units" type="number" placeholder="0" value="${prefill?.units||''}"></div></div>`;
+  if(t==='mf')html=`<div class="form-row"><div class="form-grp"><label class="form-lbl">Fund Name</label><input class="form-inp" id="a-fund" placeholder="e.g. Parag Parikh Flexi Cap" value="${prefill?.fund||''}"></div><div class="form-grp"><label class="form-lbl">SIP Amount/mo</label><input class="form-inp" id="a-sip" type="number" placeholder="e.g. 5000" value="${prefill?.sip||''}"></div></div>`;
+  if(t==='realestate')html=`<div class="form-grp"><label class="form-lbl">Address / Description</label><input class="form-inp" id="a-addr" placeholder="e.g. 2BHK Chennai" value="${prefill?.addr||''}"></div>`;
+  if(t==='vehicle')html=`<div class="form-row"><div class="form-grp"><label class="form-lbl">Make & Model</label><input class="form-inp" id="a-model" placeholder="e.g. Maruti Swift" value="${prefill?.model||''}"></div><div class="form-grp"><label class="form-lbl">Year</label><input class="form-inp" id="a-year" type="number" placeholder="2022" value="${prefill?.year||''}"></div></div>`;
+  if(t==='insurance')html=`
+    <div class="form-row"><div class="form-grp"><label class="form-lbl">Insurance Type</label><select class="form-sel" id="a-instype"><option value="health" ${prefill?.instype==='health'?'selected':''}>🏥 Health</option><option value="term" ${prefill?.instype==='term'?'selected':''}>🛡️ Term</option><option value="life" ${prefill?.instype==='life'?'selected':''}>💛 Life</option><option value="vehicle" ${prefill?.instype==='vehicle'?'selected':''}>🚗 Vehicle</option><option value="other" ${prefill?.instype==='other'?'selected':''}>📋 Other</option></select></div><div class="form-grp"><label class="form-lbl">Insurer</label><input class="form-inp" id="a-insurer" placeholder="e.g. LIC, Star Health" value="${prefill?.insurer||''}"></div></div>
+    <div class="form-row"><div class="form-grp"><label class="form-lbl">Sum Assured / Cover</label><input class="form-inp" id="a-cover" type="number" placeholder="e.g. 1000000" value="${prefill?.cover||''}"></div><div class="form-grp"><label class="form-lbl">Annual Premium</label><input class="form-inp" id="a-premium" type="number" placeholder="e.g. 12000" value="${prefill?.premium||''}"></div></div>
+    <div class="form-row"><div class="form-grp"><label class="form-lbl">Purchase Date</label><input class="form-inp" id="a-purchased" type="date" value="${prefill?.purchased||''}"></div><div class="form-grp"><label class="form-lbl">Renewal Date</label><input class="form-inp" id="a-renewal" type="date" value="${prefill?.renewal||''}"></div></div>
+    <div class="form-grp"><label class="form-lbl">Policy Number</label><input class="form-inp" id="a-policy" placeholder="e.g. P123456" value="${prefill?.policy||''}"></div>
+    <div class="form-grp"><label class="form-lbl">How to Claim / Notes</label><textarea class="form-ta" id="a-howto" placeholder="Claim process, documents needed, contact…">${prefill?.howto||''}</textarea></div>`;
+  if(t==='loan')html=`
+    <div class="form-row"><div class="form-grp"><label class="form-lbl">Loan Type</label><select class="form-sel" id="a-loantype"><option value="homeloan">🏠 Home Loan</option><option value="carloan">🚗 Car Loan</option><option value="personal">💳 Personal Loan</option><option value="education">🎓 Education Loan</option><option value="creditcard">💳 Credit Card</option><option value="other">📋 Other</option></select></div><div class="form-grp"><label class="form-lbl">Lender</label><input class="form-inp" id="a-lender" placeholder="e.g. SBI, HDFC" value="${prefill?.lender||''}"></div></div>
+    <div class="form-row"><div class="form-grp"><label class="form-lbl">Interest Rate (%)</label><input class="form-inp" id="a-rate" type="number" placeholder="8.5" value="${prefill?.rate||''}"></div><div class="form-grp"><label class="form-lbl">EMI / Month</label><input class="form-inp" id="a-emi" type="number" placeholder="0.00" value="${prefill?.emi||''}"></div></div>
+    <div class="form-row"><div class="form-grp"><label class="form-lbl">Loan Start Date</label><input class="form-inp" id="a-loanstart" type="date" value="${prefill?.loanstart||''}"></div><div class="form-grp"><label class="form-lbl">End Date</label><input class="form-inp" id="a-loanend" type="date" value="${prefill?.loanend||''}"></div></div>
+    <div class="form-grp"><label class="form-lbl">Repayment Strategy</label><textarea class="form-ta" id="a-howto" placeholder="e.g. Pay EMI on 5th, prepay with bonus…">${prefill?.howto||''}</textarea></div>`;
+  document.getElementById('a-extra').innerHTML=html;
+}
+function saveAsset(){
+  const name=document.getElementById('a-name').value.trim();
+  const value=parseFloat(document.getElementById('a-value').value);
+  if(!name){showToast('Please enter a name','error');return;}
+  if(isNaN(value)){showToast('Please enter a valid value','error');return;}
+  const type=document.getElementById('a-type').value;
+  const asset={id:S.editAssetId||uid(),name,value,type,currency:document.getElementById('a-cur').value,inst:document.getElementById('a-inst').value.trim(),notes:document.getElementById('a-notes').value.trim(),date:new Date().toISOString()};
+  if(type==='equity'){asset.ticker=document.getElementById('a-ticker')?.value||'';asset.units=document.getElementById('a-units')?.value||'';}
+  if(type==='mf'){asset.fund=document.getElementById('a-fund')?.value||'';asset.sip=document.getElementById('a-sip')?.value||'';}
+  if(type==='realestate'){asset.addr=document.getElementById('a-addr')?.value||'';}
+  if(type==='vehicle'){asset.model=document.getElementById('a-model')?.value||'';asset.year=document.getElementById('a-year')?.value||'';}
+  if(type==='insurance'){asset.instype=document.getElementById('a-instype')?.value||'';asset.insurer=document.getElementById('a-insurer')?.value||'';asset.cover=document.getElementById('a-cover')?.value||'';asset.premium=document.getElementById('a-premium')?.value||'';asset.purchased=document.getElementById('a-purchased')?.value||'';asset.renewal=document.getElementById('a-renewal')?.value||'';asset.policy=document.getElementById('a-policy')?.value||'';asset.howto=document.getElementById('a-howto')?.value||'';}
+  if(type==='loan'){asset.loantype=document.getElementById('a-loantype')?.value||'';asset.lender=document.getElementById('a-lender')?.value||'';asset.rate=document.getElementById('a-rate')?.value||'';asset.emi=document.getElementById('a-emi')?.value||'';asset.loanstart=document.getElementById('a-loanstart')?.value||'';asset.loanend=document.getElementById('a-loanend')?.value||'';asset.howto=document.getElementById('a-howto')?.value||'';}
+  if(S.editAssetId){const idx=S.assets.findIndex(a=>a.id===S.editAssetId);if(idx>=0)S.assets[idx]=asset;}
+  else S.assets.push(asset);
+  save();closeModal('modal-asset');showToast(S.editAssetId?'Asset updated ✓':'Asset added ✓','success');
+  S.editAssetId=null;renderDashboard();renderAssets();
+}
+function deleteAsset(id){if(!confirm(t('confirm_delete')))return;S.assets=S.assets.filter(a=>a.id!==id);save();showToast(t('toast_deleted'),'success');renderDashboard();renderAssets();}
+
+// ── INCOME CRUD ──
+function openAddIncome(){document.getElementById('i-name').value='';document.getElementById('i-source').value='';document.getElementById('i-amount').value='';document.getElementById('i-month').value=S.viewMonth;renderCurBtns();document.getElementById('modal-income').classList.add('open');}
+function saveIncome(){const name=document.getElementById('i-name').value.trim(),amount=parseFloat(document.getElementById('i-amount').value);if(!name||isNaN(amount)){showToast('Fill all fields','error');return;}S.incomes.push({id:uid(),name,amount,currency:document.getElementById('i-cur').value,source:document.getElementById('i-source').value.trim(),month:document.getElementById('i-month').value});save();closeModal('modal-income');showToast('Income added ✓','success');renderIncome();renderDashboard();}
+function deleteIncome(id){S.incomes=S.incomes.filter(x=>x.id!==id);save();renderIncome();renderDashboard();}
+
+// ── FIXED EXP CRUD ──
+function openAddFixedExp(){document.getElementById('fe-name').value='';document.getElementById('fe-amount').value='';document.getElementById('fe-month').value=S.viewMonth;renderCurBtns();document.getElementById('modal-fexp').classList.add('open');}
+function saveFixedExp(){const name=document.getElementById('fe-name').value.trim(),amount=parseFloat(document.getElementById('fe-amount').value);if(!name||isNaN(amount)){showToast('Fill all fields','error');return;}S.fixedExps.push({id:uid(),name,amount,currency:document.getElementById('fe-cur').value,category:document.getElementById('fe-cat').value,month:document.getElementById('fe-month').value});save();closeModal('modal-fexp');showToast('Expense added ✓','success');renderExpenses();renderDashboard();}
+function deleteFixedExp(id){S.fixedExps=S.fixedExps.filter(x=>x.id!==id);save();renderExpenses();renderDashboard();}
+
+// ── DAILY CRUD ──
+function openAddDaily(id){
+  S.editDailyId=id||null;
+  const e=id?S.dailyExps.find(x=>x.id===id):null;
+  document.getElementById('daily-modal-ttl').textContent=id?'Edit Expense':'Add Daily Expense';
+  document.getElementById('save-daily-btn').textContent=id?'Update':'Save';
+  document.getElementById('d-name').value=e?.name||'';
+  document.getElementById('d-amount').value=e?.amount||'';
+  document.getElementById('d-notes').value=e?.notes||'';
+  document.getElementById('d-date').value=e?.date||calPrefillDate||new Date().toISOString().slice(0,10);
+  calPrefillDate=null;
+  document.getElementById('d-cat').value=e?.category||'🍽️ Food';
+  renderCurBtns();document.getElementById('d-cur').value=e?.currency||S.displayCur;
+  document.getElementById('modal-daily').classList.add('open');
+}
+function editDaily(id){openAddDaily(id);}
+function saveDaily(){
+  const name=document.getElementById('d-name').value.trim(),amount=parseFloat(document.getElementById('d-amount').value);
+  if(!name||isNaN(amount)){showToast('Fill all fields','error');return;}
+  const entry={id:S.editDailyId||uid(),name,amount,currency:document.getElementById('d-cur').value,category:document.getElementById('d-cat').value,date:document.getElementById('d-date').value,notes:document.getElementById('d-notes').value.trim()};
+  if(S.editDailyId){const idx=S.dailyExps.findIndex(e=>e.id===S.editDailyId);if(idx>=0)S.dailyExps[idx]=entry;}
+  else S.dailyExps.push(entry);
+  save();closeModal('modal-daily');showToast('Saved ✓','success');S.editDailyId=null;renderDaily();renderExpenses();renderDashboard();
+  if(currentPage==='calendar')renderCalendar();
+  if(currentPage==='notifications')renderNotifications();
+}
+function deleteDaily(id){if(!confirm(t('confirm_del_daily')))return;S.dailyExps=S.dailyExps.filter(e=>e.id!==id);save();renderDaily();renderExpenses();renderDashboard();if(currentPage==='calendar')renderCalendar();}
+
+// ── GOALS CRUD ──
+function openAddGoal(){document.getElementById('g-name').value='';document.getElementById('g-target').value='';document.getElementById('g-current').value='';document.getElementById('g-date').value='';document.getElementById('g-return').value='';renderCurBtns();document.getElementById('modal-goal').classList.add('open');}
+function saveGoal(){const name=document.getElementById('g-name').value.trim(),target=parseFloat(document.getElementById('g-target').value),current=parseFloat(document.getElementById('g-current').value)||0;if(!name||isNaN(target)){showToast('Fill all fields','error');return;}S.goals.push({id:uid(),name,target,current,currency:document.getElementById('g-cur').value,category:document.getElementById('g-cat').value,targetDate:document.getElementById('g-date').value,expectedReturn:parseFloat(document.getElementById('g-return').value)||null});save();closeModal('modal-goal');showToast('Goal added ✓','success');renderGoals();}
+function computeGoalSIP(g){
+  if(!g.targetDate)return null;
+  const months=Math.max(1,Math.round((new Date(g.targetDate)-new Date())/(1000*60*60*24*30.44)));
+  if(months<=0)return null;
+  const rate=(parseFloat(g.expectedReturn)||8)/100/12;
+  const cv=toDisplay(g.current,g.currency),tv=toDisplay(g.target,g.currency);
+  const fvCurrent=cv*Math.pow(1+rate,months);
+  const remaining=Math.max(0,tv-fvCurrent);
+  if(remaining<=0)return{months,sip:0,onTrack:true};
+  const sip=rate>0?remaining/(((Math.pow(1+rate,months)-1)/rate)*(1+rate)):remaining/months;
+  return{months,sip,onTrack:false};
+}
+function updateGoalProgress(id){const g=S.goals.find(x=>x.id===id);if(!g)return;const val=prompt(t('prompt_goal'),g.current);if(val===null)return;g.current=parseFloat(val)||0;save();renderGoals();showToast(t('toast_goal_updated'),'success');}
+function deleteGoal(id){S.goals=S.goals.filter(g=>g.id!==id);save();renderGoals();}
+
+// ── MONTH NAV ──
+function changeMonth(dir){const d=new Date(S.viewMonth+'-01');d.setMonth(d.getMonth()+dir);S.viewMonth=d.toISOString().slice(0,7);renderPage(currentPage);}
+
+// ── SHARE/EXPORT ──
+function openShare(){document.getElementById('modal-share').classList.add('open');}
+function buildReport(){
+  const{totalA,totalL,netWorth}=getTotals();
+  const m=S.viewMonth,mt=getMonthTotals(m);
+  return['செல்வம் — WEALTH REPORT',`Date: ${new Date().toLocaleDateString('en-IN')}`,`Name: ${S.profile.name||'—'} | Currency: ${S.displayCur}`,'─'.repeat(50),`Net Worth:    ${fmt(netWorth)}`,`Total Assets: ${fmt(totalA)}`,`Liabilities:  ${fmt(totalL)}`,'─'.repeat(50),`MONTHLY (${m})`,`Income: ${fmt(mt.inc)} | Expenses: ${fmt(mt.totalExp)} | Balance: ${fmt(mt.balance)}`,`Savings Rate: ${mt.savingsRate}%`,'─'.repeat(50),''].join('\n');
+}
+function copyClipboard(){navigator.clipboard.writeText(buildReport()).then(()=>showToast('Copied ✓','success')).catch(()=>showToast('Failed','error'));closeModal('modal-share');}
+function exportJSON(){const d={exported:new Date().toISOString(),...S};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='selvam-backup.json';a.click();URL.revokeObjectURL(u);localStorage.setItem('selvam_last_backup',new Date().toISOString());showToast('Exported ✓','success');closeModal('modal-share');}
+function exportText(){const b=new Blob([buildReport()],{type:'text/plain'});const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='selvam-report.txt';a.click();URL.revokeObjectURL(u);showToast('Exported ✓','success');closeModal('modal-share');}
+function emailReport(){window.location.href=`mailto:${S.profile.email||''}?subject=${encodeURIComponent('செல்வம் Wealth Report')}&body=${encodeURIComponent(buildReport())}`;closeModal('modal-share');}
+
+// ── IMPORT (validated) ──
+// Checks the file actually looks like a Selvam backup before touching any
+// state, confirms with the user since this overwrites existing data, and
+// keeps a pre-import snapshot in localStorage as a safety net.
+const IMPORT_LIST_KEYS=['assets','incomes','fixedExps','dailyExps','goals','snapshots','currencies'];
+function importJSON(input){
+  const f=input.files[0];
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    let d;
+    try{
+      d=JSON.parse(e.target.result);
+    }catch(err){
+      showToast(lang==='ta'?'தவறான கோப்பு':'Invalid file — not valid JSON','error');
+      input.value='';
+      return;
+    }
+    if(!d||typeof d!=='object'||Array.isArray(d)||!(IMPORT_LIST_KEYS.some(k=>k in d)||'profile' in d)){
+      showToast(lang==='ta'?'இது செல்வம் காப்பு கோப்பு போல் தெரியவில்லை':"This doesn't look like a Selvam backup file",'error');
+      input.value='';
+      return;
+    }
+    for(const k of IMPORT_LIST_KEYS){
+      if(k in d && !Array.isArray(d[k])){
+        showToast((lang==='ta'?'பழுதான தரவு: ':'Corrupted data in: ')+k,'error');
+        input.value='';
+        return;
+      }
+    }
+    if('profile' in d && (typeof d.profile!=='object'||d.profile===null||Array.isArray(d.profile))){
+      showToast(lang==='ta'?'பழுதான சுயவிவரத் தரவு':'Corrupted profile data','error');
+      input.value='';
+      return;
+    }
+    const confirmMsg=lang==='ta'
+      ?'தற்போதைய தரவை இந்த காப்புடன் மாற்றவா? இதை செயல்தவிர்க்க முடியாது.'
+      :'Replace your current data with this backup? This cannot be undone.';
+    if(!confirm(confirmMsg)){input.value='';return;}
+    try{
+      localStorage.setItem('selvam_pre_import_backup',JSON.stringify({savedAt:new Date().toISOString(),...S}));
+    }catch(err){/* storage full — proceed anyway, import itself still validated */}
+    IMPORT_LIST_KEYS.concat('profile').forEach(k=>{if(k in d)S[k]=d[k];});
+    save();
+    closeModal('modal-import');
+    renderDashboard();
+    showToast(t('toast_imported'),'success');
+    input.value='';
+  };
+  r.onerror=()=>{showToast(lang==='ta'?'கோப்பைப் படிக்க முடியவில்லை':'Could not read file','error');input.value='';};
+  r.readAsText(f);
+}
+
+// ── BACKUP REMINDER ──
+// Nudges the user if they have real data but haven't exported a backup
+// recently. Non-blocking — just a toast on load, checked once per session.
+function checkBackupReminder(){
+  const hasData=(S.assets&&S.assets.length)||(S.incomes&&S.incomes.length)||(S.dailyExps&&S.dailyExps.length)||(S.fixedExps&&S.fixedExps.length);
+  if(!hasData)return;
+  const last=localStorage.getItem('selvam_last_backup');
+  const days=last?Math.floor((Date.now()-new Date(last).getTime())/86400000):Infinity;
+  if(days<14)return;
+  const msg=lang==='ta'
+    ?(last?`கடைசி காப்பு ${days} நாட்களுக்கு முன். சுயவிவரத்தில் இருந்து காப்பு எடுக்கவும்.`:'நீங்கள் இதுவரை தரவு காப்பு எடுக்கவில்லை. சுயவிவரத்தில் இருந்து காப்பு எடுக்கவும்.')
+    :(last?`Your last backup was ${days} days ago. Export one from Profile.`:"You haven't backed up your data yet. Export one from Profile.");
+  setTimeout(()=>showToast(msg,'warn'),1200);
+}
+
+// ══════════════════════════════════════════════════════════════
+// AUTOMATIC LOCAL RESTORE POINTS
+// Rotating snapshots kept entirely in localStorage — no network, no
+// accounts, works identically on mobile browsers, the installed PWA,
+// and the Windows/macOS desktop builds, since they all share the same
+// storage mechanism under the hood. This protects against accidental
+// edits/deletions; it does NOT protect against losing the device or
+// clearing browser data — that's what the manual JSON export is for.
+// ══════════════════════════════════════════════════════════════
+const AUTOBACKUP_KEY='selvam_autobackups';
+const AUTOBACKUP_MAX=5;
+
+// Snapshot the real data only — drop transient UI state (which filter is
+// selected, which item is mid-edit) so restore points stay small and only
+// contain things worth restoring.
+function snapshotData(){
+  const {editAssetId,editDailyId,assetFilter,dailyCatFilter,viewMonth,...clean}=S;
+  return clean;
+}
+function readAutoBackups(){
+  try{return JSON.parse(localStorage.getItem(AUTOBACKUP_KEY)||'[]');}catch(e){return[];}
+}
+// Called from save() on every change — cheap early-outs mean this is a
+// no-op almost every time it runs (already backed up today, or nothing
+// actually changed since the last snapshot), so it doesn't add overhead
+// to normal editing.
+function maybeAutoBackup(){
+  try{
+    const list=readAutoBackups();
+    const today=new Date().toISOString().slice(0,10);
+    if(list.length&&list[list.length-1].ts.slice(0,10)===today)return;
+    const snap=snapshotData();
+    const snapStr=JSON.stringify(snap);
+    if(list.length&&JSON.stringify(list[list.length-1].data)===snapStr)return;
+    list.push({ts:new Date().toISOString(),data:snap});
+    while(list.length>AUTOBACKUP_MAX)list.shift();
+    localStorage.setItem(AUTOBACKUP_KEY,JSON.stringify(list));
+  }catch(e){/* localStorage full/blocked — best-effort only, manual export still works */}
+  renderAutoBackupList();
+}
+function renderAutoBackupList(){
+  const el=document.getElementById('autobackup-list');
+  if(!el)return;
+  const list=readAutoBackups();
+  if(!list.length){
+    el.innerHTML=`<div style="font-size:12px;color:var(--muted)">${lang==='ta'?'இன்னும் மறு-சேமிப்பு புள்ளிகள் இல்லை — பயன்படுத்தும்போது தானாக உருவாகும்.':'None yet — these build up automatically as you use the app.'}</div>`;
+    return;
+  }
+  el.innerHTML=list.slice().reverse().map((snap,i)=>{
+    const idx=list.length-1-i;
+    const date=new Date(snap.ts).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'});
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:12.5px">
+      <div>${escapeHtml(date)}</div>
+      <button class="btn btn-outline btn-sm" style="padding:4px 10px;font-size:11px" onclick="restoreAutoBackup(${idx})">${lang==='ta'?'மீட்டமை':'Restore'}</button>
+    </div>`;
+  }).join('');
+}
+function restoreAutoBackup(idx){
+  const list=readAutoBackups();
+  const snap=list[idx];
+  if(!snap)return;
+  const confirmMsg=lang==='ta'
+    ?'இது தற்போதைய தரவை இந்த மறு-சேமிப்பு புள்ளியுடன் மாற்றும். தொடரவா?'
+    :'This will replace your current data with this restore point. Continue?';
+  if(!confirm(confirmMsg))return;
+  try{localStorage.setItem('selvam_pre_import_backup',JSON.stringify({savedAt:new Date().toISOString(),...S}));}catch(e){}
+  // snap.data came from our own snapshotData(), not an external file, so it's
+  // already trusted — no need for the shape-validation importJSON does.
+  Object.assign(S,snap.data);
+  localStorage.setItem('selvam_v1',JSON.stringify(S));
+  showToast(lang==='ta'?'மீட்டமைக்கப்பட்டது ✓':'Restored ✓','success');
+  renderDashboard();renderAll();renderAutoBackupList();
+}
+
+// ══════════════════════════════════════════════════════════════
+// STATEMENT IMPORT — bank / investment / loan CSV import wizard
+// ══════════════════════════════════════════════════════════════
+let IMP={mode:null,headers:[],rows:[],mapping:{},parsed:[]};
+
+const IMP_BANK_HINTS={
+  date:['date','txn date','value date','transaction date','posting date'],
+  desc:['narration','description','particulars','details','remarks','transaction details','payee'],
+  debit:['debit','withdrawal','withdrawal amt','withdrawal amount','dr amount','debit amount'],
+  credit:['credit','deposit','deposit amt','deposit amount','cr amount','credit amount'],
+  amount:['amount','amt','transaction amount']
+};
+const IMP_HOLD_HINTS={
+  name:['scheme name','instrument','instrument name','security','security name','stock','fund name','name','particulars','loan account','account','holding'],
+  value:['current value','market value','value','outstanding','outstanding balance','principal outstanding','balance','amount']
+};
+const IMP_CAT_RULES=[
+  [/swiggy|zomato|restaurant|dine|eatery|food/i,'🍽️ Food'],
+  [/uber|ola|irctc|rapido|metro|petrol|fuel|parking/i,'🚌 Transport'],
+  [/grocer|bigbasket|dmart|reliance fresh|blinkit|zepto|instamart/i,'🛒 Groceries'],
+  [/pharmacy|hospital|clinic|medical|apollo|health/i,'💊 Health'],
+  [/netflix|prime video|hotstar|spotify|bookmyshow|pvr|inox/i,'🎮 Entertainment'],
+  [/amazon|flipkart|myntra|ajio|mall|shopping/i,'👗 Shopping'],
+  [/electricity|recharge|broadband|airtel|jio|vi\b|dth|bill/i,'📱 Bills'],
+  [/school|college|tuition|udemy|coursera|education/i,'🎓 Education'],
+  [/rent|maintenance|society|landlord/i,'🏠 Home']
+];
+const IMP_TYPE_RULES=[
+  [/mutual fund|\bmf\b|sip/i,'mf'],[/\bnps\b/i,'nps'],[/\bppf\b/i,'ppf'],[/\bepf\b/i,'epf'],
+  [/sovereign gold|\bsgb\b/i,'sgb'],[/gold/i,'gold'],[/equity|share|stock/i,'equity'],
+  [/property|real estate|flat|apartment/i,'realestate'],[/crypto|bitcoin|ethereum/i,'crypto'],
+  [/loan|emi|overdraft|credit card outstanding/i,'loan'],[/fixed deposit|\bfd\b/i,'fd'],[/insurance|policy/i,'insurance']
+];
+
+function openStatementImport(mode){
+  IMP={mode:mode,headers:[],rows:[],mapping:{},parsed:[],currency:S.displayCur};
+  document.getElementById('stmt-title').textContent=mode==='bank'
+    ?(lang==='ta'?'வங்கி அறிக்கை இறக்குமதி':'Import Bank Statement')
+    :(lang==='ta'?'முதலீடு / கடன் அறிக்கை இறக்குமதி':'Import Investment / Loan Statement');
+  document.getElementById('stmt-paste').value='';
+  document.getElementById('stmt-file').value='';
+  populateStmtCurrency();
+  setStmtMode(mode);
+  stmtGoStep(1);
+  document.getElementById('modal-stmt').classList.add('open');
+}
+function populateStmtCurrency(){
+  const sel=document.getElementById('stmt-currency');
+  sel.innerHTML=S.currencies.map(c=>`<option value="${c}" ${c===S.displayCur?'selected':''}>${c} ${FFLAGS[c]||''}</option>`).join('');
+}
+function addStmtCur(){
+  const inp=document.getElementById('stmt-cur-add-inp');
+  const code=inp.value.trim().toUpperCase().slice(0,5);
+  if(!code)return;
+  if(!S.currencies.includes(code)){S.currencies.push(code);save();}
+  populateStmtCurrency();
+  document.getElementById('stmt-currency').value=code;
+  inp.value='';
+}
+function setStmtMode(mode){
+  IMP.mode=mode;
+  document.getElementById('stmt-mode-bank').classList.toggle('active',mode==='bank');
+  document.getElementById('stmt-mode-holdings').classList.toggle('active',mode==='holdings');
+  document.getElementById('stmt-hint').innerHTML=mode==='bank'
+    ?"Most banks let you download statements as CSV/Excel from netbanking (Account → Statements). If yours only offers PDF, open it and copy-paste the transaction table here."
+    :"For Zerodha, use Console → Portfolio → Holdings → Download. For a UK pension like People's Pension, use its statement/valuation export or copy the balance table. Set the currency above to match — INR for Zerodha, GBP for a UK pension.";
+}
+function stmtGoStep(n){
+  [1,2,3].forEach(i=>{
+    document.getElementById('stmt-step'+i).style.display=i===n?'':'none';
+    document.getElementById('imp-step-'+i).classList.toggle('done',i<=n);
+  });
+}
+
+// ── CSV/TSV parsing (handles quoted fields, commas/tabs/semicolons) ──
+function parseDelimited(text){
+  text=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim();
+  if(!text)return{headers:[],rows:[]};
+  const firstLine=text.split('\n')[0];
+  const counts={',':(firstLine.match(/,/g)||[]).length,'\t':(firstLine.match(/\t/g)||[]).length,';':(firstLine.match(/;/g)||[]).length};
+  const delim=Object.keys(counts).reduce((a,b)=>counts[b]>counts[a]?b:a,',');
+  const lines=[];
+  let cur='',row=[],inQuotes=false;
+  for(let li=0;li<text.length;li++){
+    const ch=text[li],next=text[li+1];
+    if(inQuotes){
+      if(ch==='"'&&next==='"'){cur+='"';li++;}
+      else if(ch==='"'){inQuotes=false;}
+      else cur+=ch;
+    }else{
+      if(ch==='"')inQuotes=true;
+      else if(ch===delim){row.push(cur);cur='';}
+      else if(ch==='\n'){row.push(cur);lines.push(row);row=[];cur='';}
+      else cur+=ch;
+    }
+  }
+  row.push(cur);lines.push(row);
+  const cleaned=lines.map(r=>r.map(c=>c.trim())).filter(r=>r.some(c=>c!==''));
+  if(!cleaned.length)return{headers:[],rows:[]};
+  return{headers:cleaned[0],rows:cleaned.slice(1)};
+}
+function parseStmtInput(){
+  const file=document.getElementById('stmt-file').files[0];
+  if(file){handleStmtFile(document.getElementById('stmt-file'));return;}
+  const text=document.getElementById('stmt-paste').value;
+  if(!text.trim()){showToast(lang==='ta'?'கோப்பை பதிவேற்றவும் அல்லது ஒட்டவும்':'Upload a file or paste some rows first','error');return;}
+  onStmtText(text);
+}
+function handleStmtFile(input){
+  const f=input.files[0];
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>onStmtText(e.target.result);
+  r.onerror=()=>showToast(lang==='ta'?'கோப்பைப் படிக்க முடியவில்லை':'Could not read file','error');
+  r.readAsText(f);
+}
+function onStmtText(text){
+  const{headers,rows}=parseDelimited(text);
+  if(!headers.length||!rows.length){
+    showToast(lang==='ta'?'படிக்கக்கூடிய அட்டவணை தரவு கிடைக்கவில்லை':'Could not find readable table data — make sure the first row is column headers','error');
+    return;
+  }
+  if(rows.length>2000){
+    showToast(lang==='ta'?'ஒரே நேரத்தில் அதிகபட்சம் 2000 வரிகள்':'Please import up to 2000 rows at a time','error');
+    return;
+  }
+  IMP.currency=document.getElementById('stmt-currency').value||S.displayCur;
+  IMP.headers=headers;IMP.rows=rows;
+  renderStmtMapping();
+  document.getElementById('stmt-rowcount').textContent=`(${rows.length} ${lang==='ta'?'வரிகள் கண்டறியப்பட்டன':'rows found'})`;
+  stmtGoStep(2);
+}
+function guessCol(hints,headers){
+  const lower=headers.map(h=>h.toLowerCase());
+  for(const hint of hints){
+    const idx=lower.findIndex(h=>h===hint);
+    if(idx>=0)return idx;
+  }
+  for(const hint of hints){
+    const idx=lower.findIndex(h=>h.includes(hint));
+    if(idx>=0)return idx;
+  }
+  return -1;
+}
+function colSelect(id,headers,guessIdx){
+  const opts=['<option value="-1">— '+(lang==='ta'?'இல்லை':'none')+' —</option>']
+    .concat(headers.map((h,i)=>`<option value="${i}" ${i===guessIdx?'selected':''}>${escapeHtml(h)}</option>`));
+  return `<select class="form-sel" id="${id}">${opts.join('')}</select>`;
+}
+function renderStmtMapping(){
+  const el=document.getElementById('stmt-map-fields');
+  if(IMP.mode==='bank'){
+    const g={date:guessCol(IMP_BANK_HINTS.date,IMP.headers),desc:guessCol(IMP_BANK_HINTS.desc,IMP.headers),
+      debit:guessCol(IMP_BANK_HINTS.debit,IMP.headers),credit:guessCol(IMP_BANK_HINTS.credit,IMP.headers),
+      amount:guessCol(IMP_BANK_HINTS.amount,IMP.headers)};
+    el.innerHTML=`
+      <div class="imp-map-row"><label>${lang==='ta'?'தேதி':'Date'}</label>${colSelect('map-date',IMP.headers,g.date)}</div>
+      <div class="imp-map-row"><label>${lang==='ta'?'விவரம்':'Description'}</label>${colSelect('map-desc',IMP.headers,g.desc)}</div>
+      <div class="imp-map-row"><label>${lang==='ta'?'எடுப்பு (செலவு)':'Withdrawal / Debit'}</label>${colSelect('map-debit',IMP.headers,g.debit)}</div>
+      <div class="imp-map-row"><label>${lang==='ta'?'செலுத்துகை (வருமானம்)':'Deposit / Credit'}</label>${colSelect('map-credit',IMP.headers,g.credit)}</div>
+      <div class="info-box">${lang==='ta'?'உங்கள் அறிக்கையில் ஒரே "தொகை" நெடுவரிசை மட்டும் இருந்தால், அதை எடுப்பு நெடுவரிசையில் தேர்ந்தெடுக்கவும் — அடுத்த பக்கத்தில் ஒவ்வொரு வரியையும் வருமானம்/செலவு என மாற்றலாம்.':'If your statement has a single combined "Amount" column instead of separate Debit/Credit, map it to Withdrawal here — you can flip individual rows to Income on the next screen.'}</div>`;
+  }else{
+    const g={name:guessCol(IMP_HOLD_HINTS.name,IMP.headers),value:guessCol(IMP_HOLD_HINTS.value,IMP.headers)};
+    el.innerHTML=`
+      <div class="imp-map-row"><label>${lang==='ta'?'பெயர்':'Name'}</label>${colSelect('map-name',IMP.headers,g.name)}</div>
+      <div class="imp-map-row"><label>${lang==='ta'?'மதிப்பு':'Current Value / Outstanding'}</label>${colSelect('map-value',IMP.headers,g.value)}</div>`;
+  }
+}
+function parseAmount(s){
+  if(s==null)return NaN;
+  const cleaned=String(s).replace(/[₹$,\s]/g,'').replace(/^\((.*)\)$/,'-$1');
+  const v=parseFloat(cleaned);
+  return isNaN(v)?NaN:v;
+}
+function parseStmtDate(s){
+  if(!s)return'';
+  s=String(s).trim();
+  let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if(m)return`${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
+  m=s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/);
+  if(m){let[,d,mo,y]=m;if(y.length===2)y='20'+y;return`${y}-${mo.padStart(2,'0')}-${d.padStart(2,'0')}`;}
+  const d=new Date(s);
+  if(!isNaN(d.getTime()))return d.toISOString().slice(0,10);
+  return'';
+}
+function guessCategory(desc){
+  for(const[re,cat]of IMP_CAT_RULES)if(re.test(desc))return cat;
+  return'💰 Other';
+}
+function guessAssetType(name){
+  for(const[re,type]of IMP_TYPE_RULES)if(re.test(name))return type;
+  return'other';
+}
+function buildStmtPreview(){
+  IMP.parsed=[];
+  if(IMP.mode==='bank'){
+    const dateIdx=+document.getElementById('map-date').value,descIdx=+document.getElementById('map-desc').value,
+      debitIdx=+document.getElementById('map-debit').value,creditIdx=+document.getElementById('map-credit').value;
+    if(dateIdx<0||descIdx<0||(debitIdx<0&&creditIdx<0)){
+      showToast(lang==='ta'?'தேதி, விவரம் மற்றும் குறைந்தது ஒரு தொகை நெடுவரிசையைத் தேர்ந்தெடுக்கவும்':'Please map Date, Description, and at least one amount column','error');
+      return;
+    }
+    IMP.rows.forEach(r=>{
+      const date=parseStmtDate(r[dateIdx]);
+      const desc=(r[descIdx]||'').trim();
+      const debit=debitIdx>=0?parseAmount(r[debitIdx]):NaN;
+      const credit=creditIdx>=0?parseAmount(r[creditIdx]):NaN;
+      if(!date||!desc)return;
+      if(!isNaN(debit)&&debit>0)IMP.parsed.push({kind:'expense',date,name:desc,amount:debit,category:guessCategory(desc),include:true});
+      else if(!isNaN(credit)&&credit>0)IMP.parsed.push({kind:'income',date,name:desc,amount:credit,include:true});
+    });
+    IMP.parsed.forEach(row=>{
+      if(row.kind==='expense'){
+        row.dup=S.dailyExps.some(e=>e.date===row.date&&e.name.trim().toLowerCase()===row.name.toLowerCase()&&e.currency===IMP.currency&&Math.abs(e.amount-row.amount)<0.01);
+      }else{
+        const month=row.date.slice(0,7);
+        row.dup=S.incomes.some(x=>x.month===month&&x.name.trim().toLowerCase()===row.name.toLowerCase()&&x.currency===IMP.currency&&Math.abs(x.amount-row.amount)<0.01);
+      }
+      row.include=!row.dup;
+    });
+  }else{
+    const nameIdx=+document.getElementById('map-name').value,valueIdx=+document.getElementById('map-value').value;
+    if(nameIdx<0||valueIdx<0){
+      showToast(lang==='ta'?'பெயர் மற்றும் மதிப்பு நெடுவரிசைகளைத் தேர்ந்தெடுக்கவும்':'Please map both Name and Value columns','error');
+      return;
+    }
+    IMP.rows.forEach(r=>{
+      const name=(r[nameIdx]||'').trim();
+      const value=parseAmount(r[valueIdx]);
+      if(!name||isNaN(value))return;
+      const existing=S.assets.find(a=>a.name.trim().toLowerCase()===name.toLowerCase());
+      IMP.parsed.push({kind:'asset',name,value:Math.abs(value),type:guessAssetType(name),include:true,
+        existingId:existing?existing.id:null,existingValue:existing?existing.value:null,existingCurrency:existing?existing.currency:null});
+    });
+  }
+  renderStmtPreview();
+  stmtGoStep(3);
+}
+function renderStmtPreview(){
+  const rows=IMP.parsed;
+  const tbl=document.getElementById('stmt-preview-table');
+  const summary=document.getElementById('stmt-preview-summary');
+  if(!rows.length){
+    tbl.innerHTML='';
+    summary.innerHTML=`<span>${lang==='ta'?'எந்த வரிகளும் கிடைக்கவில்லை. நெடுவரிசை மேப்பிங்கை சரிபார்க்கவும்.':'No usable rows found — double check the column mapping.'}</span>`;
+    document.getElementById('stmt-confirm-btn').disabled=true;
+    return;
+  }
+  document.getElementById('stmt-confirm-btn').disabled=false;
+  if(IMP.mode==='bank'){
+    const incCount=rows.filter(r=>r.kind==='income').length;
+    const expCount=rows.filter(r=>r.kind==='expense').length;
+    const dupCount=rows.filter(r=>r.dup).length;
+    summary.innerHTML=`<span><strong>${rows.length}</strong> ${lang==='ta'?'வரிகள்':'rows'}</span><span><strong>${incCount}</strong> ${lang==='ta'?'வருமானம்':'income'}</span><span><strong>${expCount}</strong> ${lang==='ta'?'செலவு':'expense'}</span><span>${lang==='ta'?'நாணயம்':'currency'}: <strong>${IMP.currency}</strong></span>${dupCount?`<span class="imp-dup">${dupCount} ${lang==='ta'?'ஏற்கனவே உள்ளன (தவிர்க்கப்பட்டது)':'already imported (unchecked)'}</span>`:''}`;
+    tbl.innerHTML=`<thead><tr><th></th><th>${lang==='ta'?'தேதி':'Date'}</th><th>${lang==='ta'?'விவரம்':'Description'}</th><th>${lang==='ta'?'வகை':'Type'}</th><th>${lang==='ta'?'வகைப்பாடு':'Category'}</th><th>${lang==='ta'?'தொகை':'Amount'}</th></tr></thead>
+      <tbody>${rows.map((r,i)=>`<tr style="${r.dup?'opacity:.5':''}">
+        <td><input type="checkbox" ${r.include?'checked':''} onchange="IMP.parsed[${i}].include=this.checked"></td>
+        <td>${escapeHtml(r.date)}</td>
+        <td>${escapeHtml(r.name)}${r.dup?'<div class="imp-dup">'+(lang==='ta'?'நகல்':'duplicate')+'</div>':''}</td>
+        <td>
+          <select class="form-sel" style="padding:4px 8px;font-size:12px" onchange="IMP.parsed[${i}].kind=this.value">
+            <option value="expense" ${r.kind==='expense'?'selected':''}>${lang==='ta'?'செலவு':'Expense'}</option>
+            <option value="income" ${r.kind==='income'?'selected':''}>${lang==='ta'?'வருமானம்':'Income'}</option>
+          </select>
+        </td>
+        <td>${r.kind==='expense'?`<select class="form-sel" style="padding:4px 8px;font-size:12px" onchange="IMP.parsed[${i}].category=this.value">${['🍽️ Food','🚌 Transport','🛒 Groceries','💊 Health','🎮 Entertainment','👗 Shopping','📱 Bills','🎓 Education','🏠 Home','💰 Other'].map(c=>`<option ${r.category===c?'selected':''}>${c}</option>`).join('')}</select>`:'—'}</td>
+        <td>${fmt(r.amount,IMP.currency)}</td>
+      </tr>`).join('')}</tbody>`;
+  }else{
+    const newCount=rows.filter(r=>!r.existingId).length;
+    const updCount=rows.filter(r=>r.existingId).length;
+    summary.innerHTML=`<span><strong>${rows.length}</strong> ${lang==='ta'?'வரிகள்':'rows'}</span><span><strong>${newCount}</strong> ${lang==='ta'?'புதியவை':'new'}</span>${updCount?`<span><strong>${updCount}</strong> ${lang==='ta'?'புதுப்பிக்கப்படும்':'will update existing'}</span>`:''}<span>${lang==='ta'?'நாணயம்':'currency'}: <strong>${IMP.currency}</strong></span>`;
+    tbl.innerHTML=`<thead><tr><th></th><th>${lang==='ta'?'பெயர்':'Name'}</th><th>${lang==='ta'?'வகை':'Type'}</th><th>${lang==='ta'?'மதிப்பு':'Value'}</th><th></th></tr></thead>
+      <tbody>${rows.map((r,i)=>`<tr>
+        <td><input type="checkbox" ${r.include?'checked':''} onchange="IMP.parsed[${i}].include=this.checked"></td>
+        <td>${escapeHtml(r.name)}${r.existingId?`<div class="imp-dup">${lang==='ta'?'இருப்பதை புதுப்பிக்கும்':'updates existing holding'}</div>`:''}</td>
+        <td>
+          <select class="form-sel" style="padding:4px 8px;font-size:12px" onchange="IMP.parsed[${i}].type=this.value">
+            ${Object.entries(TYPE_LABELS).map(([k,v])=>`<option value="${k}" ${r.type===k?'selected':''}>${v}</option>`).join('')}
+          </select>
+        </td>
+        <td>${r.existingId&&(r.existingCurrency!==IMP.currency||Math.abs(r.existingValue-r.value)>0.01)?`<span style="text-decoration:line-through;color:var(--muted)">${fmt(r.existingValue,r.existingCurrency||IMP.currency)}</span> → `:''}${fmt(r.value,IMP.currency)}</td>
+        <td></td>
+      </tr>`).join('')}</tbody>`;
+  }
+}
+function confirmStmtImport(){
+  const selected=IMP.parsed.filter(r=>r.include);
+  if(!selected.length){
+    showToast(lang==='ta'?'இறக்குமதி செய்ய எதுவும் தேர்ந்தெடுக்கப்படவில்லை':'Nothing selected to import','error');
+    return;
+  }
+  if(IMP.mode==='bank'){
+    selected.forEach(r=>{
+      if(r.kind==='expense'){
+        S.dailyExps.push({id:uid(),name:r.name,amount:r.amount,currency:IMP.currency,category:r.category,date:r.date,notes:'Imported from bank statement'});
+      }else{
+        S.incomes.push({id:uid(),name:r.name,amount:r.amount,currency:IMP.currency,source:'Bank statement import',month:r.date.slice(0,7)});
+      }
+    });
+  }else{
+    selected.forEach(r=>{
+      if(r.existingId){
+        const idx=S.assets.findIndex(a=>a.id===r.existingId);
+        if(idx>=0){S.assets[idx]={...S.assets[idx],value:r.value,currency:IMP.currency,type:r.type};return;}
+      }
+      S.assets.push({id:uid(),name:r.name,value:r.value,type:r.type,currency:IMP.currency,inst:'',notes:'Imported statement',date:new Date().toISOString()});
+    });
+  }
+  save();
+  closeModal('modal-stmt');
+  showToast(`${selected.length} ${lang==='ta'?'இறக்குமதி செய்யப்பட்டது ✓':'imported ✓'}`,'success');
+  renderDashboard();
+  if(currentPage==='daily')renderDaily();
+  if(currentPage==='income')renderIncome();
+  if(currentPage==='assets')renderAssets();
+  if(currentPage==='calendar')renderCalendar();
+  if(currentPage==='notifications')renderNotifications();
+}
+
+function clearAll(){if(!confirm(t('confirm_clear')))return;S.assets=[];S.incomes=[];S.fixedExps=[];S.dailyExps=[];S.goals=[];S.snapshots=[];save();renderDashboard();showToast(t('toast_cleared'),'success');}
+
+
+
+// ── MODAL / TOAST ──
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeModal(o.id);}));
+function showToast(msg,type){const t=document.getElementById('toast');const icons={success:'✓ ',error:'✕ ',warn:'⚠ '};t.textContent=(icons[type]||'✕ ')+msg;t.className='toast show '+(type||'');const dur=type==='warn'?6000:3000;setTimeout(()=>{t.className='toast';},dur);}
+
+// ── LANGUAGE / i18n ──
+let lang = localStorage.getItem('selvam_lang') || 'en';
+
+const T = {
+  en: {
+    // Sidebar
+    nav_overview: 'Overview', nav_dashboard: 'Dashboard', nav_calendar: 'Calendar', nav_notifications: 'Notifications',
+    cal_title: 'Calendar', cal_sub: "Your daily spending at a glance",
+    notif_title: 'Notifications', notif_sub: 'Things that need your attention',
+    nav_money: 'Money Flow', nav_income: 'Income', nav_expenses: 'Expenses', nav_daily: 'Daily Tracker',
+    nav_assets_section: 'Assets', nav_assets: 'Portfolio', nav_equity: 'Equity & MF',
+    nav_epf: 'EPF / PPF / NPS', nav_realestate: 'Real Estate', nav_gold: 'Gold & SGBs',
+    nav_insurance: 'Insurance', nav_loans: 'Liabilities',
+    nav_planning: 'Planning', nav_goals: 'Goals', nav_essentials: 'Essentials Check',
+    nav_advisor: 'Advisor', nav_account: 'Account', nav_profile: 'Profile',
+    nav_currency: 'Currency',
+    // Advisor
+    advisor_title: 'Advisor', advisor_sub: 'Your personal wealth check-up',
+    // Dashboard
+    dash_greeting: 'Wealth 🌿', dash_share: 'Share', dash_add_asset: '+ Add Asset',
+    dash_nw_label: 'Net Worth — நிகர செல்வம்',
+    dash_assets_lbl: 'Assets', dash_liab_lbl: 'Liabilities', dash_sr_lbl: 'Savings Rate',
+    dash_this_month: 'This Month', dash_details: 'Details →',
+    dash_recent: 'Recent Assets', dash_view_all: 'View all →',
+    dash_bank: 'Bank & FD', dash_equity: 'Equity & MF', dash_realestate: 'Real Estate', dash_spend: 'Monthly Spend',
+    dash_accounts: 'accounts', dash_holdings: 'holdings', dash_properties: 'properties', dash_entries: 'entries',
+    dash_income_lbl: 'Income', dash_expenses_lbl: 'Expenses', dash_sr_this: 'This month',
+    // Net Worth
+    nw_snapshot: 'Snapshot', nw_total: 'Total Net Worth',
+    nw_items: 'items', nw_loans: 'loans', nw_true: 'True wealth',
+    // Income
+    inc_title: 'Income', inc_sub: 'Salary, freelance & other income',
+    inc_add: '+ Add Income', inc_sources: 'Income Sources',
+    inc_label: 'Income', inc_exp_lbl: 'Expenses', inc_balance: 'Balance',
+    inc_sources_lbl: 'sources', inc_fixdaily: 'Fixed + Daily', inc_sr: 'Savings rate:',
+    // Expenses
+    exp_title: 'Expenses', exp_sub: 'Fixed & recurring monthly expenses',
+    exp_add: '+ Add Expense', exp_total: 'Total Expenses', exp_fixed: 'Fixed', exp_daily: 'Daily',
+    exp_items: 'items', exp_fixed_title: 'Fixed Expenses', exp_daily_title: 'Daily Expenses This Month',
+    // Daily
+    daily_title: 'Daily Tracker', daily_sub: 'Every spend — auto-counted in monthly',
+    daily_add: '+ Add', daily_search: 'Search…',
+    // Assets
+    assets_title: 'Portfolio', assets_add: '+ Add Asset', assets_search: 'Search…',
+    // Goals
+    goals_title: 'Goals — இலக்குகள்', goals_sub: 'Track your financial milestones',
+    goals_add: '+ Add Goal', goals_saved: 'saved', goals_target: 'Target:', goals_need: 'Still need:',
+    goals_update: 'Update', goals_empty: 'No goals yet', goals_empty_sub: 'Set your first financial goal',
+    // Essentials
+    ess_title: 'Essentials Check', ess_sub: 'Are your financial basics covered?',
+    ess_renewals: 'Insurance Renewals', ess_no_renewal: 'No insurance renewals due in the next 30 days 🎉',
+    ess_health: '🏥 Health Insurance', ess_term: '🛡️ Term Insurance', ess_emergency: '🆘 Emergency Fund',
+    ess_debt: '📉 Debt Load', ess_retirement: '🏛️ Retirement Savings',
+    ess_rec_health: 'Recommended: ₹5L+ per person', ess_rec_term: 'Recommended: 10× annual income', ess_rec_em: 'Recommended: 6 months expenses',
+    ess_rec_debt: 'Recommended: keep liabilities under 20% of assets', ess_rec_retirement: 'Recommended: contribute regularly to EPF, PPF or NPS',
+    ess_no_health: 'No health insurance found', ess_no_term: 'No term insurance found',
+    ess_no_debt: 'No liabilities tracked', ess_debt_ratio_lbl: 'of assets are liabilities',
+    ess_no_retirement: 'No EPF, PPF or NPS holdings found',
+    ess_covered: '✓ Covered', ess_under: '⚠ Under-covered', ess_not: '✕ Not covered',
+    ess_full: '✓ Fully covered', ess_partial: '⚠ Partial',
+    ess_healthy: '✓ Healthy', ess_elevated: '⚠ Elevated', ess_high: '✕ High',
+    ess_started: '✓ Started', ess_retirement_saved: 'saved',
+    ess_score: 'essentials covered', ess_all_good: 'All essentials covered — nice work!',
+    // Snapshots
+    snap_take: 'Take Snapshot', snap_empty: 'No snapshots yet', snap_empty_sub: 'Take your first snapshot to track growth over time',
+    snap_first: 'First snapshot', snap_assets: 'assets',
+    // Profile
+    prof_title: 'Profile', prof_sub: 'Your account & data',
+    prof_name: 'Name', prof_email: 'Email', prof_income: 'Monthly Income (approx)', prof_cur: 'Base Currency',
+    prof_data: 'Backup & Restore', prof_export_json: 'Download backup (JSON)',
+    prof_export_txt: 'Export summary report', prof_import: 'Restore from backup', prof_clear: 'Clear all data',
+    prof_age: 'Age', prof_risk: 'Risk Tolerance',
+    // Modals
+    modal_add_asset: 'Add Asset', modal_edit_asset: 'Edit Asset', modal_asset_class: 'Asset Class',
+    modal_name: 'Name / Label', modal_inst: 'Institution', modal_value: 'Current Value', modal_currency: 'Currency',
+    modal_notes: 'Notes', modal_cancel: 'Cancel', modal_save: 'Save Asset', modal_update: 'Update',
+    modal_add_income: 'Add Income', modal_inc_label: 'Label', modal_inc_source: 'Source',
+    modal_inc_amount: 'Amount', modal_inc_month: 'Month', modal_save_income: 'Save Income',
+    modal_add_fexp: 'Add Fixed Expense', modal_fexp_desc: 'Description', modal_fexp_cat: 'Category',
+    modal_add_daily: 'Add Daily Expense', modal_edit_daily: 'Edit Expense',
+    modal_d_desc: 'Description', modal_d_cat: 'Category', modal_d_amount: 'Amount',
+    modal_d_date: 'Date', modal_d_notes: 'Notes',
+    modal_add_goal: 'Add Goal — இலக்கு', modal_g_name: 'Goal Name', modal_g_cat: 'Category',
+    modal_g_target: 'Target Amount', modal_g_current: 'Current Saved',
+    modal_g_date: 'Target Date', modal_save_goal: 'Save Goal',
+    modal_share: 'Share / Export', share_copy: 'Copy to Clipboard', share_copy_sub: 'Text summary of your wealth',
+    share_json: 'Download JSON Backup', share_json_sub: 'Full data export',
+    share_txt: 'Export Text Report', share_txt_sub: 'Printable summary',
+    share_email: 'Email Report', share_email_sub: 'Open in mail client',
+    modal_close: 'Close',
+    // Asset type labels
+    at_bank:'Bank/FD', at_equity:'Equity', at_mf:'Mutual Funds', at_epf:'EPF', at_ppf:'PPF',
+    at_nps:'NPS', at_sgb:'SGB/Gold Bonds', at_gold:'Gold', at_realestate:'Real Estate',
+    at_vehicle:'Vehicle', at_crypto:'Crypto', at_insurance:'Insurance', at_loan:'Liabilities', at_other:'Other',
+    // Table headers
+    th_asset:'Asset', th_type:'Type', th_value:'Value', th_details:'Details', th_actions:'Actions',
+    th_label:'Label', th_source:'Source', th_amount:'Amount', th_category:'Category',
+    // Misc
+    toast_copied:'Copied ✓', toast_exported:'Exported ✓', toast_imported:'Imported ✓',
+    toast_saved:'Saved ✓', toast_deleted:'Deleted', toast_cleared:'Cleared',
+    toast_snapshot:'Snapshot saved! 📸', toast_goal_updated:'Goal updated ✓',
+    no_assets:'No assets yet', no_assets_sub:'Add your first asset to start tracking',
+    no_income:'No income added for this month', no_expenses:'No fixed expenses', no_daily:'No expenses found',
+    confirm_delete:'Delete this asset?', confirm_clear:'Delete ALL data permanently?', confirm_del_daily:'Delete?',
+    prompt_goal:'Current amount saved:',
+    this_month:'This month', items_tracked:'assets tracked',
+    set_income_profile:'Set monthly income in Profile',
+    renewal_due:'renewal due', premium:'Premium',
+    savings_rate:'Savings Rate', income_lbl:'Income', expenses_lbl_s:'Expenses',
+    from_prev:'from prev', first_snap:'First snapshot',
+  },
+  ta: {
+    // Sidebar
+    nav_overview: 'கண்ணோட்டம்', nav_dashboard: 'முகப்பு', nav_calendar: 'நாட்காட்டி', nav_notifications: 'அறிவிப்புகள்',
+    cal_title: 'நாட்காட்டி', cal_sub: 'உங்கள் தினசரி செலவு ஒரே பார்வையில்',
+    notif_title: 'அறிவிப்புகள்', notif_sub: 'கவனம் தேவைப்படும் விஷயங்கள்',
+    nav_money: 'பண ஓட்டம்', nav_income: 'வருமானம்', nav_expenses: 'செலவுகள்', nav_daily: 'தினசரி கணக்கு',
+    nav_assets_section: 'சொத்துக்கள்', nav_assets: 'போர்ட்ஃபோலியோ', nav_equity: 'பங்கு & MF',
+    nav_epf: 'EPF / PPF / NPS', nav_realestate: 'நிலம் & வீடு', nav_gold: 'தங்கம் & SGB',
+    nav_insurance: 'காப்பீடு', nav_loans: 'கடன்கள்',
+    nav_planning: 'திட்டமிடல்', nav_goals: 'இலக்குகள்', nav_essentials: 'அவசியங்கள் சரிபார்',
+    nav_advisor: 'ஆலோசகர்', nav_account: 'கணக்கு', nav_profile: 'சுயவிவரம்',
+    nav_currency: 'நாணயம்',
+    // Advisor
+    advisor_title: 'ஆலோசகர்', advisor_sub: 'உங்கள் தனிப்பட்ட நிதி பரிசோதனை',
+    // Dashboard
+    dash_greeting: 'செல்வம் 🌿', dash_share: 'பகிர்', dash_add_asset: '+ சொத்து சேர்',
+    dash_nw_label: 'நிகர செல்வம்',
+    dash_assets_lbl: 'சொத்துக்கள்', dash_liab_lbl: 'கடன்கள்', dash_sr_lbl: 'சேமிப்பு விகிதம்',
+    dash_this_month: 'இந்த மாதம்', dash_details: 'விவரங்கள் →',
+    dash_recent: 'சமீபத்திய சொத்துக்கள்', dash_view_all: 'அனைத்தும் காண →',
+    dash_bank: 'வங்கி & FD', dash_equity: 'பங்கு & MF', dash_realestate: 'நிலம் & வீடு', dash_spend: 'மாத செலவு',
+    dash_accounts: 'கணக்குகள்', dash_holdings: 'முதலீடுகள்', dash_properties: 'சொத்துக்கள்', dash_entries: 'பதிவுகள்',
+    dash_income_lbl: 'வருமானம்', dash_expenses_lbl: 'செலவுகள்', dash_sr_this: 'இந்த மாதம்',
+    // Net Worth
+    nw_snapshot: 'புகைப்படம்', nw_total: 'மொத்த நிகர செல்வம்',
+    nw_items: 'பொருட்கள்', nw_loans: 'கடன்கள்', nw_true: 'உண்மையான செல்வம்',
+    // Income
+    inc_title: 'வருமானம்', inc_sub: 'சம்பளம், ஃப்ரீலான்ஸ் & பிற வருமானம்',
+    inc_add: '+ வருமானம் சேர்', inc_sources: 'வருமான ஆதாரங்கள்',
+    inc_label: 'வருமானம்', inc_exp_lbl: 'செலவுகள்', inc_balance: 'இருப்பு',
+    inc_sources_lbl: 'ஆதாரங்கள்', inc_fixdaily: 'நிலையான + தினசரி', inc_sr: 'சேமிப்பு விகிதம்:',
+    // Expenses
+    exp_title: 'செலவுகள்', exp_sub: 'நிலையான மாதாந்திர செலவுகள்',
+    exp_add: '+ செலவு சேர்', exp_total: 'மொத்த செலவு', exp_fixed: 'நிலையான', exp_daily: 'தினசரி',
+    exp_items: 'பொருட்கள்', exp_fixed_title: 'நிலையான செலவுகள்', exp_daily_title: 'இந்த மாத தினசரி செலவுகள்',
+    // Daily
+    daily_title: 'தினசரி கணக்கு', daily_sub: 'ஒவ்வொரு செலவும் — மாதாந்திரத்தில் தானாக கணக்கிடப்படும்',
+    daily_add: '+ சேர்', daily_search: 'தேடு…',
+    // Assets
+    assets_title: 'போர்ட்ஃபோலியோ', assets_add: '+ சொத்து சேர்', assets_search: 'தேடு…',
+    // Goals
+    goals_title: 'இலக்குகள்', goals_sub: 'உங்கள் நிதி இலக்குகளை கண்காணிக்கவும்',
+    goals_add: '+ இலக்கு சேர்', goals_saved: 'சேமிக்கப்பட்டது', goals_target: 'இலக்கு:', goals_need: 'இன்னும் வேண்டும்:',
+    goals_update: 'புதுப்பி', goals_empty: 'இலக்குகள் இல்லை', goals_empty_sub: 'உங்கள் முதல் நிதி இலக்கை அமையுங்கள்',
+    // Essentials
+    ess_title: 'அவசியங்கள் சரிபார்', ess_sub: 'உங்கள் நிதி அடிப்படைகள் உள்ளனவா?',
+    ess_renewals: 'காப்பீடு புதுப்பிப்புகள்', ess_no_renewal: 'அடுத்த 30 நாட்களில் புதுப்பிக்க வேண்டிய காப்பீடு இல்லை 🎉',
+    ess_health: '🏥 மருத்துவ காப்பீடு', ess_term: '🛡️ டெர்ம் காப்பீடு', ess_emergency: '🆘 அவசர நிதி',
+    ess_debt: '📉 கடன் சுமை', ess_retirement: '🏛️ ஓய்வூதிய சேமிப்பு',
+    ess_rec_health: 'பரிந்துரை: ஒவ்வொருவருக்கும் ₹5L+', ess_rec_term: 'பரிந்துரை: ஆண்டு வருமானத்தின் 10 மடங்கு', ess_rec_em: 'பரிந்துரை: 6 மாத செலவுகள்',
+    ess_rec_debt: 'பரிந்துரை: சொத்துகளில் 20%க்கும் குறைவாக கடன் வைத்திருங்கள்', ess_rec_retirement: 'பரிந்துரை: EPF, PPF அல்லது NPSல் தொடர்ந்து பங்களியுங்கள்',
+    ess_no_health: 'மருத்துவ காப்பீடு இல்லை', ess_no_term: 'டெர்ம் காப்பீடு இல்லை',
+    ess_no_debt: 'கடன்கள் எதுவும் இல்லை', ess_debt_ratio_lbl: 'சொத்துகளில் கடன் விகிதம்',
+    ess_no_retirement: 'EPF, PPF அல்லது NPS இல்லை',
+    ess_covered: '✓ காப்பீட்டில் உள்ளது', ess_under: '⚠ போதுமான காப்பீடு இல்லை', ess_not: '✕ காப்பீடு இல்லை',
+    ess_full: '✓ முழுமையாக உள்ளது', ess_partial: '⚠ பகுதியளவு உள்ளது',
+    ess_healthy: '✓ ஆரோக்கியமானது', ess_elevated: '⚠ அதிகரித்துள்ளது', ess_high: '✕ அதிகம்',
+    ess_started: '✓ தொடங்கப்பட்டது', ess_retirement_saved: 'சேமிக்கப்பட்டது',
+    ess_score: 'அத்தியாவசியங்கள் முழுமையானவை', ess_all_good: 'அனைத்து அத்தியாவசியங்களும் முழுமை — சிறப்பு!',
+    // Snapshots
+    snap_take: 'புகைப்படம் எடு', snap_empty: 'புகைப்படங்கள் இல்லை', snap_empty_sub: 'வளர்ச்சியை கண்காணிக்க முதல் புகைப்படம் எடுங்கள்',
+    snap_first: 'முதல் புகைப்படம்', snap_assets: 'சொத்துக்கள்',
+    // Profile
+    prof_title: 'சுயவிவரம்', prof_sub: 'உங்கள் கணக்கு & தரவு',
+    prof_name: 'பெயர்', prof_email: 'மின்னஞ்சல்', prof_income: 'மாத வருமானம் (தோராயம்)', prof_cur: 'அடிப்படை நாணயம்',
+    prof_data: 'காப்பு & மீட்டமை', prof_export_json: 'காப்பு பதிவிறக்கு (JSON)',
+    prof_export_txt: 'சுருக்க அறிக்கை ஏற்றுமதி', prof_import: 'காப்பிலிருந்து மீட்டமை', prof_clear: 'அனைத்து தரவையும் நீக்கு',
+    prof_age: 'வயது', prof_risk: 'ஆபத்து சகிப்புத்தன்மை',
+    // Modals
+    modal_add_asset: 'சொத்து சேர்', modal_edit_asset: 'சொத்து திருத்து', modal_asset_class: 'சொத்து வகை',
+    modal_name: 'பெயர் / தலைப்பு', modal_inst: 'நிறுவனம்', modal_value: 'தற்போதைய மதிப்பு', modal_currency: 'நாணயம்',
+    modal_notes: 'குறிப்புகள்', modal_cancel: 'ரத்துசெய்', modal_save: 'சொத்து சேமி', modal_update: 'புதுப்பி',
+    modal_add_income: 'வருமானம் சேர்', modal_inc_label: 'தலைப்பு', modal_inc_source: 'ஆதாரம்',
+    modal_inc_amount: 'தொகை', modal_inc_month: 'மாதம்', modal_save_income: 'வருமானம் சேமி',
+    modal_add_fexp: 'நிலையான செலவு சேர்', modal_fexp_desc: 'விவரம்', modal_fexp_cat: 'வகை',
+    modal_add_daily: 'தினசரி செலவு சேர்', modal_edit_daily: 'செலவு திருத்து',
+    modal_d_desc: 'விவரம்', modal_d_cat: 'வகை', modal_d_amount: 'தொகை',
+    modal_d_date: 'தேதி', modal_d_notes: 'குறிப்பு',
+    modal_add_goal: 'இலக்கு சேர்', modal_g_name: 'இலக்கு பெயர்', modal_g_cat: 'வகை',
+    modal_g_target: 'இலக்கு தொகை', modal_g_current: 'தற்போது சேமித்தது',
+    modal_g_date: 'இலக்கு தேதி', modal_save_goal: 'இலக்கு சேமி',
+    modal_share: 'பகிர் / ஏற்றுமதி', share_copy: 'கிளிப்போர்டுக்கு நகலெடு', share_copy_sub: 'செல்வத்தின் உரை சுருக்கம்',
+    share_json: 'JSON காப்பு பதிவிறக்கு', share_json_sub: 'முழு தரவு ஏற்றுமதி',
+    share_txt: 'உரை அறிக்கை ஏற்றுமதி', share_txt_sub: 'அச்சிடக்கூடிய சுருக்கம்',
+    share_email: 'மின்னஞ்சல் அறிக்கை', share_email_sub: 'மின்னஞ்சல் கிளையண்டில் திற',
+    modal_close: 'மூடு',
+    // Asset type labels
+    at_bank:'வங்கி/FD', at_equity:'பங்கு', at_mf:'மியூச்சுவல் ஃபண்ட்', at_epf:'EPF', at_ppf:'PPF',
+    at_nps:'NPS', at_sgb:'SGB/தங்கப் பத்திரம்', at_gold:'தங்கம்', at_realestate:'நிலம் & வீடு',
+    at_vehicle:'வாகனம்', at_crypto:'கிரிப்டோ', at_insurance:'காப்பீடு', at_loan:'கடன்கள்', at_other:'மற்றவை',
+    // Table headers
+    th_asset:'சொத்து', th_type:'வகை', th_value:'மதிப்பு', th_details:'விவரங்கள்', th_actions:'செயல்கள்',
+    th_label:'தலைப்பு', th_source:'ஆதாரம்', th_amount:'தொகை', th_category:'வகை',
+    // Misc
+    toast_copied:'நகலெடுக்கப்பட்டது ✓', toast_exported:'ஏற்றுமதியானது ✓', toast_imported:'இறக்கப்பட்டது ✓',
+    toast_saved:'சேமிக்கப்பட்டது ✓', toast_deleted:'நீக்கப்பட்டது', toast_cleared:'அழிக்கப்பட்டது',
+    toast_snapshot:'புகைப்படம் சேமிக்கப்பட்டது! 📸', toast_goal_updated:'இலக்கு புதுப்பிக்கப்பட்டது ✓',
+    no_assets:'சொத்துக்கள் இல்லை', no_assets_sub:'கண்காணிக்க உங்கள் முதல் சொத்தை சேர்க்கவும்',
+    no_income:'இந்த மாதம் வருமானம் எதுவும் இல்லை', no_expenses:'நிலையான செலவுகள் இல்லை', no_daily:'செலவுகள் இல்லை',
+    confirm_delete:'இந்த சொத்தை நீக்கவா?', confirm_clear:'அனைத்து தரவையும் நிரந்தரமாக நீக்கவா?', confirm_del_daily:'நீக்கவா?',
+    prompt_goal:'தற்போது சேமித்த தொகை:',
+    this_month:'இந்த மாதம்', items_tracked:'சொத்துக்கள் கண்காணிக்கப்படுகின்றன',
+    set_income_profile:'சுயவிவரத்தில் மாத வருமானம் அமைக்கவும்',
+    renewal_due:'புதுப்பிக்க வேண்டிய தேதி', premium:'பிரீமியம்',
+    savings_rate:'சேமிப்பு விகிதம்', income_lbl:'வருமானம்', expenses_lbl_s:'செலவுகள்',
+    from_prev:'முந்தையதிலிருந்து', first_snap:'முதல் புகைப்படம்',
+  }
+};
+
+function t(key) { return T[lang][key] || T['en'][key] || key; }
+
+function toggleLang() {
+  lang = lang === 'en' ? 'ta' : 'en';
+  localStorage.setItem('selvam_lang', lang);
+  applyLang();
+  renderAll();
+}
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('selvam_lang', lang);
+  applyLang();
+  renderAll();
+}
+function updateSettingsUI() {
+  const enBtn=document.getElementById('lang-btn-en'), taBtn=document.getElementById('lang-btn-ta');
+  if(enBtn&&taBtn){ enBtn.classList.toggle('active', lang==='en'); taBtn.classList.toggle('active', lang==='ta'); }
+  const isDark = document.body.classList.contains('theme-dark');
+  const lightBtn=document.getElementById('theme-btn-light'), darkBtn=document.getElementById('theme-btn-dark');
+  if(lightBtn&&darkBtn){ lightBtn.classList.toggle('active', !isDark); darkBtn.classList.toggle('active', isDark); }
+}
+const ICON_SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+const ICON_MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>';
+const ICON_EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>';
+const ICON_EYE_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.8 21.8 0 0 1 5.06-6.06M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a21.8 21.8 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+function setTheme(mode) {
+  const dark = mode === 'dark';
+  document.body.classList.toggle('theme-dark', dark);
+  localStorage.setItem('selvam_theme', dark ? 'dark' : 'light');
+  const themeBtn=document.getElementById('theme-btn');
+  if(themeBtn) themeBtn.innerHTML = dark ? ICON_SUN : ICON_MOON;
+  updateSettingsUI();
+}
+function toggleTheme() {
+  setTheme(document.body.classList.contains('theme-dark') ? 'light' : 'dark');
+}
+function toggleHideBalance() {
+  const hidden = document.body.classList.toggle('hide-balance');
+  localStorage.setItem('selvam_hide_balance', hidden ? '1' : '0');
+  const btn=document.getElementById('hide-balance-btn');
+  if(btn) btn.innerHTML = hidden ? ICON_EYE_OFF : ICON_EYE;
+}
+function updateTopbarProfile() {
+  const av=document.getElementById('topbar-avatar'), nm=document.getElementById('topbar-username');
+  if(av) av.textContent = (S.profile.name||'ச')[0].toUpperCase();
+  if(nm) nm.textContent = S.profile.name || 'Profile';
+}
+
+function applyLang() {
+  updateSettingsUI();
+  // Logo sidebar text
+  const logoTag = document.getElementById('logo-tag');
+  if (logoTag) logoTag.textContent = lang === 'ta' ? 'உங்கள் செல்வம் — தெளிவாக' : 'Track your true wealth';
+
+  // Dashboard greeting title
+  const greetTitle = document.getElementById('dash-greeting-title');
+  if (greetTitle) greetTitle.textContent = lang === 'ta' ? 'செல்வம் 🌿' : 'Wealth 🌿';
+
+  // Update lang toggle button
+  const btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = lang === 'en' ? 'தமிழ் 🔁' : 'English 🔁';
+
+  // Static nav items
+  const navMap = {
+    'nav_overview': '.nav-section:nth-of-type(1)',
+  };
+
+  // Update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = t(key);
+    if (el.tagName === 'INPUT') el.placeholder = val;
+    else el.textContent = val;
+  });
+
+  // Update page titles and subtitles dynamically via re-render
+  // Static labels in HTML that need updating:
+  const statics = [
+    // [selector, key]
+    ['#page-calendar .page-title', 'cal_title'],
+    ['#page-calendar .page-sub', 'cal_sub'],
+    ['#page-notifications .page-title', 'notif_title'],
+    ['#page-notifications .page-sub', 'notif_sub'],
+    ['#page-income .page-title', 'inc_title'],
+    ['#page-income .page-sub', 'inc_sub'],
+    ['#page-expenses .page-title', 'exp_title'],
+    ['#page-expenses .page-sub', 'exp_sub'],
+    ['#page-daily .page-title', 'daily_title'],
+    ['#page-daily .page-sub', 'daily_sub'],
+    ['#page-assets .page-title', 'assets_title'],
+    ['#page-goals .page-title', 'goals_title'],
+    ['#page-goals .page-sub', 'goals_sub'],
+    ['#page-essentials .page-title', 'ess_title'],
+    ['#page-essentials .page-sub', 'ess_sub'],
+    ['#page-advisor .page-title', 'advisor_title'],
+    ['#page-advisor .page-sub', 'advisor_sub'],
+    ['#page-profile .page-title', 'prof_title'],
+    ['#page-profile .page-sub', 'prof_sub'],
+  ];
+  statics.forEach(([sel, key]) => {
+    const el = document.querySelector(sel);
+    if (el) el.textContent = t(key);
+  });
+
+  // Nav items
+  const navItems = [
+    ['nav_overview',0], ['nav_money',1], ['nav_assets_section',2], ['nav_planning',3], ['nav_account',4]
+  ];
+  document.querySelectorAll('.nav-section').forEach((el, i) => {
+    const keys = ['nav_overview','nav_money','nav_assets_section','nav_planning','nav_account'];
+    if (keys[i]) el.textContent = t(keys[i]);
+  });
+
+  const navBtns = [
+    [0,'nav_dashboard'],[1,'nav_calendar'],[2,'nav_notifications'],[3,'nav_income'],[4,'nav_expenses'],[5,'nav_daily'],
+    [6,'nav_assets'],[7,'nav_goals'],[8,'nav_essentials'],
+    [9,'nav_advisor'],[10,'nav_profile']
+  ];
+  document.querySelectorAll('.nav-item').forEach((el, i) => {
+    const entry = navBtns[i];
+    if (entry) {
+      const span = el.querySelector('span:not(.nav-icon)');
+      if (span) span.textContent = t(entry[1]);
+    }
+  });
+
+  // Currency label
+  const curLbl = document.querySelector('.cur-label');
+  if (curLbl) curLbl.textContent = t('nav_currency');
+
+  // Header buttons
+  const hdrBtns = document.querySelectorAll('.hdr-actions .btn-outline');
+  hdrBtns.forEach(b => { if (b.textContent.includes('Share') || b.textContent.includes('பகிர்')) b.textContent = '⤴ ' + t('dash_share'); });
+  const greenBtns = document.querySelectorAll('.hdr-actions .btn-green');
+  greenBtns.forEach(b => {
+    const txt = b.textContent;
+    if (txt.includes('Add Asset') || txt.includes('சொத்து')) b.textContent = t('dash_add_asset');
+    else if (txt.includes('Income') || txt.includes('வருமானம்')) b.textContent = t('inc_add');
+    else if (txt.includes('Expense') || txt.includes('செலவு') && !txt.includes('Goal')) b.textContent = t('exp_add');
+    else if (txt.includes('Add') && (txt.includes('Daily') || txt.includes('தினசரி'))) b.textContent = t('daily_add');
+    else if (txt.includes('Goal') || txt.includes('இலக்கு')) b.textContent = t('goals_add');
+    else if (txt.includes('Snapshot') || txt.includes('புகைப்படம்')) b.textContent = t('snap_take');
+  });
+
+  // Modal labels
+  const modalLabels = {
+    'modal-asset': {'.modal-title':'modal_add_asset', '[for-key="asset-class"]':'modal_asset_class'},
+  };
+
+  // Profile labels
+  const pLabels = document.querySelectorAll('#page-profile .form-lbl:not(.settings-lbl)');
+  const pKeys = ['prof_name','prof_email','prof_income','prof_cur','prof_age','prof_risk'];
+  pLabels.forEach((el,i)=>{ if(pKeys[i]) el.textContent=t(pKeys[i]); });
+
+  const dmTitle = document.querySelector('#page-profile .profile-card:last-child > div');
+  if (dmTitle && !dmTitle.id) dmTitle.textContent = t('prof_data');
+
+  const dmBtns = document.querySelectorAll('#page-profile .btn');
+  if (dmBtns[0]) dmBtns[0].textContent = t('prof_export_json');
+  if (dmBtns[1]) dmBtns[1].textContent = t('prof_import');
+  if (dmBtns[2]) dmBtns[2].textContent = t('prof_export_txt');
+  if (dmBtns[3]) dmBtns[3].textContent = t('prof_clear');
+
+  // Search placeholders
+  const dSearch = document.getElementById('daily-search');
+  if (dSearch) dSearch.placeholder = t('daily_search');
+  const aSearch = document.getElementById('asset-search');
+  if (aSearch) aSearch.placeholder = t('assets_search');
+
+  // Snapshot button
+  const snapBtn = document.querySelector('#page-assets .card-header .btn-outline.btn-sm');
+  if (snapBtn) snapBtn.textContent = t('snap_take');
+
+  // NW snapshot btn
+  const nwSnapBtn = document.querySelector('#page-assets .btn-outline.btn-sm');
+  if (nwSnapBtn) nwSnapBtn.textContent = t('nw_snapshot');
+
+  // Share modal
+  const shareOpts = document.querySelectorAll('#modal-share .share-opt');
+  if (shareOpts[0]) { shareOpts[0].querySelector('.share-ttl').textContent = t('share_copy'); shareOpts[0].querySelector('.share-dsc').textContent = t('share_copy_sub'); }
+  if (shareOpts[1]) { shareOpts[1].querySelector('.share-ttl').textContent = t('share_json'); shareOpts[1].querySelector('.share-dsc').textContent = t('share_json_sub'); }
+  if (shareOpts[2]) { shareOpts[2].querySelector('.share-ttl').textContent = t('share_txt'); shareOpts[2].querySelector('.share-dsc').textContent = t('share_txt_sub'); }
+  if (shareOpts[3]) { shareOpts[3].querySelector('.share-ttl').textContent = t('share_email'); shareOpts[3].querySelector('.share-dsc').textContent = t('share_email_sub'); }
+  const shareTitle = document.querySelector('#modal-share .modal-title');
+  if (shareTitle) shareTitle.textContent = t('modal_share');
+  const shareClose = document.querySelector('#modal-share .btn-outline');
+  if (shareClose) shareClose.textContent = t('modal_close');
+
+  // Card titles in dashboard
+  const cardTitles = document.querySelectorAll('.card-title');
+  const cardKeys = ['Asset Allocation','This Month','Recent Assets','Income Sources','Fixed Expenses','Daily Expenses This Month','Asset Breakdown','All Assets & Liabilities','Insurance Renewals'];
+  const cardTaMap = {'Asset Allocation':'சொத்து பகிர்வு','This Month':'இந்த மாதம்','Recent Assets':'சமீபத்திய சொத்துக்கள்','Income Sources':'வருமான ஆதாரங்கள்','Fixed Expenses':'நிலையான செலவுகள்','Daily Expenses This Month':'இந்த மாத தினசரி செலவுகள்','Asset Breakdown':'சொத்து பிரிவு','All Assets & Liabilities':'அனைத்து சொத்துக்கள் & கடன்கள்','Insurance Renewals':'காப்பீடு புதுப்பிப்புகள்'};
+  cardTitles.forEach(el => {
+    const orig = el.getAttribute('data-orig') || el.textContent.trim();
+    el.setAttribute('data-orig', orig);
+    el.textContent = lang === 'ta' ? (cardTaMap[orig] || orig) : orig;
+  });
+
+  // Essentials page title/subtitle
+  const essTitleEl = document.querySelector('#page-essentials .card .card-title');
+  if (essTitleEl) { const orig = essTitleEl.getAttribute('data-orig') || essTitleEl.textContent.trim(); essTitleEl.setAttribute('data-orig',orig); essTitleEl.textContent = lang==='ta'?(cardTaMap[orig]||orig):orig; }
+
+  // "Details →" and "View all →" ghost buttons
+  document.querySelectorAll('.btn-ghost').forEach(b => {
+    const txt = b.textContent.trim();
+    if (txt.includes('Details') || txt.includes('விவரங்கள்')) b.textContent = t('dash_details');
+    if (txt.includes('View all') || txt.includes('அனைத்தும்')) b.textContent = t('dash_view_all');
+  });
+  TYPE_LABELS.bank = t('at_bank'); TYPE_LABELS.equity = t('at_equity');
+  TYPE_LABELS.mf = t('at_mf'); TYPE_LABELS.epf = 'EPF'; TYPE_LABELS.ppf = 'PPF';
+  TYPE_LABELS.nps = 'NPS'; TYPE_LABELS.sgb = t('at_sgb'); TYPE_LABELS.gold = t('at_gold');
+  TYPE_LABELS.realestate = t('at_realestate'); TYPE_LABELS.vehicle = t('at_vehicle');
+  TYPE_LABELS.crypto = t('at_crypto'); TYPE_LABELS.insurance = t('at_insurance');
+  TYPE_LABELS.loan = t('at_loan'); TYPE_LABELS.other = t('at_other');
+}
+
+// ── INIT ──
+if(localStorage.getItem('selvam_theme')==='dark'){document.body.classList.add('theme-dark');document.getElementById('theme-btn').innerHTML=ICON_SUN;}
+if(localStorage.getItem('selvam_hide_balance')==='1'){document.body.classList.add('hide-balance');document.getElementById('hide-balance-btn').innerHTML=ICON_EYE_OFF;}
+renderCurBtns();
+applyLang();
+renderDashboard();
+document.getElementById('dash-date').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+if(S.profile.name)updateProfileDisplay();
+updateTopbarProfile();
+checkBackupReminder();
+renderAutoBackupList();
+
+// ── PWA INSTALL SUPPORT ──
+// Registers the service worker (offline use + "Install app" prompt on
+// Windows/Chrome/Edge). Silently does nothing if opened as a plain file://
+// page, since service workers require http(s).
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
