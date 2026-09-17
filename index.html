@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="செல்வம்">
 <title>செல்வம் — உங்கள் செல்வம்</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -34,6 +34,26 @@
   --purple-light:#ede9fe;
   --accent:#16a34a;
   --accent2:#15803d;
+}
+body.theme-soft-blue{
+  --bg:#f7faff;
+  --bg2:#eef6ff;
+  --surface:#ffffff;
+  --surface2:#f8fbff;
+  --border:#dbeafe;
+  --border2:#c7dcf7;
+  --text:#14213d;
+  --text2:#1e3a67;
+  --muted:#667a99;
+  --muted2:#8394ad;
+  --green:#1683e8;
+  --green2:#2b95f5;
+  --green-light:#e8f3ff;
+  --green-dark:#1554a0;
+  --blue:#1683e8;
+  --blue-light:#e8f3ff;
+  --accent:#1683e8;
+  --accent2:#126bc2;
 }
 body.theme-dark{
   --bg:#10150f;
@@ -652,6 +672,174 @@ body.theme-dark .settings-tab.active{color:var(--green2)}
   .overlay{align-items:flex-end;padding:0}
   .overlay .modal{width:100%;max-width:100%;border-radius:18px 18px 0 0;max-height:92vh;margin:0}
 }
+
+/* Settings v2 — category-first layout */
+.settings-layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:20px;align-items:start}
+.settings-side-nav{position:sticky;top:18px;display:flex;flex-direction:column;gap:5px;padding:8px;background:var(--card);border:1px solid var(--border);border-radius:14px}
+.settings-side-item{width:100%;display:flex;align-items:center;gap:10px;text-align:left;border:0;background:transparent;color:var(--text2);padding:11px 10px;border-radius:10px;cursor:pointer}
+.settings-side-item>span{font-size:17px;width:24px;text-align:center}.settings-side-item div{min-width:0}.settings-side-item strong{display:block;font-size:12.5px}.settings-side-item small{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}.settings-side-item.active{background:var(--bg2);color:var(--text)}.settings-side-item:hover{background:var(--bg2)}
+.settings-content{min-width:0}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.setting-title{font-size:13px;font-weight:600;color:var(--text2)}.setting-desc{font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:3px;max-width:560px}.status-pill{font-size:10.5px;padding:5px 9px;border-radius:999px;background:var(--bg2);color:var(--muted);border:1px solid var(--border)}
+@media(max-width:820px){.settings-layout{grid-template-columns:1fr}.settings-side-nav{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.settings-side-item{padding:9px 8px}.settings-content{width:100%}}
+@media(max-width:520px){.settings-side-nav{grid-template-columns:1fr}.settings-side-item small{display:none}}
+
+/* Selvam Soft Blue theme — inspired by the clean, airy App Store palette */
+body.theme-soft-blue .sidebar{
+  box-shadow:2px 0 14px rgba(22,131,232,.07);
+}
+body.theme-soft-blue .logo-wrap{
+  background:linear-gradient(135deg,#0f9f9a 0%,#1683e8 100%);
+}
+body.theme-soft-blue .nav-item:hover,
+body.theme-soft-blue .nav-item.active{
+  color:#1677d2;
+}
+body.theme-soft-blue .nav-item.active{
+  background:#e8f3ff;
+}
+body.theme-soft-blue .settings-side-item.active{
+  background:#e8f3ff;
+  color:#1554a0;
+}
+body.theme-soft-blue .settings-side-item:hover{
+  background:#f1f7ff;
+}
+body.theme-soft-blue .profile-card,
+body.theme-soft-blue .settings-side-nav{
+  box-shadow:0 3px 14px rgba(35,91,150,.045);
+}
+body.theme-soft-blue .btn-green{
+  background:#1683e8;
+  border-color:#1683e8;
+}
+body.theme-soft-blue .btn-green:hover{
+  background:#126bc2;
+  border-color:#126bc2;
+}
+body.theme-soft-blue .cur-btn.active{
+  background:#e8f3ff;
+  border-color:#8ec5f7;
+  color:#1554a0;
+}
+body.theme-soft-blue .icon-btn:hover{
+  border-color:#1683e8;
+  background:#e8f3ff;
+}
+.theme-option-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.theme-option{
+  border:1px solid var(--border);background:var(--surface);border-radius:14px;padding:10px;cursor:pointer;text-align:left;transition:.15s;
+}
+.theme-option:hover{border-color:var(--border2);transform:translateY(-1px)}
+.theme-option.active{border-color:var(--green);box-shadow:0 0 0 2px var(--green-light)}
+.theme-preview{height:58px;border-radius:9px;border:1px solid var(--border);overflow:hidden;display:flex;gap:5px;padding:6px;margin-bottom:8px}
+.theme-preview-side{width:25%;border-radius:5px}
+.theme-preview-main{flex:1;border-radius:5px;padding:6px}
+.theme-preview-line{height:5px;border-radius:4px;margin-bottom:5px}
+.theme-preview.classic .theme-preview-side{background:linear-gradient(135deg,#14532d,#16a34a)}
+.theme-preview.classic .theme-preview-main{background:#fff}
+.theme-preview.classic .theme-preview-line{background:#dcfce7}
+.theme-preview.soft .theme-preview-side{background:linear-gradient(135deg,#0f9f9a,#1683e8)}
+.theme-preview.soft .theme-preview-main{background:#f7faff}
+.theme-preview.soft .theme-preview-line{background:#e8f3ff}
+.theme-preview.dark .theme-preview-side{background:#101d35}
+.theme-preview.dark .theme-preview-main{background:#1a2740}
+.theme-preview.dark .theme-preview-line{background:#263c5f}
+.theme-option-name{font-size:12px;font-weight:700;color:var(--text2)}
+.theme-option-desc{font-size:10px;color:var(--muted);line-height:1.4;margin-top:2px}
+@media(max-width:600px){.theme-option-grid{grid-template-columns:1fr}}
+
+/* Additional Selvam themes — inspired by familiar UK banking colour families,
+   without using bank logos or proprietary artwork. */
+body.theme-barclays{
+  --bg:#f5f8fc;
+  --bg2:#edf4fb;
+  --surface:#ffffff;
+  --surface2:#f8fbff;
+  --border:#d7e3f0;
+  --border2:#bfd2e6;
+  --text:#172033;
+  --text2:#0b2f57;
+  --muted:#65758a;
+  --muted2:#8795a7;
+  --green:#0072ac;
+  --green2:#0087c8;
+  --green-light:#e5f3fa;
+  --green-dark:#005a8a;
+  --blue:#0072ac;
+  --blue-light:#e5f3fa;
+  --accent:#0072ac;
+  --accent2:#005a8a;
+}
+body.theme-barclays .sidebar{box-shadow:2px 0 15px rgba(0,74,120,.06)}
+body.theme-barclays .nav-item.active,
+body.theme-barclays .settings-side-item.active{background:#e5f3fa;color:#005a8a}
+body.theme-barclays .nav-item:hover,
+body.theme-barclays .settings-side-item:hover{background:#f0f7fb}
+body.theme-barclays .btn-green{background:#0072ac;border-color:#0072ac}
+body.theme-barclays .btn-green:hover{background:#005a8a;border-color:#005a8a}
+
+body.theme-lloyds{
+  --bg:#f5f8f5;
+  --bg2:#edf5ef;
+  --surface:#ffffff;
+  --surface2:#f9fcf9;
+  --border:#d8e6da;
+  --border2:#bfd6c3;
+  --text:#17221a;
+  --text2:#173d25;
+  --muted:#68776c;
+  --muted2:#89968d;
+  --green:#00843d;
+  --green2:#00a04b;
+  --green-light:#e5f4ea;
+  --green-dark:#006b31;
+  --blue:#00843d;
+  --blue-light:#e5f4ea;
+  --accent:#00843d;
+  --accent2:#006b31;
+}
+body.theme-lloyds .sidebar{box-shadow:2px 0 15px rgba(0,96,48,.06)}
+body.theme-lloyds .nav-item.active,
+body.theme-lloyds .settings-side-item.active{background:#e5f4ea;color:#006b31}
+body.theme-lloyds .nav-item:hover,
+body.theme-lloyds .settings-side-item:hover{background:#f0f8f2}
+body.theme-lloyds .btn-green{background:#00843d;border-color:#00843d}
+body.theme-lloyds .btn-green:hover{background:#006b31;border-color:#006b31}
+
+/* Theme cards expanded from 3 to 5 */
+.theme-option-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+.theme-preview.barclays .theme-preview-side{background:linear-gradient(135deg,#00395f,#0072ac)}
+.theme-preview.barclays .theme-preview-main{background:#f5f8fc}
+.theme-preview.barclays .theme-preview-line{background:#e5f3fa}
+.theme-preview.lloyds .theme-preview-side{background:linear-gradient(135deg,#006b31,#00a04b)}
+.theme-preview.lloyds .theme-preview-main{background:#f5f8f5}
+.theme-preview.lloyds .theme-preview-line{background:#e5f4ea}
+@media(max-width:900px){.theme-option-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.theme-option-grid{grid-template-columns:1fr 1fr}}
+</style>
+<script>
+(function(){
+  window.SelvamRuntime = window.SelvamRuntime || {errors:0};
+  window.addEventListener('error', function(e){
+    window.SelvamRuntime.errors++;
+    console.error('[Selvam]', e.error || e.message);
+  });
+  window.addEventListener('unhandledrejection', function(e){
+    window.SelvamRuntime.errors++;
+    console.error('[Selvam]', e.reason);
+  });
+})();
+</script>
+<script>
+window.selvamSafeJSON=function(text,fallback){
+  try{return JSON.parse(text);}
+  catch(e){console.warn('[Selvam] Invalid saved data ignored',e);return fallback;}
+};
+</script>
+<style>
+html{overflow-x:hidden;-webkit-text-size-adjust:100%}
+body{overflow-x:hidden}
+button,input,select,textarea{font:inherit}
+button,a,[role="button"]{-webkit-tap-highlight-color:transparent}
 </style>
 </head>
 <body>
@@ -834,47 +1022,10 @@ body.theme-dark .settings-tab.active{color:var(--green2)}
 
 <!-- NOTIFICATIONS -->
 <div class="page" id="page-notifications">
-  <div class="page-header">
-    <div><h1 class="page-title">Notifications</h1><p class="page-sub">Things that need your attention</p></div>
-  </div>
+  <div class="page-header"><div><h1 class="page-title">Notifications</h1><p class="page-sub">Things that need your attention</p></div></div>
   <div class="card" style="margin-bottom:20px">
-    <div class="card-header"><span class="card-title" id="hdr-daily-reminder">Daily Reminder</span></div>
-    <div style="padding:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <div style="font-size:12.5px;color:var(--muted);max-width:340px" data-i18n="notif_daily_desc">Get a nudge to log today's expenses. Works while Selvam is open in a browser tab.</div>
-      <div style="display:flex;align-items:center;gap:8px">
-        <input class="form-inp" id="notif-remind-time" type="time" value="20:00" style="width:110px" oninput="localStorage.setItem('selvam_reminder_time', this.value)">
-        <button class="btn btn-outline btn-sm" id="notif-remind-toggle" onclick="toggleDailyReminder()">Enable</button>
-      </div>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom:20px">
-    <div class="card-header"><span class="card-title" id="hdr-push-alerts">Push Important Alerts</span></div>
-    <div style="padding:16px">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px">
-        <div style="font-size:12.5px;color:var(--muted);max-width:400px" data-i18n="notif_push_desc">Get an actual notification — not just something waiting in this list — when something urgent needs attention: overdue renewals, missed loan payments, or blown budgets. Checked every 30 seconds while Selvam is open; each alert only pushes once per day.</div>
-        <button class="btn btn-outline btn-sm" id="notif-push-toggle" onclick="togglePushAlerts()">Enable</button>
-      </div>
-      <div id="notif-push-categories" style="display:flex;flex-wrap:wrap;gap:8px"></div>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom:20px">
-    <div class="card-header"><span class="card-title" id="hdr-weekly-summary">Weekly Summary</span></div>
-    <div style="padding:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <div style="font-size:12.5px;color:var(--muted);max-width:340px" data-i18n="notif_weekly_desc">A push every Sunday evening with what you spent this week and your savings rate — a lighter-touch check-in than daily logging.</div>
-      <button class="btn btn-outline btn-sm" id="notif-weekly-toggle" onclick="toggleWeeklyDigest()">Enable</button>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom:20px">
-    <div class="card-header"><span class="card-title">Monthly Backup Reminder</span></div>
-    <div style="padding:16px">
-      <div style="font-size:12.5px;color:var(--muted);margin-bottom:12px;max-width:480px">A nudge to back up your data yourself, somewhere you trust — Google Drive, iCloud, OneDrive, an external drive, wherever. Selvam never uploads anything on its own; this just reminds you not to forget, the way a real backup routine would.</div>
-      <div id="backup-log-status" style="font-size:12.5px;margin-bottom:14px"></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-outline btn-sm" id="backup-reminder-toggle" onclick="toggleMonthlyBackupReminder()">Enable</button>
-        <button class="btn btn-green btn-sm" onclick="openLogBackupModal()">I backed up my data</button>
-      </div>
-      <div id="backup-log-list" style="margin-top:14px"></div>
-    </div>
+    <div class="card-header"><span class="card-title">Notification settings</span><button class="btn btn-outline btn-sm" onclick="nav('profile');setTimeout(()=>showSettingsTab('notifications'),0)">Manage in Settings</button></div>
+    <div style="padding:14px 16px;font-size:12px;color:var(--muted);line-height:1.6">Configure reminders, push alerts, weekly summaries and backup reminders from <strong>Settings → Notifications</strong>.</div>
   </div>
   <div id="notif-list"></div>
 </div>
@@ -1108,214 +1259,175 @@ body.theme-dark .settings-tab.active{color:var(--green2)}
 </div>
 </div>
 
-<!-- PROFILE -->
+<!-- PROFILE / SETTINGS -->
 <div class="page" id="page-profile">
-  <div class="page-header"><div><h1 class="page-title">Settings</h1><p class="page-sub">Preferences, currency, financial profile & data</p></div></div>
-
-  <div class="settings-tabs" id="settings-tabs">
-    <button class="settings-tab active" data-tab="general" onclick="showSettingsTab('general')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span>General</span>
-    </button>
-    <button class="settings-tab" data-tab="financial" onclick="showSettingsTab('financial')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      <span>Financial Profile</span>
-    </button>
-    <button class="settings-tab" data-tab="currency" onclick="showSettingsTab('currency')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="10"/><path d="M14.8 9a2 2 0 0 0-1.8-1H11a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4h-2a2 2 0 0 1-1.8-1"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/></svg>
-      <span>Currency</span>
-    </button>
-    <button class="settings-tab" data-tab="backup" onclick="showSettingsTab('backup')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M12 2 3 7v6c0 5 4 8.5 9 9 5-.5 9-4 9-9V7Z"/><polyline points="9 12 11 14 15 10"/></svg>
-      <span>Backup & Data</span>
-    </button>
-    <button class="settings-tab" data-tab="activity" onclick="showSettingsTab('activity')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span>Activity Log</span>
-    </button>
-    <button class="settings-tab" data-tab="whatsnew" onclick="showSettingsTab('whatsnew')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="10"/></svg>
-      <span>What's New</span>
-      <span class="nav-badge" id="whatsnew-badge" style="display:none;margin-left:4px"></span>
-    </button>
+  <div class="page-header">
+    <div><h1 class="page-title">Settings</h1><p class="page-sub">Everything that controls how Selvam looks, behaves and stores your data.</p></div>
   </div>
 
-  <!-- GENERAL -->
-  <div class="settings-tab-panel active" id="settings-panel-general">
-    <div class="profile-card">
-      <div class="settings-section-title">Preferences</div>
-      <div class="form-row">
-        <div class="form-grp"><label class="form-lbl settings-lbl">Language</label>
-          <div class="cur-btns" id="lang-btns" style="margin-top:2px">
-            <button class="cur-btn" id="lang-btn-en" onclick="setLang('en')">English</button>
-            <button class="cur-btn" id="lang-btn-ta" onclick="setLang('ta')">தமிழ்</button>
+  <div class="settings-layout">
+    <aside class="settings-side-nav" aria-label="Settings categories">
+      <button class="settings-side-item active" data-tab="personal" onclick="showSettingsTab('personal')"><span>👤</span><div><strong>Personal</strong><small>Profile & language</small></div></button>
+      <button class="settings-side-item" data-tab="appearance" onclick="showSettingsTab('appearance')"><span>🎨</span><div><strong>Appearance</strong><small>Theme & display</small></div></button>
+      <button class="settings-side-item" data-tab="financial" onclick="showSettingsTab('financial')"><span>💰</span><div><strong>Financial Profile</strong><small>Income & risk</small></div></button>
+      <button class="settings-side-item" data-tab="currency" onclick="showSettingsTab('currency')"><span>💱</span><div><strong>Currency & Regions</strong><small>Currency & countries</small></div></button>
+      <button class="settings-side-item" data-tab="notifications" onclick="showSettingsTab('notifications')"><span>🔔</span><div><strong>Notifications</strong><small>Reminders & alerts</small></div></button>
+      <button class="settings-side-item" data-tab="privacy" onclick="showSettingsTab('privacy')"><span>🔒</span><div><strong>Privacy & Security</strong><small>Privacy & app lock</small></div></button>
+      <button class="settings-side-item" data-tab="backup" onclick="showSettingsTab('backup')"><span>💾</span><div><strong>Data & Backup</strong><small>Backup & restore</small></div></button>
+      <button class="settings-side-item" data-tab="activity" onclick="showSettingsTab('activity')"><span>📜</span><div><strong>Activity & About</strong><small>History & updates</small></div></button>
+    </aside>
+
+    <main class="settings-content">
+      <!-- PERSONAL -->
+      <div class="settings-tab-panel active" id="settings-panel-personal">
+        <div class="profile-card">
+          <div class="settings-section-title">Personal information</div>
+          <div class="avatar-row"><div class="avatar" id="profile-av">ச</div><div><div class="av-name" id="profile-name">செல்வம்</div><div class="av-email" id="profile-email">Not set</div></div></div>
+          <div class="form-row">
+            <div class="form-grp"><label class="form-lbl">Name</label><input class="form-inp" id="p-name" placeholder="Your name" oninput="saveProfile()"></div>
+            <div class="form-grp"><label class="form-lbl">Email</label><input class="form-inp" id="p-email" placeholder="email@example.com" oninput="saveProfile()"></div>
           </div>
         </div>
-        <div class="form-grp"><label class="form-lbl settings-lbl">Appearance</label>
-          <div class="cur-btns" style="margin-top:2px">
-            <button class="cur-btn" id="theme-btn-light" onclick="setTheme('light')">Light</button>
-            <button class="cur-btn" id="theme-btn-dark" onclick="setTheme('dark')">Dark</button>
+        <div class="profile-card">
+          <div class="settings-section-title">Language</div>
+          <div class="form-grp"><label class="form-lbl settings-lbl">App language</label><div class="cur-btns" id="lang-btns" style="margin-top:2px"><button class="cur-btn" id="lang-btn-en" onclick="setLang('en')">English</button><button class="cur-btn" id="lang-btn-ta" onclick="setLang('ta')">தமிழ்</button></div></div>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.6">Choose the language used throughout Selvam. Your financial data stays unchanged.</div>
+        </div>
+      </div>
+
+      <!-- APPEARANCE -->
+      <div class="settings-tab-panel" id="settings-panel-appearance">
+        <div class="profile-card">
+          <div class="settings-section-title">Appearance</div>
+          <div class="form-grp">
+            <label class="form-lbl settings-lbl">Theme</label>
+            <div class="theme-option-grid" aria-label="Choose Selvam theme">
+              <button type="button" class="theme-option" id="theme-option-classic" onclick="setTheme('light')">
+                <div class="theme-preview classic"><div class="theme-preview-side"></div><div class="theme-preview-main"><div class="theme-preview-line" style="width:75%"></div><div class="theme-preview-line" style="width:55%"></div><div class="theme-preview-line" style="width:65%"></div></div></div>
+                <div class="theme-option-name">Classic Green</div><div class="theme-option-desc">Original Selvam</div>
+              </button>
+              <button type="button" class="theme-option" id="theme-option-soft" onclick="setTheme('soft-blue')">
+                <div class="theme-preview soft"><div class="theme-preview-side"></div><div class="theme-preview-main"><div class="theme-preview-line" style="width:75%"></div><div class="theme-preview-line" style="width:55%"></div><div class="theme-preview-line" style="width:65%"></div></div></div>
+                <div class="theme-option-name">Soft Blue</div><div class="theme-option-desc">Light & airy</div>
+              </button>
+              <button type="button" class="theme-option" id="theme-option-barclays" onclick="setTheme('barclays')">
+                <div class="theme-preview barclays"><div class="theme-preview-side"></div><div class="theme-preview-main"><div class="theme-preview-line" style="width:75%"></div><div class="theme-preview-line" style="width:55%"></div><div class="theme-preview-line" style="width:65%"></div></div></div>
+                <div class="theme-option-name">Blue Banking</div><div class="theme-option-desc">Deep UK-blue inspired</div>
+              </button>
+              <button type="button" class="theme-option" id="theme-option-lloyds" onclick="setTheme('lloyds')">
+                <div class="theme-preview lloyds"><div class="theme-preview-side"></div><div class="theme-preview-main"><div class="theme-preview-line" style="width:75%"></div><div class="theme-preview-line" style="width:55%"></div><div class="theme-preview-line" style="width:65%"></div></div></div>
+                <div class="theme-option-name">Green Banking</div><div class="theme-option-desc">Classic UK-green inspired</div>
+              </button>
+              <button type="button" class="theme-option" id="theme-option-dark" onclick="setTheme('dark')">
+                <div class="theme-preview dark"><div class="theme-preview-side"></div><div class="theme-preview-main"><div class="theme-preview-line" style="width:75%"></div><div class="theme-preview-line" style="width:55%"></div><div class="theme-preview-line" style="width:65%"></div></div></div>
+                <div class="theme-option-name">Dark</div><div class="theme-option-desc">Low-light Selvam</div>
+              </button>
+            </div>
+            <div style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5">Your choice is saved on this device. The banking-inspired options use their own colour palettes and do not use bank logos or artwork.</div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="profile-card">
-      <div class="settings-section-title">Account</div>
-      <div class="avatar-row">
-        <div class="avatar" id="profile-av">ச</div>
-        <div><div class="av-name" id="profile-name">செல்வம்</div><div class="av-email" id="profile-email">Not set</div></div>
-      </div>
-      <div class="form-row">
-        <div class="form-grp"><label class="form-lbl">Name</label><input class="form-inp" id="p-name" placeholder="Your name" oninput="saveProfile()"></div>
-        <div class="form-grp"><label class="form-lbl">Email</label><input class="form-inp" id="p-email" placeholder="email@example.com" oninput="saveProfile()"></div>
-      </div>
-    </div>
-    <div class="profile-card">
-      <div class="settings-section-title" id="hdr-applock">App Lock</div>
-      <div id="applock-panel"></div>
-    </div>
-  </div>
-
-  <!-- FINANCIAL PROFILE -->
-  <div class="settings-tab-panel" id="settings-panel-financial">
-    <div class="profile-card">
-      <div class="settings-section-title">Financial Profile</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Used by the Advisor page to size your emergency fund, risk profile and retirement projections.</div>
-      <div class="form-row">
-        <div class="form-grp"><label class="form-lbl">Monthly Income (approx)</label><input class="form-inp" id="p-income" type="number" placeholder="e.g. 80000" oninput="saveProfile()"></div>
-        <div class="form-grp"><label class="form-lbl">Age</label><input class="form-inp" id="p-age" type="number" placeholder="e.g. 32" oninput="saveProfile()"></div>
-      </div>
-      <div class="form-grp"><label class="form-lbl">Risk Tolerance</label>
-        <select class="form-sel" id="p-risk" onchange="saveProfile()">
-          <option value="conservative">Conservative</option>
-          <option value="moderate" selected>Moderate</option>
-          <option value="aggressive">Aggressive</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <!-- CURRENCY -->
-  <div class="settings-tab-panel" id="settings-panel-currency">
-    <div class="profile-card">
-      <div class="settings-section-title">Currency</div>
-      <div class="form-grp"><label class="form-lbl settings-lbl">Display currency</label>
-        <div class="cur-btns" id="cur-btns-profile" style="margin-top:2px"></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px">Used for Net Worth, Dashboard, Budget and Advisor totals — anywhere multiple currencies need to be added together.</div>
-      </div>
-    </div>
-    <div class="profile-card">
-      <div class="settings-section-title" id="hdr-entries-shown">How entries are shown</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
-        <div style="max-width:400px">
-          <div style="font-size:13px;font-weight:600;color:var(--text2)" id="native-cur-label">Convert everything to your display currency</div>
-          <div style="font-size:11.5px;color:var(--muted);margin-top:3px" id="native-cur-desc">Currently on: an asset you added in GBP shows converted into ${S.displayCur} in your Portfolio, Income, Expenses and Goals lists.</div>
+        <div class="profile-card">
+          <div class="settings-section-title">Privacy display</div>
+          <div class="setting-row"><div><div class="setting-title">Hide balances</div><div class="setting-desc">Blur sensitive balance figures across the app. You can still use every feature normally.</div></div><button class="btn btn-outline btn-sm" id="settings-hide-balance" onclick="toggleHideBalance();renderSettingsControls()">Show balances</button></div>
         </div>
-        <button class="btn btn-outline btn-sm" id="native-cur-toggle" onclick="toggleNativeCurrency()">Turn Off</button>
       </div>
-    </div>
-    <div class="profile-card">
-      <div class="settings-section-title" id="hdr-portfolio-region">Portfolio Region</div>
-      <div style="font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.6" data-i18n="region_portfolio_desc">Tag each asset with a region (Add/Edit Asset → Region) to switch your Portfolio between showing everything, just one country, or comparing both — useful when your money is split across places like India and the UK.</div>
-      <div class="cur-btns" id="region-filter-btns" style="margin-top:2px"></div>
-    </div>
-    <div class="profile-card">
-      <div class="settings-section-title" id="hdr-exchange-rates">Exchange Rates</div>
-      <div style="font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.6">Enter how much 1 unit of each currency is worth in ₹ (INR) — e.g. if $1 = ₹83, enter 83 for USD. Look this up on Google ("1 USD to INR") and type it in; update it here whenever you want a fresher number.</div>
-      <div id="currency-manager"></div>
-      <div class="cur-add-row" style="margin-top:12px;gap:8px;flex-wrap:wrap">
-        <select class="form-sel" id="cur-add-select" style="max-width:220px">
-          <option value="">Add a currency…</option>
-        </select>
-        <button class="btn btn-outline btn-sm" onclick="addCurFromSelect()">+ Add</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- BACKUP & DATA -->
-  <div class="settings-tab-panel" id="settings-panel-backup">
-    <div class="profile-card">
-      <div class="settings-section-title">Backup Status</div>
-      <div class="backup-status-row">
-        <div class="backup-status-dot" id="backup-status-dot"></div>
-        <div style="flex:1">
-          <div class="backup-status-main">Live local backup active</div>
-          <div class="backup-status-sub" id="backup-status-sub">Waiting for first change…</div>
+      <!-- FINANCIAL -->
+      <div class="settings-tab-panel" id="settings-panel-financial">
+        <div class="profile-card">
+          <div class="settings-section-title">Financial profile</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Optional information used by Selvam's planning features, such as emergency-fund and retirement projections.</div>
+          <div class="form-row">
+            <div class="form-grp"><label class="form-lbl">Monthly Income (approx)</label><input class="form-inp" id="p-income" type="number" placeholder="e.g. 2000" oninput="saveProfile()"></div>
+            <div class="form-grp"><label class="form-lbl">Age</label><input class="form-inp" id="p-age" type="number" placeholder="e.g. 32" oninput="saveProfile()"></div>
+          </div>
+          <div class="form-grp"><label class="form-lbl">Risk Tolerance</label><select class="form-sel" id="p-risk" onchange="saveProfile()"><option value="conservative">Conservative</option><option value="moderate" selected>Moderate</option><option value="aggressive">Aggressive</option></select></div>
         </div>
-        <button class="btn btn-outline btn-sm" id="backup-now-btn" onclick="backupNow()">Backup Now</button>
+        <div class="profile-card">
+          <div class="settings-section-title">Budget preferences</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6">Monthly budgets and category budgets are managed from Expenses, where you can set the amount and currency for each budget.</div>
+        </div>
       </div>
-      <div class="backup-status-stats" id="backup-status-stats"></div>
-      <div style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6">Every change you make is written to this device immediately, to two separate storage slots (a primary copy and a live mirror). If one ever gets corrupted, the app automatically recovers from the other the next time it opens. Tap <strong>Backup Now</strong> anytime to force an extra restore point on the spot.</div>
-    </div>
-    <div class="profile-card" id="storage-location-card">
-      <div class="settings-section-title">Where Your Data Is Stored</div>
-      <div id="storage-location-content"></div>
-    </div>
-    <div class="profile-card" id="backup-card">
-      <div class="settings-section-title">Backup & Restore</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Everything is local-only — nothing ever leaves this device on its own, no account, no cloud. Data saves to this device in real time as you use the app, with rotating restore points kept automatically as an extra safety net below. <strong>Download backup</strong> and <strong>Export summary report</strong> let you choose exactly where to save the file.</div>
-      <div class="backup-actions-grid">
-        <button class="btn btn-green" onclick="openExportProtectModal()">Download backup (JSON)</button>
-        <button class="btn btn-outline" onclick="document.getElementById('import-file').click()">Restore from backup</button>
-        <button class="btn btn-outline" onclick="exportText()">Export summary report</button>
-        <input type="file" id="import-file" accept=".json" hidden onchange="importJSON(this)">
-      </div>
-      <div class="info-box" style="margin-top:14px">
-        <strong>Moving to a new device (iOS, Android, Windows)?</strong> Tap <strong>Download backup</strong> here, send that file to the new device (AirDrop, email, cloud drive, USB — whatever you normally use), open Selvam there, then tap <strong>Restore from backup</strong> and pick the file.
-      </div>
-      <div class="danger-zone">
-        <div class="danger-zone-title">Danger Zone</div>
-        <div class="danger-zone-desc">Permanently deletes all assets, income, expenses, goals and snapshots from this device. This cannot be undone — make sure you have a recent backup first.</div>
-        <button class="btn btn-danger" onclick="clearAll()">Clear all data</button>
-      </div>
-    </div>
-    <div class="profile-card">
-      <div class="settings-section-title">Local Restore Points</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Selvam automatically saves a snapshot to this device roughly every 10 minutes of use, and always right before an import or a "Clear all data." If something goes wrong, roll back to any of the last 6 points below.</div>
-      <div id="restore-points-list"></div>
-    </div>
-  </div>
 
-  <!-- ACTIVITY LOG -->
-  <div class="settings-tab-panel" id="settings-panel-activity">
-    <div class="profile-card" style="max-width:680px">
-      <div class="settings-section-title" id="hdr-activity-log">Activity Log</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Everything you've added, edited or removed recently.</div>
-      <div class="filter-bar" id="activity-filters"></div>
-      <div id="activity-list"></div>
-    </div>
-  </div>
-
-  <!-- WHAT'S NEW -->
-  <div class="settings-tab-panel" id="settings-panel-whatsnew">
-    <div class="profile-card" style="max-width:680px">
-      <div class="settings-section-title" id="hdr-whatsnew-title">What's New</div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:4px;line-height:1.6">Recently added to Selvam — newest first.</div>
-      <div class="whatsnew-month-label">September 2026</div>
-      <div class="whatsnew-list">
-        <div class="whatsnew-item"><div class="whatsnew-ico">📜</div><div><div class="whatsnew-title">Activity Log</div><div class="whatsnew-desc">A full history of everything added, edited or removed — assets, income, expenses, goals — filterable by type and grouped by date.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">🧮</div><div><div class="whatsnew-title">Financial Calculators</div><div class="whatsnew-desc">SIP, Lumpsum, CAGR, EMI, SWP and XIRR calculators in their own section — XIRR includes a quick SIP mode and a custom cash-flow builder.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">💰</div><div><div class="whatsnew-title">Smarter Budgeting</div><div class="whatsnew-desc">Set an overall monthly budget plus per-category budgets — each category can now be in its own currency, and you can add your own custom categories.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">👨‍👩‍👧‍👦</div><div><div class="whatsnew-title">Family-aware Insurance</div><div class="whatsnew-desc">Track which family members are covered by each policy, with quick-tap chips for Self, Spouse, Mother, Father, and in-laws.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">📉</div><div><div class="whatsnew-title">Add Liability shortcut</div><div class="whatsnew-desc">A dedicated "+ Add Liability" button on Portfolio, instead of hunting through the Asset Class dropdown.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">📅</div><div><div class="whatsnew-title">Calendar improvements</div><div class="whatsnew-desc">Zoom levels, a live month-to-date summary, a "Today" jump button, and a fix so the whole month fits on screen without scrolling.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">🗂️</div><div><div class="whatsnew-title">Simplified navigation</div><div class="whatsnew-desc">Five core pages up front — Dashboard, Income, Expenses, Daily Tracker, Portfolio — everything else tucked under "More."</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">🔒</div><div><div class="whatsnew-title">Live local backup</div><div class="whatsnew-desc">Every change now saves to two redundant local copies in real time, with rotating restore points, a manual "Backup Now" button, and real Save-As dialogs for exports.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">⚙️</div><div><div class="whatsnew-title">Settings redesigned</div><div class="whatsnew-desc">Tabbed layout — General, Financial Profile, Currency, Backup & Data — instead of one long page to scroll through.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">💱</div><div><div class="whatsnew-title">Currency manager</div><div class="whatsnew-desc">Edit exchange rates for each currency directly, and add currencies beyond the defaults.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">✅</div><div><div class="whatsnew-title">Fuller Essentials Check</div><div class="whatsnew-desc">Five checks instead of three — added Debt Load and Retirement Savings — each with a quick-add button when something's missing.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">🔔</div><div><div class="whatsnew-title">Notifications</div><div class="whatsnew-desc">A dedicated page and bell badge for insurance renewals, goal deadlines, budget alerts, and essentials gaps.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">🧭</div><div><div class="whatsnew-title">Advisor page</div><div class="whatsnew-desc">Financial health score, asset allocation vs. target, and a retirement/FIRE calculator using your real net worth.</div></div></div>
-        <div class="whatsnew-item"><div class="whatsnew-ico">🎨</div><div><div class="whatsnew-title">Visual redesign</div><div class="whatsnew-desc">A cleaner look throughout — cream palette, dark mode, a hide-balances privacy toggle, and simple line icons in place of emoji.</div></div></div>
+      <!-- CURRENCY & REGIONS -->
+      <div class="settings-tab-panel" id="settings-panel-currency">
+        <div class="profile-card">
+          <div class="settings-section-title">Display currency</div>
+          <div class="form-grp"><label class="form-lbl settings-lbl">Primary currency</label><div class="cur-btns" id="cur-btns-profile" style="margin-top:2px"></div><div style="font-size:11px;color:var(--muted);margin-top:6px">Used for totals such as Net Worth, Dashboard, Budget and Advisor calculations.</div></div>
+        </div>
+        <div class="profile-card">
+          <div class="settings-section-title" id="hdr-entries-shown">Entry display</div>
+          <div class="setting-row"><div><div style="font-size:13px;font-weight:600;color:var(--text2)" id="native-cur-label">Convert everything to your display currency</div><div style="font-size:11.5px;color:var(--muted);margin-top:3px" id="native-cur-desc">Currency display preference.</div></div><button class="btn btn-outline btn-sm" id="native-cur-toggle" onclick="toggleNativeCurrency()">Turn Off</button></div>
+        </div>
+        <div class="profile-card">
+          <div class="settings-section-title" id="hdr-my-regions">My Regions</div>
+          <div style="font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.6" data-i18n="region_my_regions_desc">Choose which countries' tax and retirement tools apply to you. Untick anything that does not apply to reduce clutter.</div>
+          <div class="cur-btns" id="my-region-btns" style="margin-top:2px"></div>
+        </div>
+        <div class="profile-card">
+          <div class="settings-section-title" id="hdr-portfolio-region">Portfolio Region</div>
+          <div style="font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.6" data-i18n="region_portfolio_desc">Filter your Portfolio by the region assigned to each asset.</div>
+          <div class="cur-btns" id="region-filter-btns" style="margin-top:2px"></div>
+        </div>
+        <div class="profile-card">
+          <div class="settings-section-title" id="hdr-exchange-rates">Exchange Rates</div>
+          <div style="font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.6">Manage the exchange rates Selvam uses for multi-currency totals.</div>
+          <div id="currency-manager"></div><div class="cur-add-row" style="margin-top:12px;gap:8px;flex-wrap:wrap"><select class="form-sel" id="cur-add-select" style="max-width:220px"><option value="">Add a currency…</option></select><button class="btn btn-outline btn-sm" onclick="addCurFromSelect()">+ Add</button></div>
+        </div>
       </div>
-    </div>
+
+      <!-- NOTIFICATIONS -->
+      <div class="settings-tab-panel" id="settings-panel-notifications">
+        <div class="profile-card">
+          <div class="settings-section-title">Daily reminder</div>
+          <div class="setting-row"><div><div class="setting-title">Remind me to log expenses</div><div class="setting-desc">A daily nudge while Selvam is open.</div></div><div style="display:flex;align-items:center;gap:8px"><input class="form-inp" id="notif-remind-time" type="time" value="20:00" style="width:110px" oninput="localStorage.setItem('selvam_reminder_time',this.value)"><button class="btn btn-outline btn-sm" id="notif-remind-toggle" onclick="toggleDailyReminder()">Enable</button></div></div>
+        </div>
+        <div class="profile-card">
+          <div class="settings-section-title">Important alerts</div>
+          <div class="setting-row"><div><div class="setting-title">Push important alerts</div><div class="setting-desc">Get alerts for overdue renewals, missed loan payments and budget warnings when supported by your device/browser.</div></div><button class="btn btn-outline btn-sm" id="notif-push-toggle" onclick="togglePushAlerts()">Enable</button></div>
+          <div id="notif-push-categories" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px"></div>
+        </div>
+        <div class="profile-card">
+          <div class="settings-section-title">Weekly summary</div>
+          <div class="setting-row"><div><div class="setting-title">Sunday financial summary</div><div class="setting-desc">A weekly summary of spending and savings rate.</div></div><button class="btn btn-outline btn-sm" id="notif-weekly-toggle" onclick="toggleWeeklyDigest()">Enable</button></div>
+        </div>
+        <div class="profile-card">
+          <div class="settings-section-title">Monthly backup reminder</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Reminds you to export a backup yourself. Selvam does not upload your data automatically.</div>
+          <div id="backup-log-status" style="font-size:12.5px;margin-bottom:14px"></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-outline btn-sm" id="backup-reminder-toggle" onclick="toggleMonthlyBackupReminder()">Enable</button><button class="btn btn-green btn-sm" onclick="openLogBackupModal()">I backed up my data</button></div><div id="backup-log-list" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- PRIVACY & SECURITY -->
+      <div class="settings-tab-panel" id="settings-panel-privacy">
+        <div class="profile-card">
+          <div class="settings-section-title">App lock</div>
+          <div id="applock-panel"></div>
+        </div>
+        <div class="profile-card">
+          <div class="settings-section-title">Local privacy</div>
+          <div class="setting-row"><div><div class="setting-title">Local-only data</div><div class="setting-desc">Selvam is designed to keep your financial records on this device. Use Data & Backup to control when you export or restore a file.</div></div><span class="status-pill" style="white-space:nowrap">On-device</span></div>
+          <div class="setting-row" style="margin-top:10px"><div><div class="setting-title">Hide balances</div><div class="setting-desc">Quickly blur balances when someone is looking at your screen.</div></div><button class="btn btn-outline btn-sm" onclick="toggleHideBalance();renderSettingsControls()" id="settings-hide-balance-privacy">Show balances</button></div>
+        </div>
+      </div>
+
+      <!-- DATA & BACKUP -->
+      <div class="settings-tab-panel" id="settings-panel-backup">
+        <div class="profile-card"><div class="settings-section-title">Backup status</div><div class="backup-status-row"><div class="backup-status-dot" id="backup-status-dot"></div><div style="flex:1"><div class="backup-status-main">Live local backup active</div><div class="backup-status-sub" id="backup-status-sub">Waiting for first change…</div></div><button class="btn btn-outline btn-sm" id="backup-now-btn" onclick="backupNow()">Backup Now</button></div><div class="backup-status-stats" id="backup-status-stats"></div><div style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6">Changes are written to this device immediately, with redundant local storage and restore points.</div></div>
+        <div class="profile-card" id="storage-location-card"><div class="settings-section-title">Where your data is stored</div><div id="storage-location-content"></div></div>
+        <div class="profile-card" id="backup-card"><div class="settings-section-title">Backup & restore</div><div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Export your data when moving devices or keeping an offline copy. Nothing is uploaded automatically.</div><div class="backup-actions-grid"><button class="btn btn-green" onclick="openExportProtectModal()">Download backup (JSON)</button><button class="btn btn-outline" onclick="document.getElementById('import-file').click()">Restore from backup</button><button class="btn btn-outline" onclick="exportText()">Export summary report</button><input type="file" id="import-file" accept=".json" hidden onchange="importJSON(this)"></div><div class="info-box" style="margin-top:14px"><strong>Moving to a new device?</strong> Download a backup here, transfer the file securely, then use Restore from backup on the new device.</div><div class="danger-zone"><div class="danger-zone-title">Danger Zone</div><div class="danger-zone-desc">Permanently deletes all assets, income, expenses, goals and snapshots from this device. This cannot be undone.</div><button class="btn btn-danger" onclick="clearAll()">Clear all data</button></div></div>
+        <div class="profile-card"><div class="settings-section-title">Local restore points</div><div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Selvam keeps recent local snapshots as an additional recovery option.</div><div id="restore-points-list"></div></div>
+      </div>
+
+      <!-- ACTIVITY & ABOUT -->
+      <div class="settings-tab-panel" id="settings-panel-activity">
+        <div class="profile-card"><div class="settings-section-title">Activity Log</div><div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Everything you've added, edited or removed recently.</div><div class="filter-bar" id="activity-filters"></div><div id="activity-list"></div></div>
+        <div class="profile-card" style="max-width:680px"><div class="settings-section-title">About Selvam</div><div style="font-size:12px;color:var(--muted);line-height:1.7">Selvam is a privacy-oriented personal finance tracker. Your records are designed to remain on your device unless you deliberately export them.</div><div style="margin-top:12px;font-size:11.5px;color:var(--muted)">Version 2026.09</div></div>
+        <div class="profile-card" style="max-width:680px"><div class="settings-section-title">What's New</div><div style="font-size:12px;color:var(--muted);margin-bottom:4px;line-height:1.6">Recent changes to Selvam.</div><div class="whatsnew-month-label">September 2026</div><div class="whatsnew-list"><div class="whatsnew-item"><div class="whatsnew-ico">📜</div><div><div class="whatsnew-title">Activity Log</div><div class="whatsnew-desc">History of additions, edits and removals, filterable by type.</div></div></div><div class="whatsnew-item"><div class="whatsnew-ico">🧮</div><div><div class="whatsnew-title">Financial Calculators</div><div class="whatsnew-desc">SIP, Lumpsum, CAGR, EMI, SWP and XIRR tools.</div></div></div><div class="whatsnew-item"><div class="whatsnew-ico">💰</div><div><div class="whatsnew-title">Smarter Budgeting</div><div class="whatsnew-desc">Overall and category budgets with multi-currency support.</div></div></div><div class="whatsnew-item"><div class="whatsnew-ico">🔒</div><div><div class="whatsnew-title">Privacy & local backup</div><div class="whatsnew-desc">Local storage, restore points and manual exports remain central to the app.</div></div></div></div></div>
+      </div>
+    </main>
   </div>
 </div>
-
-
-</main>
-</div>
-
 <!-- ADD ASSET MODAL -->
 <div class="overlay" id="modal-asset">
 <div class="modal">
@@ -1804,7 +1916,7 @@ async function attemptUnlock(){
 function lockNow(){
   if(!S.appLock||!S.appLock.enabled){showToast('Set up a PIN first to use Lock Now','error');return;}
   try{
-    const stored=JSON.parse(localStorage.getItem('selvam_v1'));
+    const stored=selvamSafeJSON(localStorage.getItem('selvam_v1'), null);
     if(stored&&stored.encrypted)pendingEncryptedBlob=stored;
   }catch(e){/* fall through — overlay still shows, unlock will fail gracefully if blob is missing */}
   sessionEncryptionKey=null;
@@ -3190,25 +3302,23 @@ function updateNotifBadge(){
   if(bottomMoreBadge){bottomMoreBadge.style.display=n?'inline-block':'none';bottomMoreBadge.textContent=n;}
   if(sheetNotifBadge){sheetNotifBadge.style.display=n?'inline-block':'none';sheetNotifBadge.textContent=n;}
 }
-function renderNotifications(){
-  const notifs=generateNotifications();
-  document.getElementById('notif-list').innerHTML=notifs.length?notifs.map(n=>`
-    <div class="insight-card ${n.level}"><div class="insight-txt"><strong>${n.title}</strong><br>${n.message}</div></div>
-  `).join(''):`<div class="empty" style="padding:30px"><div class="empty-txt">${t('notif_all_caught_up')}</div></div>`;
-  updateNotifBadge();
+function renderNotificationSettings(){
   const enabled=localStorage.getItem('selvam_reminder_enabled')==='1';
-  const btn=document.getElementById('notif-remind-toggle');
-  if(btn)btn.textContent=enabled?t('btn_disable'):t('btn_enable');
-  const timeEl=document.getElementById('notif-remind-time');
-  if(timeEl){const savedTime=localStorage.getItem('selvam_reminder_time');if(savedTime)timeEl.value=savedTime;}
+  const btn=document.getElementById('notif-remind-toggle'); if(btn)btn.textContent=enabled?t('btn_disable'):t('btn_enable');
+  const timeEl=document.getElementById('notif-remind-time'); if(timeEl){const savedTime=localStorage.getItem('selvam_reminder_time');if(savedTime)timeEl.value=savedTime;}
   const pushEnabled=localStorage.getItem('selvam_push_alerts_enabled')==='1';
-  const pushBtn=document.getElementById('notif-push-toggle');
-  if(pushBtn)pushBtn.textContent=pushEnabled?t('btn_disable'):t('btn_enable');
+  const pushBtn=document.getElementById('notif-push-toggle'); if(pushBtn)pushBtn.textContent=pushEnabled?t('btn_disable'):t('btn_enable');
   renderPushCategoryToggles();
   const weeklyEnabled=localStorage.getItem('selvam_weekly_digest_enabled')==='1';
-  const weeklyBtn=document.getElementById('notif-weekly-toggle');
-  if(weeklyBtn)weeklyBtn.textContent=weeklyEnabled?t('btn_disable'):t('btn_enable');
+  const weeklyBtn=document.getElementById('notif-weekly-toggle'); if(weeklyBtn)weeklyBtn.textContent=weeklyEnabled?t('btn_disable'):t('btn_enable');
   renderBackupReminderUI();
+}
+function renderNotifications(){
+  const notifs=generateNotifications();
+  const list=document.getElementById('notif-list');
+  if(list)list.innerHTML=notifs.length?notifs.map(n=>`<div class="insight-card ${n.level}"><div class="insight-txt"><strong>${n.title}</strong><br>${n.message}</div></div>`).join(''):`<div class="empty" style="padding:30px"><div class="empty-txt">${t('notif_all_caught_up')}</div></div>`;
+  updateNotifBadge();
+  renderNotificationSettings();
 }
 function toggleDailyReminder(){
   const enabled=localStorage.getItem('selvam_reminder_enabled')==='1';
@@ -3217,7 +3327,7 @@ function toggleDailyReminder(){
       localStorage.setItem('selvam_reminder_enabled','1');
       localStorage.setItem('selvam_reminder_time',document.getElementById('notif-remind-time').value||'20:00');
       showToast('Daily reminder enabled','success');
-      renderNotifications();
+      renderNotificationSettings();
       return;
     }
     if(!('Notification' in window)){showToast('Notifications not supported in this browser','error');return;}
@@ -3229,12 +3339,12 @@ function toggleDailyReminder(){
       }else{
         showToast('Notification permission denied','error');
       }
-      renderNotifications();
+      renderNotificationSettings();
     });
   }else{
     localStorage.setItem('selvam_reminder_enabled','0');
     showToast('Daily reminder disabled','success');
-    renderNotifications();
+    renderNotificationSettings();
   }
 }
 function canNotify(){
@@ -3265,7 +3375,7 @@ const PUSH_CATEGORIES=[
   {key:'goal',label:'🎯 Goal Deadlines'}
 ];
 function getPushCategories(){
-  try{return JSON.parse(localStorage.getItem('selvam_push_categories'))||PUSH_CATEGORIES.map(c=>c.key);}
+  try{return selvamSafeJSON(localStorage.getItem('selvam_push_categories'), null)||PUSH_CATEGORIES.map(c=>c.key);}
   catch(e){return PUSH_CATEGORIES.map(c=>c.key);}
 }
 function renderPushCategoryToggles(){
@@ -3288,7 +3398,7 @@ function togglePushAlerts(){
     if(window.electronAPI&&window.electronAPI.isElectron){
       localStorage.setItem('selvam_push_alerts_enabled','1');
       showToast('Push alerts enabled','success');
-      renderNotifications();
+      renderNotificationSettings();
       return;
     }
     if(!('Notification' in window)){showToast('Notifications not supported in this browser','error');return;}
@@ -3299,12 +3409,12 @@ function togglePushAlerts(){
       }else{
         showToast('Notification permission denied','error');
       }
-      renderNotifications();
+      renderNotificationSettings();
     });
   }else{
     localStorage.setItem('selvam_push_alerts_enabled','0');
     showToast('Push alerts disabled','success');
-    renderNotifications();
+    renderNotificationSettings();
   }
 }
 function checkImportantAlerts(){
@@ -3313,7 +3423,7 @@ function checkImportantAlerts(){
   const activeCats=getPushCategories();
   const todayStr=new Date().toISOString().slice(0,10);
   let firedLog={};
-  try{firedLog=JSON.parse(localStorage.getItem('selvam_push_fired'))||{};}catch(e){firedLog={};}
+  try{firedLog=selvamSafeJSON(localStorage.getItem('selvam_push_fired'), null)||{};}catch(e){firedLog={};}
   if(firedLog._day!==todayStr)firedLog={_day:todayStr};
   generateNotifications().filter(n=>(n.level==='bad'||n.level==='warn')&&activeCats.includes(n.category)).forEach(n=>{
     const key=n.title+'|'+n.message;
@@ -3329,7 +3439,7 @@ function toggleWeeklyDigest(){
     if(window.electronAPI&&window.electronAPI.isElectron){
       localStorage.setItem('selvam_weekly_digest_enabled','1');
       showToast('Weekly summary enabled','success');
-      renderNotifications();
+      renderNotificationSettings();
       return;
     }
     if(!('Notification' in window)){showToast('Notifications not supported in this browser','error');return;}
@@ -3345,7 +3455,7 @@ function toggleWeeklyDigest(){
   }else{
     localStorage.setItem('selvam_weekly_digest_enabled','0');
     showToast('Weekly summary disabled','success');
-    renderNotifications();
+    renderNotificationSettings();
   }
 }
 function checkWeeklyDigest(){
@@ -3951,10 +4061,12 @@ function deleteRemittance(id){
 
 // ── PROFILE ──
 function showSettingsTab(tabName){
-  document.querySelectorAll('.settings-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tabName));
+  const aliases={general:'personal',activity:'activity',whatsnew:'activity'};
+  tabName=aliases[tabName]||tabName;
+  document.querySelectorAll('.settings-tab,.settings-side-item').forEach(b=>b.classList.toggle('active',b.dataset.tab===tabName));
   document.querySelectorAll('.settings-tab-panel').forEach(p=>p.classList.toggle('active',p.id==='settings-panel-'+tabName));
   localStorage.setItem('selvam_settings_tab',tabName);
-  if(tabName==='whatsnew')markWhatsNewSeen();
+  if(tabName==='activity')markWhatsNewSeen();
 }
 const WHATSNEW_VERSION='2026.09.a';
 function checkWhatsNewBadge(){
@@ -3985,8 +4097,19 @@ function renderProfile(){
   renderAppLockSettings();
   renderStorageLocationCard();
   renderRegionFilterBtns();
-  showSettingsTab(localStorage.getItem('selvam_settings_tab')||'general');
+  renderSettingsControls();
+  showSettingsTab(localStorage.getItem('selvam_settings_tab')||'personal');
 }
+function renderSettingsControls(){
+  const hidden=document.body.classList.contains('hide-balance');
+  ['settings-hide-balance','settings-hide-balance-privacy'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=hidden?'Show balances':'Hide balances';});
+  const rem=document.getElementById('notif-remind-toggle'); if(rem) rem.textContent=localStorage.getItem('selvam_reminder_enabled')==='1'?t('btn_disable'):t('btn_enable');
+  const push=document.getElementById('notif-push-toggle'); if(push) push.textContent=localStorage.getItem('selvam_push_alerts_enabled')==='1'?t('btn_disable'):t('btn_enable');
+  const weekly=document.getElementById('notif-weekly-toggle'); if(weekly) weekly.textContent=localStorage.getItem('selvam_weekly_digest_enabled')==='1'?t('btn_disable'):t('btn_enable');
+  const br=document.getElementById('backup-reminder-toggle'); if(br) br.textContent=localStorage.getItem('selvam_monthly_backup_enabled')==='1'?t('btn_disable'):t('btn_enable');
+  renderNotificationSettings();
+}
+
 function saveProfile(){
   S.profile.name=document.getElementById('p-name').value;
   S.profile.email=document.getElementById('p-email').value;
@@ -5157,8 +5280,19 @@ function updateSettingsUI() {
   const enBtn=document.getElementById('lang-btn-en'), taBtn=document.getElementById('lang-btn-ta');
   if(enBtn&&taBtn){ enBtn.classList.toggle('active', lang==='en'); taBtn.classList.toggle('active', lang==='ta'); }
   const isDark = document.body.classList.contains('theme-dark');
-  const lightBtn=document.getElementById('theme-btn-light'), darkBtn=document.getElementById('theme-btn-dark');
-  if(lightBtn&&darkBtn){ lightBtn.classList.toggle('active', !isDark); darkBtn.classList.toggle('active', isDark); }
+  const isSoft = document.body.classList.contains('theme-soft-blue');
+  const isBarclays = document.body.classList.contains('theme-barclays');
+  const isLloyds = document.body.classList.contains('theme-lloyds');
+  const classicBtn=document.getElementById('theme-option-classic');
+  const softBtn=document.getElementById('theme-option-soft');
+  const barclaysBtn=document.getElementById('theme-option-barclays');
+  const lloydsBtn=document.getElementById('theme-option-lloyds');
+  const darkBtn=document.getElementById('theme-option-dark');
+  if(classicBtn) classicBtn.classList.toggle('active', !isDark && !isSoft && !isBarclays && !isLloyds);
+  if(softBtn) softBtn.classList.toggle('active', isSoft);
+  if(barclaysBtn) barclaysBtn.classList.toggle('active', isBarclays);
+  if(lloydsBtn) lloydsBtn.classList.toggle('active', isLloyds);
+  if(darkBtn) darkBtn.classList.toggle('active', isDark);
 }
 const ICON_SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
 const ICON_MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>';
@@ -5166,8 +5300,14 @@ const ICON_EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strok
 const ICON_EYE_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.8 21.8 0 0 1 5.06-6.06M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a21.8 21.8 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
 function setTheme(mode) {
   const dark = mode === 'dark';
+  const soft = mode === 'soft-blue';
+  const barclays = mode === 'barclays';
+  const lloyds = mode === 'lloyds';
   document.body.classList.toggle('theme-dark', dark);
-  localStorage.setItem('selvam_theme', dark ? 'dark' : 'light');
+  document.body.classList.toggle('theme-soft-blue', soft);
+  document.body.classList.toggle('theme-barclays', barclays);
+  document.body.classList.toggle('theme-lloyds', lloyds);
+  localStorage.setItem('selvam_theme', mode);
   const themeBtn=document.getElementById('theme-btn');
   if(themeBtn) themeBtn.innerHTML = dark ? ICON_SUN : ICON_MOON;
   updateSettingsUI();
@@ -5346,7 +5486,11 @@ function applyLang() {
 
 // ── INIT ──
 lastSaveTime=parseInt(localStorage.getItem('selvam_last_save_ts'))||null;
-if(localStorage.getItem('selvam_theme')==='dark'){document.body.classList.add('theme-dark');}
+const savedTheme=localStorage.getItem('selvam_theme');
+if(savedTheme==='dark'){document.body.classList.add('theme-dark');}
+else if(savedTheme==='soft-blue'){document.body.classList.add('theme-soft-blue');}
+else if(savedTheme==='barclays'){document.body.classList.add('theme-barclays');}
+else if(savedTheme==='lloyds'){document.body.classList.add('theme-lloyds');}
 if(localStorage.getItem('selvam_hide_balance')==='1'){document.body.classList.add('hide-balance');document.getElementById('hide-balance-btn').innerHTML=ICON_EYE_OFF;}
 if(localStorage.getItem('selvam_nav_more_expanded')==='1')setNavMoreExpanded(true);
 function finishInit(){
