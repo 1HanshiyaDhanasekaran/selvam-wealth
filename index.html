@@ -6,6 +6,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="செல்வம்">
 <title>செல்வம் — உங்கள் செல்வம்</title>
+<meta name="theme-color" content="#0b6b5e">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="selvam-icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="selvam-icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -93,6 +98,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .sidebar{width:248px;background:var(--surface);border-right:1px solid var(--border);padding:0;display:flex;flex-direction:column;position:fixed;height:100vh;top:0;left:0;overflow-y:auto;z-index:100;box-shadow:2px 0 12px rgba(22,163,74,0.06)}
 .logo-wrap{padding:24px 20px 20px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,var(--green-dark) 0%,var(--green) 100%)}
 .logo-tamil{font-family:'Noto Serif Tamil',serif;font-size:26px;font-weight:700;color:#ffffff;letter-spacing:0.02em;line-height:1}
+.logo-brand{display:flex;align-items:center;gap:10px}
+.selvam-brand-icon{width:46px;height:46px;display:block;border-radius:12px;object-fit:cover;box-shadow:0 3px 10px rgba(0,0,0,.16)}
+
 .logo-sub{font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px}
 .logo-tag{font-size:11px;color:rgba(255,255,255,0.85);margin-top:6px;font-weight:400}
 nav{padding:12px 10px;flex:1}
@@ -512,6 +520,35 @@ body.theme-dark .settings-tab.active{color:var(--green2)}
 .calc-cashflow-row .form-inp{margin-bottom:0}
 .calc-cf-del{width:32px;height:32px;flex-shrink:0;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center}
 .calc-cf-del:hover{border-color:var(--red);color:var(--red)}
+
+/* CALCULATOR UPGRADE */
+.calc-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+.calc-search{flex:1;min-width:220px;max-width:420px}
+.calc-search input{width:100%;box-sizing:border-box}
+.calc-tool-note{font-size:11px;color:var(--muted);line-height:1.5}
+.calc-panel-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.calc-panel-header{gap:12px;flex-wrap:wrap}
+.calc-panel-header .calc-panel-title{flex:1}
+.calc-kpi-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:14px}
+.calc-kpi{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:11px 13px}
+.calc-kpi-value{font-weight:800;font-size:17px;color:var(--text)}
+.calc-kpi-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+.calc-table-wrap{overflow:auto;border:1px solid var(--border);border-radius:10px;margin-top:16px}
+.calc-table{width:100%;border-collapse:collapse;font-size:11.5px;min-width:620px}
+.calc-table th,.calc-table td{padding:9px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.calc-table th:first-child,.calc-table td:first-child{text-align:left}
+.calc-table th{background:var(--surface2);color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.04em}
+.calc-table tr:last-child td{border-bottom:0}
+.calc-chart{width:100%;height:170px;margin-top:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface2);display:block}
+.calc-validation{font-size:11px;color:var(--red);min-height:16px;margin-top:5px}
+.calc-disclaimer{margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--surface2);color:var(--muted);font-size:10.5px;line-height:1.55}
+@media(max-width:650px){
+  .calc-grid{grid-template-columns:1fr}
+  .calc-panel{padding:15px}
+  .calc-cashflow-row{flex-wrap:wrap}
+  .calc-cashflow-row .form-inp,.calc-cashflow-row .form-sel{min-width:0;flex:1}
+  .calc-chart{height:145px}
+}
 /* ACTIVITY LOG */
 .activity-date-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);padding:14px 0 8px;border-bottom:1px solid var(--border);margin-bottom:4px}
 .activity-date-label:first-child{padding-top:8px}
@@ -629,6 +666,9 @@ body.theme-dark .settings-tab.active{color:var(--green2)}
   .logo-wrap{padding:16px 10px;text-align:center}
   .logo-sub,.logo-tag,.logo-tamil-text{display:none}
   .logo-tamil{font-size:18px}
+  .selvam-brand-icon{width:36px;height:36px;border-radius:9px}
+  .logo-brand{justify-content:center}
+
   .nav-section,.nav-item span:not(.nav-icon){display:none}
   .nav-item{justify-content:center;padding:10px}
   .main{margin-left:64px;padding:20px 16px;max-width:calc(100vw - 64px)}
@@ -815,6 +855,45 @@ body.theme-lloyds .btn-green:hover{background:#006b31;border-color:#006b31}
 .theme-preview.lloyds .theme-preview-line{background:#e5f4ea}
 @media(max-width:900px){.theme-option-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.theme-option-grid{grid-template-columns:1fr 1fr}}
+
+/* Calculator modal / manual calculation UX */
+.calc-modal-overlay{position:fixed;inset:0;background:rgba(8,18,14,.58);z-index:10050;display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(4px)}
+.calc-modal{width:min(920px,96vw);max-height:92vh;overflow:auto;background:var(--card,#fff);border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.25)}
+.calc-modal .calc-panel{display:block!important;margin:0;border:0;box-shadow:none;max-height:none;overflow:visible}
+.calc-modal-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 0;position:sticky;top:0;z-index:2;background:var(--card,#fff)}
+.calc-modal-close{width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:22px;cursor:pointer}
+.calc-calculate-bar{display:flex;gap:10px;align-items:center;margin:18px 0 4px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap}
+.calc-calculate-btn{min-height:46px;padding:0 24px;border-radius:12px;font-weight:800;font-size:14px;border:0;background:var(--green);color:#fff;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.calc-calculate-btn:active{transform:translateY(1px)}
+.calc-calc-hint{font-size:11px;color:var(--muted)}
+.calc-result-hidden{display:none!important}
+@media(max-width:640px){.calc-modal-overlay{padding:8px;align-items:flex-start}.calc-modal{width:100%;max-height:96vh;border-radius:16px}.calc-modal-top{padding:10px 12px 0}.calc-modal-close{width:44px;height:44px}.calc-calculate-btn{width:100%}.calc-calc-hint{width:100%}}
+
+/* WhatsApp-inspired Settings refresh: simple grouped rows, profile header and privacy-first hierarchy */
+.settings-page-head{margin-bottom:18px}
+.settings-layout{grid-template-columns:292px minmax(0,1fr);gap:24px;align-items:start}
+.settings-side-nav{position:sticky;top:18px;padding:10px;background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:0 4px 18px rgba(15,23,42,.045);gap:3px}
+.settings-profile-mini{display:flex;align-items:center;gap:11px;padding:13px 10px 15px;margin:0 0 7px;border-bottom:1px solid var(--border);cursor:pointer;border-radius:12px;min-width:0}
+.settings-profile-mini:hover{background:var(--bg2)}
+.settings-mini-avatar{width:48px;height:48px;flex:0 0 48px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;font-size:22px;font-weight:800}
+.settings-mini-copy{min-width:0;flex:1}.settings-mini-copy strong{display:block;color:var(--text);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.settings-mini-copy small{display:block;color:var(--muted);font-size:10.5px;margin-top:3px}.settings-chevron{font-size:24px;color:var(--muted);line-height:1}
+.settings-group-label{padding:12px 9px 5px;font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted2)}
+.settings-side-item{position:relative;width:100%;display:flex;align-items:center;gap:10px;text-align:left;border:0;background:transparent;color:var(--text2);padding:10px 8px;border-radius:12px;cursor:pointer;min-height:56px}
+.settings-side-item>div{min-width:0;flex:1}.settings-side-item>b{font-size:22px;font-weight:400;color:var(--muted2);line-height:1}.settings-side-item strong{display:block;font-size:12px;font-weight:750}.settings-side-item small{display:block;font-size:10px;color:var(--muted);margin-top:3px;line-height:1.35}.settings-side-item.active{background:var(--green-light);color:var(--green-dark)}.settings-side-item:hover{background:var(--bg2)}
+.settings-icon{width:34px;height:34px;flex:0 0 34px;border-radius:10px;display:grid;place-items:center;font-size:16px;background:var(--bg2);border:1px solid var(--border)}
+.settings-side-item.active .settings-icon{background:var(--surface);border-color:transparent}
+.settings-privacy-note{display:flex;gap:9px;align-items:flex-start;margin:12px 2px 2px;padding:12px 10px;border:1px solid var(--border);border-radius:13px;background:var(--bg2)}
+.settings-privacy-note>span{font-size:17px}.settings-privacy-note strong{display:block;font-size:10.5px;color:var(--green-dark)}.settings-privacy-note small{display:block;margin-top:3px;font-size:9.5px;line-height:1.45;color:var(--muted)}
+.settings-content{min-width:0}.settings-content-top{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:2px 2px}.settings-back-btn{width:36px;height:36px;border:1px solid var(--border);background:var(--surface);border-radius:50%;font-size:20px;color:var(--text2);cursor:pointer}.settings-back-btn:hover{background:var(--bg2)}.settings-content-title{font-size:16px;font-weight:800;color:var(--text)}.settings-content-sub{font-size:10.5px;color:var(--muted);margin-top:2px}
+.profile-card{border:1px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:0 3px 15px rgba(15,23,42,.035);padding:20px;margin-bottom:14px}.settings-section-title{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:15px}.avatar-row{padding:14px 0 17px;margin-bottom:4px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:13px}.avatar-row .avatar{width:58px;height:58px;border-radius:50%;font-size:21px;background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;display:grid;place-items:center;font-weight:800}.av-name{font-size:20px;font-weight:800;color:var(--text)}.av-email{font-size:11px;color:var(--muted);margin-top:3px}
+.setting-row{padding:14px 0;border-bottom:1px solid var(--border)}.setting-row:last-child{border-bottom:0}.setting-title{font-size:13px}.setting-desc{font-size:11px}.status-pill{font-size:10px}
+@media(max-width:900px){.settings-layout{grid-template-columns:250px minmax(0,1fr);gap:16px}}
+@media(max-width:720px){.settings-page-head{margin-bottom:10px}.settings-layout{grid-template-columns:1fr}.settings-side-nav{position:static}.settings-content-top{margin-top:0}.settings-content{width:100%}.settings-side-item{min-height:54px}.settings-privacy-note{display:none}}
+@media(max-width:520px){.settings-page-head .page-sub{font-size:11px}.settings-side-nav{border-radius:15px}.settings-group-label{padding-top:10px}.settings-side-item{padding:9px 7px}.profile-card{padding:16px;border-radius:15px}.form-row{grid-template-columns:1fr}.avatar-row .avatar{width:52px;height:52px}.av-name{font-size:18px}}
+body.theme-soft-blue .settings-side-item.active{background:#e8f3ff;color:#1554a0}
+body.theme-soft-blue .settings-mini-avatar{background:linear-gradient(135deg,#0f9f9a,#1683e8)}
+body.theme-barclays .settings-side-item.active{background:#e5f3fa;color:#005a8a}
+body.theme-lloyds .settings-side-item.active{background:#e6f5e9;color:#17613b}
 </style>
 <script>
 (function(){
@@ -864,7 +943,10 @@ button,a,[role="button"]{-webkit-tap-highlight-color:transparent}
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="logo-wrap">
-    <div class="logo-tamil">செல்வம்</div>
+    <div class="logo-brand">
+      <img class="selvam-brand-icon" src="selvam-icon-180.png" alt="Selvam" width="46" height="46">
+      <div class="logo-tamil">செல்வம்</div>
+    </div>
     <div class="logo-sub" id="logo-sub">Your Wealth</div>
     <div class="logo-tag" id="logo-tag">Track your true wealth</div>
   </div>
@@ -1181,6 +1263,12 @@ button,a,[role="button"]{-webkit-tap-highlight-color:transparent}
     <div><h1 class="page-title">Calculators</h1><p class="page-sub">Quick financial tools — nothing here is saved to your data</p></div>
   </div>
 
+  <div class="calc-toolbar">
+    <div class="calc-search"><input class="form-inp" id="calc-search" type="search" placeholder="Search calculators…" oninput="filterCalculators(this.value)"></div>
+    <button class="btn btn-outline btn-sm" onclick="resetCalculatorHub()">Reset view</button>
+    <div class="calc-tool-note">All calculations run locally in your browser. No bank connection is required.</div>
+  </div>
+
   <div class="calc-section-label" data-i18n="calc_sec_returns">Returns</div>
   <div class="calc-grid">
     <button class="calc-card" onclick="openCalc('xirr')"><div class="calc-card-ico purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></div><div class="calc-card-body"><div class="calc-card-title"><span data-i18n="calc_xirr_title">XIRR Calculator</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div><div class="calc-card-desc" data-i18n="calc_xirr_desc">Annualized return on irregular investments & withdrawals.</div></div></button>
@@ -1193,6 +1281,9 @@ button,a,[role="button"]{-webkit-tap-highlight-color:transparent}
   <div class="calc-grid">
     <button class="calc-card" onclick="openCalc('emi')"><div class="calc-card-ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M3 21h18M4 10h16M6 10v11M18 10v11M10 10v11M14 10v11M12 2 3 7h18Z"/></svg></div><div class="calc-card-body"><div class="calc-card-title"><span data-i18n="calc_emi_title">EMI Calculator</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div><div class="calc-card-desc" data-i18n="calc_emi_desc">Monthly instalment, total interest, and principal breakup.</div></div></button>
   </div>
+  <div class="calc-grid" style="margin-top:12px">
+    <button class="calc-card" onclick="openCalc('debt')"><div class="calc-card-ico amber">↘</div><div class="calc-card-body"><div class="calc-card-title"><span>Debt Payoff Planner</span><span>→</span></div><div class="calc-card-desc">See payoff time, interest cost and the effect of extra monthly payments.</div></div></button>
+  </div>
 
   <div class="calc-section-label" data-i18n="calc_sec_planning">Planning</div>
   <div class="calc-grid">
@@ -1202,6 +1293,7 @@ button,a,[role="button"]{-webkit-tap-highlight-color:transparent}
 
   <div class="calc-section-label" data-i18n="calc_sec_other">Other Tools</div>
   <div class="calc-grid">
+    <button class="calc-card" onclick="openCalc('compound')"><div class="calc-card-ico green">%</div><div class="calc-card-body"><div class="calc-card-title"><span>Compound Interest</span><span>→</span></div><div class="calc-card-desc">Model a starting balance, regular contributions, return and compounding frequency.</div></div></button>
     <button class="calc-card" onclick="nav('remittances')"><div class="calc-card-ico green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="17" y1="7" x2="7" y2="17"/><polyline points="17 17 17 7 7 7"/></svg></div><div class="calc-card-body"><div class="calc-card-title"><span data-i18n="calc_remit_title">Remittance Rate Tracker</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div><div class="calc-card-desc" data-i18n="calc_remit_desc">Log UK↔India transfers and see the real exchange rate you're actually getting.</div></div></button>
   </div>
 
@@ -1261,23 +1353,36 @@ button,a,[role="button"]{-webkit-tap-highlight-color:transparent}
 
 <!-- PROFILE / SETTINGS -->
 <div class="page" id="page-profile">
-  <div class="page-header">
-    <div><h1 class="page-title">Settings</h1><p class="page-sub">Everything that controls how Selvam looks, behaves and stores your data.</p></div>
+  <div class="page-header settings-page-head">
+    <div><h1 class="page-title">Settings</h1><p class="page-sub">Manage your preferences, privacy, financial profile and app data.</p></div>
   </div>
 
   <div class="settings-layout">
     <aside class="settings-side-nav" aria-label="Settings categories">
-      <button class="settings-side-item active" data-tab="personal" onclick="showSettingsTab('personal')"><span>👤</span><div><strong>Personal</strong><small>Profile & language</small></div></button>
-      <button class="settings-side-item" data-tab="appearance" onclick="showSettingsTab('appearance')"><span>🎨</span><div><strong>Appearance</strong><small>Theme & display</small></div></button>
-      <button class="settings-side-item" data-tab="financial" onclick="showSettingsTab('financial')"><span>💰</span><div><strong>Financial Profile</strong><small>Income & risk</small></div></button>
-      <button class="settings-side-item" data-tab="currency" onclick="showSettingsTab('currency')"><span>💱</span><div><strong>Currency & Regions</strong><small>Currency & countries</small></div></button>
-      <button class="settings-side-item" data-tab="notifications" onclick="showSettingsTab('notifications')"><span>🔔</span><div><strong>Notifications</strong><small>Reminders & alerts</small></div></button>
-      <button class="settings-side-item" data-tab="privacy" onclick="showSettingsTab('privacy')"><span>🔒</span><div><strong>Privacy & Security</strong><small>Privacy & app lock</small></div></button>
-      <button class="settings-side-item" data-tab="backup" onclick="showSettingsTab('backup')"><span>💾</span><div><strong>Data & Backup</strong><small>Backup & restore</small></div></button>
-      <button class="settings-side-item" data-tab="activity" onclick="showSettingsTab('activity')"><span>📜</span><div><strong>Activity & About</strong><small>History & updates</small></div></button>
+      <div class="settings-profile-mini" onclick="showSettingsTab('personal')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showSettingsTab('personal')">
+        <div class="settings-mini-avatar" id="settings-mini-avatar">W</div>
+        <div class="settings-mini-copy"><strong id="settings-mini-name">Wealth</strong><small>Personal finance companion</small></div>
+        <span class="settings-chevron">›</span>
+      </div>
+      <div class="settings-group-label">Account & preferences</div>
+      <button class="settings-side-item active" data-tab="personal" onclick="showSettingsTab('personal')"><span class="settings-icon">👤</span><div><strong>Personal information</strong><small>Name, email & language</small></div><b>›</b></button>
+      <button class="settings-side-item" data-tab="financial" onclick="showSettingsTab('financial')"><span class="settings-icon">💰</span><div><strong>Financial profile</strong><small>Income, age & risk preferences</small></div><b>›</b></button>
+      <button class="settings-side-item" data-tab="currency" onclick="showSettingsTab('currency')"><span class="settings-icon">💱</span><div><strong>Currency & regions</strong><small>Currency, countries & portfolio</small></div><b>›</b></button>
+      <div class="settings-group-label">App</div>
+      <button class="settings-side-item" data-tab="appearance" onclick="showSettingsTab('appearance')"><span class="settings-icon">🎨</span><div><strong>Appearance</strong><small>Theme & display</small></div><b>›</b></button>
+      <button class="settings-side-item" data-tab="notifications" onclick="showSettingsTab('notifications')"><span class="settings-icon">🔔</span><div><strong>Notifications</strong><small>Reminders, alerts & updates</small></div><b>›</b></button>
+      <button class="settings-side-item" data-tab="privacy" onclick="showSettingsTab('privacy')"><span class="settings-icon">🔒</span><div><strong>Privacy & security</strong><small>App lock, privacy & balances</small></div><b>›</b></button>
+      <button class="settings-side-item" data-tab="backup" onclick="showSettingsTab('backup')"><span class="settings-icon">💾</span><div><strong>Data & backup</strong><small>Backup, restore & storage</small></div><b>›</b></button>
+      <div class="settings-group-label">About</div>
+      <button class="settings-side-item" data-tab="activity" onclick="showSettingsTab('activity')"><span class="settings-icon">ⓘ</span><div><strong>Activity & about</strong><small>History, updates & app information</small></div><b>›</b></button>
+      <div class="settings-privacy-note"><span>🛡️</span><div><strong>Your data is private</strong><small>Your information stays on your device. No bank connection.</small></div></div>
     </aside>
 
     <main class="settings-content">
+      <div class="settings-content-top">
+        <button type="button" class="settings-back-btn" onclick="nav('dashboard')" aria-label="Back to dashboard">←</button>
+        <div><div class="settings-content-title">Settings</div><div class="settings-content-sub">Manage your Selvam experience</div></div>
+      </div>
       <!-- PERSONAL -->
       <div class="settings-tab-panel active" id="settings-panel-personal">
         <div class="profile-card">
@@ -3666,13 +3771,70 @@ function renderActivityLog(){
 }
 
 // ── CALCULATORS ──
-function renderCalculators(){/* panel state persists across visits; nothing to refresh on entry */}
+function renderCalculators(){
+  const search=document.getElementById('calc-search');
+  if(search) search.value='';
+  filterCalculators('');
+}
+let calcModalHome=null,calcModalNext=null,activeCalcType=null;
 function openCalc(type){
   const panel=document.getElementById('calc-panel');
+  if(!panel)return;
+  activeCalcType=type;
+  if(!document.getElementById('calc-modal-overlay')){
+    calcModalHome=panel.parentNode;
+    calcModalNext=panel.nextSibling;
+    const overlay=document.createElement('div');
+    overlay.id='calc-modal-overlay'; overlay.className='calc-modal-overlay'; overlay.setAttribute('role','dialog'); overlay.setAttribute('aria-modal','true');
+    overlay.innerHTML=`<div class="calc-modal" role="document"><div class="calc-modal-top"><div style="font-size:12px;font-weight:800;color:var(--muted)">Calculator</div><button type="button" class="calc-modal-close" onclick="closeCalcModal()" aria-label="Close calculator">×</button></div><div id="calc-modal-content"></div></div>`;
+    overlay.addEventListener('click',e=>{if(e.target===overlay)closeCalcModal();});
+    document.body.appendChild(overlay);
+    document.getElementById('calc-modal-content').appendChild(panel);
+  }
   panel.style.display='block';
-  const renderers={xirr:renderXIRRCalc,sip:renderSIPCalc,lumpsum:renderLumpsumCalc,cagr:renderCAGRCalc,emi:renderEMICalc,swp:renderSWPCalc,retirement:renderRetirementCalc};
+  const renderers={xirr:renderXIRRCalc,sip:renderSIPCalc,lumpsum:renderLumpsumCalc,cagr:renderCAGRCalc,emi:renderEMICalc,swp:renderSWPCalc,retirement:renderRetirementCalc,compound:renderCompoundCalc,debt:renderDebtCalc};
   if(renderers[type])renderers[type]();
-  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  setupManualCalculator(type);
+  setTimeout(()=>{const first=document.querySelector('#calc-modal-content input, #calc-modal-content select');if(first)first.focus();},30);
+}
+function closeCalcModal(){
+  const overlay=document.getElementById('calc-modal-overlay');
+  const panel=document.getElementById('calc-panel');
+  if(!overlay||!panel)return;
+  panel.style.display='none';
+  if(calcModalHome){
+    if(calcModalNext&&calcModalNext.parentNode===calcModalHome)calcModalHome.insertBefore(panel,calcModalNext);
+    else calcModalHome.appendChild(panel);
+  }
+  overlay.remove(); activeCalcType=null;
+}
+function setupManualCalculator(type){
+  const panel=document.getElementById('calc-panel');
+  if(!panel)return;
+  // Stop live calculation: results appear only after the user presses Calculate.
+  panel.querySelectorAll('input[oninput]').forEach(el=>el.removeAttribute('oninput'));
+  const resultIds={sip:'sip-results',lumpsum:'ls-results',cagr:'cagr-results',emi:'emi-results',swp:'swp-results',retirement:'retire-results',compound:'ci-results',debt:'dp-results'};
+  const result= resultIds[type] ? document.getElementById(resultIds[type]) : null;
+  if(result){result.classList.add('calc-result-hidden');result.innerHTML='';}
+  const oldBar=panel.querySelector('.calc-calculate-bar'); if(oldBar)oldBar.remove();
+  const bar=document.createElement('div'); bar.className='calc-calculate-bar';
+  const btn=document.createElement('button'); btn.type='button'; btn.className='calc-calculate-btn'; btn.textContent='Calculate';
+  const hint=document.createElement('span'); hint.className='calc-calc-hint'; hint.textContent='Enter your details, then press Calculate to see the result.';
+  btn.addEventListener('click',()=>{
+    let ok=true;
+    try{
+      if(type==='retirement'){saveRetirementCalc();}
+      else if(type==='xirr'){computeXirrForManualMode();}
+      else{const f={sip:computeSIPCalc,lumpsum:computeLumpsumCalc,cagr:computeCAGRCalc,emi:computeEMICalc,swp:computeSWPCalc,compound:computeCompoundCalc,debt:computeDebtCalc}[type];if(f)f();}
+    }catch(e){ok=false;console.error(e);}
+    if(ok&&result)result.classList.remove('calc-result-hidden');
+  });
+  bar.appendChild(btn);bar.appendChild(hint);
+  const anchor=result||panel.lastElementChild; panel.insertBefore(bar,anchor);
+}
+function computeXirrForManualMode(){
+  if(xirrMode==='sip')computeXirrSIP();else computeXIRRCalc();
+  const r=document.getElementById('xirr-results');if(r)r.classList.remove('calc-result-hidden');
 }
 
 function renderSIPCalc(){
@@ -3688,7 +3850,7 @@ function renderSIPCalc(){
     </div>
     <div class="calc-result-grid" id="sip-results"></div>
   `;
-  computeSIPCalc();
+  // Calculation is triggered by the Calculate button in the calculator window.
 }
 function computeSIPCalc(){
   const monthly=parseFloat(document.getElementById('sip-amt').value)||0;
@@ -3718,7 +3880,7 @@ function renderLumpsumCalc(){
     <div class="form-grp"><label class="form-lbl">Time Period (years)</label><input class="form-inp" id="ls-years" type="number" value="10" oninput="computeLumpsumCalc()"></div>
     <div class="calc-result-grid" id="ls-results"></div>
   `;
-  computeLumpsumCalc();
+  // Calculation is triggered by the Calculate button in the calculator window.
 }
 function computeLumpsumCalc(){
   const p=parseFloat(document.getElementById('ls-amt').value)||0;
@@ -3742,7 +3904,7 @@ function renderCAGRCalc(){
     <div class="form-grp"><label class="form-lbl">Time Period (years)</label><input class="form-inp" id="cagr-years" type="number" step="0.1" value="5" oninput="computeCAGRCalc()"></div>
     <div class="calc-result-grid" id="cagr-results"></div>
   `;
-  computeCAGRCalc();
+  // Calculation is triggered by the Calculate button in the calculator window.
 }
 function computeCAGRCalc(){
   const start=parseFloat(document.getElementById('cagr-start').value)||0;
@@ -3757,32 +3919,196 @@ function computeCAGRCalc(){
 
 function renderEMICalc(){
   document.getElementById('calc-panel').innerHTML=`
-    <div class="calc-panel-header"><span class="calc-panel-title">EMI Calculator</span></div>
-    <div class="form-row">
-      <div class="form-grp"><label class="form-lbl">Loan Amount</label><input class="form-inp" id="emi-amt" type="number" value="2000000" oninput="computeEMICalc()"></div>
-      <div class="form-grp"><label class="form-lbl">Interest Rate (% p.a.)</label><input class="form-inp" id="emi-rate" type="number" step="0.1" value="8.5" oninput="computeEMICalc()"></div>
+    <div class="calc-panel-header">
+      <span class="calc-panel-title">EMI Calculator</span>
+      <div class="calc-panel-actions"><button class="btn btn-outline btn-sm" onclick="resetEMICalc()">Reset</button></div>
     </div>
-    <div class="form-grp"><label class="form-lbl">Tenure (years)</label><input class="form-inp" id="emi-years" type="number" value="20" oninput="computeEMICalc()"></div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl">Loan Amount</label><input class="form-inp" id="emi-amt" type="number" min="0" step="1000" value="2000000" oninput="computeEMICalc()"></div>
+      <div class="form-grp"><label class="form-lbl">Interest Rate (% p.a.)</label><input class="form-inp" id="emi-rate" type="number" min="0" max="100" step="0.01" value="8.5" oninput="computeEMICalc()"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl">Tenure (years)</label><input class="form-inp" id="emi-years" type="number" min="0.083" max="100" step="0.083" value="20" oninput="computeEMICalc()"></div>
+      <div class="form-grp"><label class="form-lbl">Extra Payment / Month (optional)</label><input class="form-inp" id="emi-extra" type="number" min="0" step="100" value="0" oninput="computeEMICalc()"></div>
+    </div>
+    <div class="calc-validation" id="emi-validation"></div>
     <div class="calc-result-grid" id="emi-results"></div>
+    <div id="emi-schedule"></div>
+    <div class="calc-disclaimer">This is an estimate using a standard reducing-balance monthly EMI model. Actual lender schedules can differ because of fees, daily interest, rate changes, payment dates or other contract terms. Verify against your loan statement before making decisions.</div>
   `;
-  computeEMICalc();
+  // Calculation is triggered by the Calculate button in the calculator window.
+}
+function resetEMICalc(){
+  ['emi-amt','emi-rate','emi-years','emi-extra'].forEach(id=>{const e=document.getElementById(id);if(e)e.value={ 'emi-amt':2000000,'emi-rate':8.5,'emi-years':20,'emi-extra':0}[id];});
+  const r=document.getElementById('emi-results'); if(r){r.innerHTML='';r.classList.add('calc-result-hidden');}
+  const v=document.getElementById('emi-validation'); if(v)v.textContent='';
 }
 function computeEMICalc(){
-  const p=parseFloat(document.getElementById('emi-amt').value)||0;
-  const annualRate=parseFloat(document.getElementById('emi-rate').value)||0;
-  const years=parseFloat(document.getElementById('emi-years').value)||0;
-  const r=annualRate/100/12,n=years*12;
-  let emi=0;
-  if(p>0&&n>0)emi=r>0?(p*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1):p/n;
-  const totalPayment=emi*n;
-  const totalInterest=totalPayment-p;
-  document.getElementById('emi-results').innerHTML=`
-    <div class="calc-result-item"><div class="calc-result-val">${fmt(emi)}</div><div class="calc-result-lbl">EMI / Month</div></div>
-    <div class="calc-result-item"><div class="calc-result-val" style="color:var(--red)">${fmt(totalInterest)}</div><div class="calc-result-lbl">Total Interest</div></div>
-    <div class="calc-result-item"><div class="calc-result-val">${fmt(totalPayment)}</div><div class="calc-result-lbl">Total Payment</div></div>
+  const p=parseFloat(document.getElementById('emi-amt')?.value);
+  const annualRate=parseFloat(document.getElementById('emi-rate')?.value);
+  const years=parseFloat(document.getElementById('emi-years')?.value);
+  const extra=Math.max(0,parseFloat(document.getElementById('emi-extra')?.value)||0);
+  const validation=document.getElementById('emi-validation');
+  const result=document.getElementById('emi-results');
+  const schedule=document.getElementById('emi-schedule');
+  if(!result)return;
+  const errors=[];
+  if(!Number.isFinite(p)||p<=0)errors.push('Enter a loan amount greater than 0.');
+  if(!Number.isFinite(annualRate)||annualRate<0||annualRate>100)errors.push('Interest rate must be between 0% and 100%.');
+  if(!Number.isFinite(years)||years<=0||years>100)errors.push('Tenure must be between 1 month and 100 years.');
+  if(errors.length){
+    validation.textContent=errors[0]; result.innerHTML=''; schedule.innerHTML=''; return;
+  }
+  validation.textContent='';
+  const n=Math.max(1,Math.round(years*12));
+  const r=annualRate/100/12;
+  const baseEmi=r>0?(p*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1):p/n;
+  const plannedPayment=baseEmi+extra;
+  let bal=p,totalInterest=0,months=0,interestBase=0;
+  const rows=[];
+  while(bal>0.005&&months<n+1200){
+    months++;
+    const interest=bal*r;
+    const principal=Math.min(bal,Math.max(0,plannedPayment-interest));
+    const payment=principal+interest;
+    if(principal<=0&&r>0)break;
+    bal=Math.max(0,bal-principal);
+    totalInterest+=interest;
+    interestBase+=principal;
+    if(months<=12||months%12===0||bal<=0.005)rows.push({month:months,payment,principal,interest,balance:bal});
+  }
+  const totalPayment=interestBase+totalInterest;
+  const standardTotal=baseEmi*n;
+  const interestSaved=Math.max(0,standardTotal-p-totalInterest);
+  const monthsSaved=Math.max(0,n-months);
+  result.innerHTML=`
+    <div class="calc-result-item"><div class="calc-result-val">${fmt(baseEmi)}</div><div class="calc-result-lbl">Base EMI / Month</div></div>
+    <div class="calc-result-item"><div class="calc-result-val">${fmt(plannedPayment)}</div><div class="calc-result-lbl">Payment With Extra</div></div>
+    <div class="calc-result-item"><div class="calc-result-val" style="color:var(--red)">${fmt(totalInterest)}</div><div class="calc-result-lbl">Estimated Interest</div></div>
+    <div class="calc-result-item"><div class="calc-result-val">${fmt(totalPayment)}</div><div class="calc-result-lbl">Estimated Total Paid</div></div>
+    <div class="calc-result-item"><div class="calc-result-val">${Math.floor(months/12)}y ${months%12}m</div><div class="calc-result-lbl">Payoff Time</div></div>
+    <div class="calc-result-item"><div class="calc-result-val" style="color:var(--green)">${extra>0?fmt(interestSaved):'—'}</div><div class="calc-result-lbl">${extra>0?'Interest Saved':'Add Extra Payment'}</div></div>
+  `;
+  const shown=rows.slice(0,12);
+  schedule.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:10px">
+      <strong style="font-size:13px">Repayment snapshot</strong>
+      <span class="calc-tool-note">${monthsSaved>0?monthsSaved+' months earlier with extra payment':'Standard schedule'}</span>
+    </div>
+    <div class="calc-table-wrap"><table class="calc-table"><thead><tr><th>Month</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead>
+    <tbody>${shown.map(x=>`<tr><td>${x.month}</td><td>${fmt(x.payment)}</td><td>${fmt(x.principal)}</td><td>${fmt(x.interest)}</td><td>${fmt(x.balance)}</td></tr>`).join('')}</tbody></table></div>
+    ${months>12?`<div class="calc-tool-note" style="margin-top:7px">Showing the first 12 months. The calculator models every month internally through payoff.</div>`:''}
   `;
 }
 
+
+function renderCompoundCalc(){
+  document.getElementById('calc-panel').innerHTML=`
+    <div class="calc-panel-header"><span class="calc-panel-title">Compound Interest</span><button class="btn btn-outline btn-sm" onclick="openCalc('compound')">Refresh</button></div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl">Starting Amount</label><input class="form-inp" id="ci-principal" type="number" min="0" value="100000" oninput="computeCompoundCalc()"></div>
+      <div class="form-grp"><label class="form-lbl">Monthly Contribution</label><input class="form-inp" id="ci-monthly" type="number" min="0" value="10000" oninput="computeCompoundCalc()"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl">Return (% p.a.)</label><input class="form-inp" id="ci-rate" type="number" min="-99" max="100" step="0.1" value="8" oninput="computeCompoundCalc()"></div>
+      <div class="form-grp"><label class="form-lbl">Years</label><input class="form-inp" id="ci-years" type="number" min="0.1" max="100" step="0.1" value="10" oninput="computeCompoundCalc()"></div>
+    </div>
+    <div class="form-grp"><label class="form-lbl">Compounding</label><select class="form-sel" id="ci-frequency" onchange="computeCompoundCalc()"><option value="12">Monthly</option><option value="4">Quarterly</option><option value="1">Yearly</option><option value="365">Daily</option></select></div>
+    <div class="calc-result-grid" id="ci-results"></div><div id="ci-chart"></div>
+    <div class="calc-disclaimer">Growth projections are hypothetical. Actual investment returns are uncertain and may be negative. The compounding convention matters, so Selvam shows it explicitly.</div>
+  `;
+  // Calculation is triggered by the Calculate button in the calculator window.
+}
+function computeCompoundCalc(){
+  const p=Math.max(0,parseFloat(document.getElementById('ci-principal')?.value)||0);
+  const monthly=Math.max(0,parseFloat(document.getElementById('ci-monthly')?.value)||0);
+  const rate=parseFloat(document.getElementById('ci-rate')?.value)||0;
+  const years=Math.max(0,parseFloat(document.getElementById('ci-years')?.value)||0);
+  const freq=Math.max(1,parseInt(document.getElementById('ci-frequency')?.value)||12);
+  const periods=Math.round(years*freq);
+  const periodicRate=rate/100/freq;
+  let balance=p, invested=p, points=[];
+  for(let k=1;k<=periods;k++){
+    balance*=1+periodicRate;
+    const contribution=monthly*(freq/12);
+    balance+=contribution; invested+=contribution;
+    if(k%Math.max(1,Math.round(freq))===0||k===periods)points.push({year:k/freq,balance});
+  }
+  const gains=balance-invested;
+  document.getElementById('ci-results').innerHTML=`
+    <div class="calc-result-item"><div class="calc-result-val">${fmt(balance)}</div><div class="calc-result-lbl">Projected Value</div></div>
+    <div class="calc-result-item"><div class="calc-result-val">${fmt(invested)}</div><div class="calc-result-lbl">Total Contributions</div></div>
+    <div class="calc-result-item"><div class="calc-result-val" style="color:${gains>=0?'var(--green)':'var(--red)'}">${fmt(gains)}</div><div class="calc-result-lbl">Growth / Loss</div></div>`;
+  drawCalcChart('ci-chart',points,'balance');
+}
+function renderDebtCalc(){
+  document.getElementById('calc-panel').innerHTML=`
+    <div class="calc-panel-header"><span class="calc-panel-title">Debt Payoff Planner</span></div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl">Current Debt</label><input class="form-inp" id="dp-balance" type="number" min="0" value="12000" oninput="computeDebtCalc()"></div>
+      <div class="form-grp"><label class="form-lbl">Interest Rate (% p.a.)</label><input class="form-inp" id="dp-rate" type="number" min="0" max="100" step="0.01" value="18.8" oninput="computeDebtCalc()"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-grp"><label class="form-lbl">Current Monthly Payment</label><input class="form-inp" id="dp-payment" type="number" min="0" value="596" oninput="computeDebtCalc()"></div>
+      <div class="form-grp"><label class="form-lbl">Extra Monthly Payment</label><input class="form-inp" id="dp-extra" type="number" min="0" value="0" oninput="computeDebtCalc()"></div>
+    </div>
+    <div class="calc-result-grid" id="dp-results"></div><div id="dp-schedule"></div>
+    <div class="calc-disclaimer">This planner assumes a fixed monthly rate and payment. Credit cards and loans may calculate interest differently, and promotional rates can change. Use your lender's statement for the contractual payoff amount.</div>
+  `;
+  // Calculation is triggered by the Calculate button in the calculator window.
+}
+function computeDebtCalc(){
+  const bal0=Math.max(0,parseFloat(document.getElementById('dp-balance')?.value)||0);
+  const annual=Math.max(0,parseFloat(document.getElementById('dp-rate')?.value)||0);
+  const payment=Math.max(0,parseFloat(document.getElementById('dp-payment')?.value)||0);
+  const extra=Math.max(0,parseFloat(document.getElementById('dp-extra')?.value)||0);
+  const r=annual/100/12, pay=payment+extra;
+  let bal=bal0,months=0,interest=0;
+  while(bal>0.005&&months<1200){
+    months++;
+    const int=bal*r;
+    if(pay<=int&&r>0){document.getElementById('dp-results').innerHTML='<div class="calc-result-item" style="grid-column:1/-1"><div class="calc-result-val" style="font-size:13px;color:var(--red)">Payment is too low to reduce this debt at the stated interest rate.</div></div>';document.getElementById('dp-schedule').innerHTML='';return;}
+    const principal=Math.min(bal,pay-int);
+    interest+=int; bal=Math.max(0,bal-principal);
+  }
+  const total=bal0+interest;
+  document.getElementById('dp-results').innerHTML=`
+    <div class="calc-result-item"><div class="calc-result-val">${months<1200?Math.floor(months/12)+'y '+months%12+'m':'1200+ months'}</div><div class="calc-result-lbl">Estimated Payoff</div></div>
+    <div class="calc-result-item"><div class="calc-result-val" style="color:var(--red)">${fmt(interest)}</div><div class="calc-result-lbl">Estimated Interest</div></div>
+    <div class="calc-result-item"><div class="calc-result-val">${fmt(total)}</div><div class="calc-result-lbl">Estimated Total Paid</div></div>
+    <div class="calc-result-item"><div class="calc-result-val">${fmt(pay)}</div><div class="calc-result-lbl">Monthly Payment</div></div>`;
+  document.getElementById('dp-schedule').innerHTML=`<div class="calc-tool-note" style="margin-top:14px">Adding extra payment increases the monthly amount from ${fmt(payment)} to ${fmt(pay)} and can materially reduce interest when the balance is interest-bearing.</div>`;
+}
+function drawCalcChart(containerId,points,key){
+  const el=document.getElementById(containerId); if(!el)return;
+  if(!points.length){el.innerHTML='';return;}
+  const vals=points.map(p=>p[key]), max=Math.max(...vals), min=Math.min(...vals), range=(max-min)||1;
+  const w=760,h=170,p=18;
+  const path=points.map((x,i)=>{const xx=p+(w-2*p)*(i/Math.max(1,points.length-1));const yy=p+(h-2*p)*(1-(x[key]-min)/range);return `${i?'L':'M'}${xx.toFixed(1)},${yy.toFixed(1)}`}).join(' ');
+  el.innerHTML=`<svg class="calc-chart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-label="Projection chart"><path d="${path}" fill="none" stroke="var(--green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+function filterCalculators(q){
+  q=(q||'').trim().toLowerCase();
+  document.querySelectorAll('#page-calculators .calc-card').forEach(card=>{
+    const text=card.textContent.toLowerCase();
+    card.style.display=!q||text.includes(q)?'flex':'none';
+  });
+  document.querySelectorAll('#page-calculators .calc-section-label').forEach(label=>{
+    const next=[];
+    let el=label.nextElementSibling;
+    let has=false;
+    while(el&&!el.classList.contains('calc-section-label')){
+      if(el.classList.contains('calc-grid')&&[...el.querySelectorAll('.calc-card')].some(c=>c.style.display!=='none'))has=true;
+      el=el.nextElementSibling;
+    }
+    label.style.display=has||!q?'':'none';
+  });
+}
+function resetCalculatorHub(){
+  const s=document.getElementById('calc-search'); if(s)s.value='';
+  filterCalculators('');
+  const p=document.getElementById('calc-panel'); if(p){p.style.display='none';p.innerHTML='';}
+}
 function renderSWPCalc(){
   document.getElementById('calc-panel').innerHTML=`
     <div class="calc-panel-header"><span class="calc-panel-title">SWP with Inflation</span></div>
@@ -3796,7 +4122,7 @@ function renderSWPCalc(){
     </div>
     <div class="calc-result-grid" id="swp-results"></div>
   `;
-  computeSWPCalc();
+  // Calculation is triggered by the Calculate button in the calculator window.
 }
 function computeSWPCalc(){
   const corpus=parseFloat(document.getElementById('swp-corpus').value)||0;
@@ -3832,11 +4158,11 @@ function renderXIRRCalc(){
       <button class="calc-mode-tab ${xirrMode==='custom'?'active':''}" onclick="setXirrMode('custom')">Custom Cash Flows</button>
     </div>
     <div id="xirr-mode-body"></div>
-    <div class="calc-result-grid" id="xirr-results"></div>
+    <div class="calc-result-grid calc-result-hidden" id="xirr-results"></div>
   `;
   renderXirrModeBody();
 }
-function setXirrMode(mode){xirrMode=mode;renderXIRRCalc();}
+function setXirrMode(mode){xirrMode=mode;renderXIRRCalc();setupManualCalculator('xirr');}
 function renderXirrModeBody(){
   const body=document.getElementById('xirr-mode-body');
   if(xirrMode==='sip'){
@@ -3855,7 +4181,7 @@ function renderXirrModeBody(){
         </div>
       </div>
     `;
-    computeXirrSIP();
+    // Calculation is triggered by Calculate.
   }else{
     body.innerHTML=`
       <div id="xirr-rows"></div>
@@ -3866,7 +4192,6 @@ function renderXirrModeBody(){
       </div>
     `;
     renderXirrRows();
-    computeXIRRCalc();
   }
 }
 function setXsipUnit(u){
@@ -3895,21 +4220,21 @@ function computeXirrSIP(){
 function renderXirrRows(){
   document.getElementById('xirr-rows').innerHTML=xirrRows.map((row,i)=>`
     <div class="calc-cashflow-row">
-      <select class="form-sel xirr-type-sel ${row.type}" onchange="xirrRows[${i}].type=this.value;renderXirrRows();computeXIRRCalc();">
+      <select class="form-sel xirr-type-sel ${row.type}" onchange="xirrRows[${i}].type=this.value;renderXirrRows();">
         <option value="invested" ${row.type==='invested'?'selected':''}>Invested</option>
         <option value="withdrawn" ${row.type==='withdrawn'?'selected':''}>Withdrawn</option>
       </select>
-      <input class="form-inp" type="number" placeholder="Amount" value="${row.amount}" oninput="xirrRows[${i}].amount=this.value;computeXIRRCalc()">
-      <input class="form-inp" type="date" value="${row.date}" onchange="xirrRows[${i}].date=this.value;computeXIRRCalc()">
-      <select class="form-sel" onchange="xirrRows[${i}].freq=this.value;computeXIRRCalc()">
+      <input class="form-inp" type="number" placeholder="Amount" value="${row.amount}" oninput="xirrRows[${i}].amount=this.value">
+      <input class="form-inp" type="date" value="${row.date}" onchange="xirrRows[${i}].date=this.value">
+      <select class="form-sel" onchange="xirrRows[${i}].freq=this.value">
         <option value="once" ${row.freq==='once'?'selected':''}>One-off</option>
         <option value="monthly" ${row.freq==='monthly'?'selected':''}>Monthly till today</option>
       </select>
       <button class="calc-cf-del" onclick="removeXirrRow(${i})" title="Remove">✕</button>
     </div>`).join('');
 }
-function addXirrRow(type){xirrRows.push({type:type||'invested',amount:'',date:'',freq:'once'});renderXirrRows();computeXIRRCalc();}
-function removeXirrRow(i){if(xirrRows.length<=1){xirrRows=[{type:'invested',amount:'',date:'',freq:'once'}];}else{xirrRows.splice(i,1);}renderXirrRows();computeXIRRCalc();}
+function addXirrRow(type){xirrRows.push({type:type||'invested',amount:'',date:'',freq:'once'});renderXirrRows();}
+function removeXirrRow(i){if(xirrRows.length<=1){xirrRows=[{type:'invested',amount:'',date:'',freq:'once'}];}else{xirrRows.splice(i,1);}renderXirrRows();}
 function solveXIRR(flows){
   const hasPositive=flows.some(f=>f.amount>0),hasNegative=flows.some(f=>f.amount<0);
   if(flows.length<2||!hasPositive||!hasNegative)return null;
@@ -4123,6 +4448,8 @@ function updateProfileDisplay(){
   document.getElementById('profile-name').textContent=n;
   document.getElementById('profile-email').textContent=S.profile.email||'Not set';
   document.getElementById('profile-av').textContent=n[0]||(lang==='ta'?'ச':'W');
+  const miniName=document.getElementById('settings-mini-name'); if(miniName) miniName.textContent=n;
+  const miniAv=document.getElementById('settings-mini-avatar'); if(miniAv) miniAv.textContent=n[0]||(lang==='ta'?'ச':'W');
 }
 
 // ── ADD / EDIT ASSET ──
@@ -5513,5 +5840,6 @@ function startApp(){
 }
 startApp();
 </script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
 </body>
 </html>
