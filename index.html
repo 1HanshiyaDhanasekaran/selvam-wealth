@@ -923,18 +923,26 @@ body.theme-lloyds .btn-green:hover{background:#006b31;border-color:#006b31}
 @media(max-width:900px){.theme-option-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.theme-option-grid{grid-template-columns:1fr 1fr}}
 
-/* Calculator modal / manual calculation UX */
-.calc-modal-overlay{position:fixed;inset:0;background:rgba(8,18,14,.58);z-index:10050;display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(4px)}
-.calc-modal{width:min(920px,96vw);max-height:92vh;overflow:auto;background:var(--card,#fff);border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,.25)}
-.calc-modal .calc-panel{display:block!important;margin:0;border:0;box-shadow:none;max-height:none;overflow:visible}
-.calc-modal-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 0;position:sticky;top:0;z-index:2;background:var(--card,#fff)}
-.calc-modal-close{width:42px;height:42px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:22px;cursor:pointer}
-.calc-calculate-bar{display:flex;gap:10px;align-items:center;margin:18px 0 4px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap}
-.calc-calculate-btn{min-height:46px;padding:0 24px;border-radius:12px;font-weight:800;font-size:14px;border:0;background:var(--green);color:#fff;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.12)}
-.calc-calculate-btn:active{transform:translateY(1px)}
-.calc-calc-hint{font-size:11px;color:var(--muted)}
-.calc-result-hidden{display:none!important}
-@media(max-width:640px){.calc-modal-overlay{padding:8px;align-items:flex-start}.calc-modal{width:100%;max-height:96vh;border-radius:16px}.calc-modal-top{padding:10px 12px 0}.calc-modal-close{width:44px;height:44px}.calc-calculate-btn{width:100%}.calc-calc-hint{width:100%}}
+/* Calculator modal / modern Selvam action-sheet UX */
+.calc-modal-overlay{position:fixed;inset:0;background:rgba(8,18,14,.50);z-index:10050;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px) saturate(115%);-webkit-backdrop-filter:blur(10px) saturate(115%);animation:calcFadeIn .16s ease-out}
+.calc-modal{width:min(760px,96vw);max-height:min(90dvh,900px);overflow:hidden;background:var(--surface,#fff);border:1px solid color-mix(in srgb,var(--border) 82%,transparent);border-radius:28px;box-shadow:0 30px 90px rgba(15,23,42,.24);display:flex;flex-direction:column;animation:calcSheetIn .18s ease-out}
+.calc-modal-top{display:flex;align-items:center;gap:13px;padding:16px 18px 14px;position:sticky;top:0;z-index:3;background:color-mix(in srgb,var(--surface,#fff) 94%,transparent);border-bottom:1px solid var(--border);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.calc-modal-brand{width:44px;height:44px;border-radius:15px;display:flex;align-items:center;justify-content:center;flex:0 0 44px;background:var(--blue-light);color:var(--blue);font-weight:800;font-size:18px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--blue) 10%,transparent)}
+.calc-modal-heading{min-width:0;flex:1}.calc-modal-kicker{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:2px}.calc-modal-title{font-size:18px;font-weight:800;line-height:1.2;color:var(--text)}.calc-modal-subtitle{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4}
+.calc-modal-close{width:42px;height:42px;border-radius:14px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:0 0 42px;transition:.15s ease}.calc-modal-close:hover{background:var(--bg);transform:translateY(-1px)}
+#calc-modal-content{overflow:auto;padding:0;-webkit-overflow-scrolling:touch}
+.calc-modal .calc-panel{display:block!important;margin:0;border:0;box-shadow:none;background:transparent;max-height:none;overflow:visible;padding:20px}
+.calc-modal .calc-panel-header{padding:0;margin:0 0 16px}.calc-modal .calc-panel-header .calc-panel-title{font-size:0}.calc-modal .calc-panel-header .calc-panel-title:after{content:'Enter your details';font-size:12px;font-family:inherit;color:var(--muted);font-weight:700}
+.calc-modal .form-row{gap:12px}.calc-modal .form-grp{margin-bottom:14px}.calc-modal .form-lbl{font-size:10.5px;font-weight:750;margin-bottom:6px}.calc-modal .form-inp,.calc-modal .form-sel,.calc-modal textarea{min-height:46px;border-radius:14px;background:var(--surface);border:1px solid var(--border);font-size:13px;padding:11px 13px;box-sizing:border-box;transition:border-color .15s,box-shadow .15s}.calc-modal .form-inp:focus,.calc-modal .form-sel:focus,.calc-modal textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 12%,transparent)}
+.calc-modal .calc-result-grid{margin-top:18px;padding-top:18px;gap:10px}.calc-modal .calc-result-item{border:1px solid var(--border);border-radius:16px;padding:14px;background:var(--surface2);min-height:68px}.calc-modal .calc-result-val{font-size:18px}.calc-modal .calc-result-lbl{font-size:9.5px}
+.calc-modal .calc-mode-tabs{max-width:none;width:100%;border-radius:14px;padding:4px;margin:0 0 16px}.calc-modal .calc-mode-tab{min-height:40px;border-radius:10px}
+.calc-calculate-bar{display:flex;gap:10px;align-items:center;margin:6px 0 0;padding:14px 20px 18px;border-top:1px solid var(--border);flex-wrap:wrap;background:var(--surface);position:sticky;bottom:0;z-index:4}
+.calc-calculate-btn{min-height:48px;padding:0 26px;border-radius:14px;font-weight:800;font-size:13px;border:0;background:var(--green);color:#fff;cursor:pointer;box-shadow:0 7px 18px rgba(16,185,129,.18);transition:.15s ease}.calc-calculate-btn:hover{transform:translateY(-1px)}.calc-calculate-btn:active{transform:translateY(1px)}
+.calc-calc-hint{font-size:10.5px;color:var(--muted);line-height:1.4;flex:1}.calc-result-hidden{display:none!important}
+.calc-modal .calc-disclaimer{border-radius:14px;margin-top:14px;padding:11px 13px}
+@keyframes calcFadeIn{from{opacity:0}to{opacity:1}}@keyframes calcSheetIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+@media(max-width:640px){.calc-modal-overlay{padding:0;align-items:flex-end}.calc-modal{width:100%;max-width:none;max-height:94dvh;border-radius:28px 28px 0 0;border-left:0;border-right:0;border-bottom:0}.calc-modal-top{padding:12px 16px 13px}.calc-modal-brand{width:40px;height:40px;flex-basis:40px;border-radius:13px}.calc-modal-title{font-size:17px}.calc-modal-subtitle{font-size:10.5px}.calc-modal-close{width:40px;height:40px;flex-basis:40px}.calc-modal .calc-panel{padding:17px 16px 12px}.calc-modal .form-row{display:block}.calc-modal .form-grp{margin-bottom:13px}.calc-modal .calc-result-grid{grid-template-columns:1fr 1fr}.calc-calculate-bar{padding:12px 16px calc(14px + env(safe-area-inset-bottom));display:block}.calc-calculate-btn{width:100%}.calc-calc-hint{display:block;text-align:center;margin-top:8px}.calc-modal .calc-table-wrap{margin-left:-2px;margin-right:-2px}.calc-modal .calc-table{font-size:10.5px}}
+
 
 /* WhatsApp-inspired Settings refresh: simple grouped rows, profile header and privacy-first hierarchy */
 .settings-page-head{margin-bottom:18px}
@@ -947,7 +955,7 @@ body.theme-lloyds .btn-green:hover{background:#006b31;border-color:#006b31}
 .settings-group-label{padding:12px 9px 5px;font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted2)}
 .settings-side-item{position:relative;width:100%;display:flex;align-items:center;gap:10px;text-align:left;border:0;background:transparent;color:var(--text2);padding:10px 8px;border-radius:12px;cursor:pointer;min-height:56px}
 .settings-side-item>div{min-width:0;flex:1}.settings-side-item>b{font-size:22px;font-weight:400;color:var(--muted2);line-height:1}.settings-side-item strong{display:block;font-size:12px;font-weight:750}.settings-side-item small{display:block;font-size:10px;color:var(--muted);margin-top:3px;line-height:1.35}.settings-side-item.active{background:var(--green-light);color:var(--green-dark)}.settings-side-item:hover{background:var(--bg2)}
-.settings-icon{width:34px;height:34px;flex:0 0 34px;border-radius:10px;display:grid;place-items:center;font-size:16px;background:var(--bg2);border:1px solid var(--border)}.settings-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.settings-icon{width:34px;height:34px;flex:0 0 34px;border-radius:10px;display:grid;place-items:center;font-size:16px;background:var(--bg2);border:1px solid var(--border)}
 .settings-side-item.active .settings-icon{background:var(--surface);border-color:transparent}
 .settings-privacy-note{display:flex;gap:9px;align-items:flex-start;margin:12px 2px 2px;padding:12px 10px;border:1px solid var(--border);border-radius:13px;background:var(--bg2)}
 .settings-privacy-note>span{font-size:17px}.settings-privacy-note strong{display:block;font-size:10.5px;color:var(--green-dark)}.settings-privacy-note small{display:block;margin-top:3px;font-size:9.5px;line-height:1.45;color:var(--muted)}
@@ -1035,22 +1043,96 @@ button,.btn,.icon-btn,.nav-item,.bottom-nav-item,.fab,.filter-chip,.finance-nav-
 }
 
 
-/* Selvam v2 — simplified settings */
-.settings-layout{grid-template-columns:250px minmax(0,1fr);gap:24px}
-.settings-side-nav{padding:10px;border-radius:18px;background:var(--surface);box-shadow:0 4px 18px rgba(15,23,42,.04)}
-.settings-profile-mini{padding:12px 10px 14px;margin-bottom:4px;border-bottom:1px solid var(--border)}
-.settings-side-item{min-height:52px;padding:9px 10px}
-.settings-side-item>b{margin-left:auto;font-size:20px;font-weight:400;color:var(--muted2)}
-.settings-group-label{padding:14px 10px 6px}
-.settings-more{margin-top:4px}
-.settings-more-summary{list-style:none;cursor:pointer;padding:11px 10px;border-top:1px solid var(--border);font-size:11px;font-weight:700;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
-.settings-more-summary::-webkit-details-marker{display:none}
-.settings-more[open] .settings-more-summary{color:var(--text2)}
-.settings-more .settings-side-item{margin-top:2px}
-.settings-heading-wrap{align-items:flex-end}
-.settings-search-wrap{display:none}
-@media(max-width:820px){.settings-layout{grid-template-columns:1fr;gap:12px}.settings-side-nav{position:static}.settings-profile-mini{margin-bottom:2px}}
-@media(max-width:520px){.settings-side-item{min-height:50px}.settings-side-item small{display:block}}
+/* Unified category picker — shared across expense entry */
+.sel-category-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--border);background:var(--surface);border-radius:16px;color:var(--text);cursor:pointer;text-align:left;box-shadow:0 2px 8px rgba(15,23,42,.03)}
+.sel-category-trigger:hover{background:var(--surface2)}
+.sel-category-trigger-main{display:flex;align-items:center;gap:11px;min-width:0}.sel-category-trigger-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--blue-light);font-size:20px;flex:0 0 40px}.sel-category-trigger-copy{min-width:0}.sel-category-trigger-copy strong{display:block;font-size:14px}.sel-category-trigger-copy span{display:block;font-size:10px;color:var(--muted);margin-top:2px}.sel-category-trigger-arrow{font-size:24px;color:var(--muted);line-height:1}
+#modal-category-picker{z-index:700}.sel-cat-picker{position:relative;z-index:1;width:min(620px,100%);max-height:min(86dvh,760px);background:var(--surface);border:1px solid var(--border);border-radius:28px 28px 20px 20px;box-shadow:0 22px 60px rgba(15,23,42,.22);overflow:hidden;display:flex;flex-direction:column}.sel-cat-picker-head{display:flex;align-items:center;gap:12px;padding:18px 18px 12px;border-bottom:1px solid var(--border)}.sel-cat-picker-head h3{margin:0;font-size:20px}.sel-cat-picker-head p{margin:3px 0 0;font-size:11px;color:var(--muted)}.sel-cat-picker-close{margin-left:auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:22px;color:var(--text)}.sel-cat-picker-search{padding:12px 18px}.sel-cat-picker-search input{width:100%;height:44px;border:1px solid var(--border);border-radius:14px;background:var(--surface2);padding:0 14px;font-size:15px;color:var(--text);outline:none}.sel-cat-picker-grid{padding:4px 18px 18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;overflow:auto}.sel-cat-option{min-height:72px;border:1px solid var(--border);border-radius:16px;background:var(--surface);cursor:pointer;display:flex;align-items:center;gap:9px;padding:10px;text-align:left;color:var(--text)}.sel-cat-option:hover,.sel-cat-option.active{border-color:var(--blue);background:var(--blue-light)}.sel-cat-option-icon{width:34px;height:34px;border-radius:10px;background:var(--bg2);display:grid;place-items:center;font-size:17px;flex:0 0 34px}.sel-cat-option-name{font-size:12px;font-weight:750;line-height:1.25;overflow:hidden;text-overflow:ellipsis}.sel-cat-add-card{border:1.5px dashed var(--blue);background:var(--blue-light);color:var(--blue);justify-content:center}.sel-cat-add-card .sel-cat-option-icon{background:transparent}.sel-cat-new{padding:0 18px 18px;border-top:1px solid var(--border)}.sel-cat-new[hidden]{display:none}.sel-cat-new-row{display:grid;grid-template-columns:64px 1fr auto;gap:9px;align-items:center;padding-top:14px}.sel-cat-icon-input{height:44px;width:64px;border:1px solid var(--border);border-radius:13px;background:var(--surface2);text-align:center;font-size:20px}.sel-cat-name-input{height:44px;border:1px solid var(--border);border-radius:13px;background:var(--surface2);padding:0 12px;font-size:14px;color:var(--text)}.sel-cat-new-help{font-size:10px;color:var(--muted);margin-top:7px}.sel-cat-picker-actions{display:flex;justify-content:flex-end;gap:8px;padding:0 18px 18px}@media(max-width:600px){.sel-cat-picker{width:100%;border-radius:28px 28px 0 0;max-height:90dvh}.sel-cat-picker-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding-left:14px;padding-right:14px}.sel-cat-picker-head{padding-left:14px;padding-right:14px}.sel-cat-picker-search{padding-left:14px;padding-right:14px}.sel-cat-new{padding-left:14px;padding-right:14px}.sel-cat-new-row{grid-template-columns:54px 1fr}.sel-cat-new-row .btn{grid-column:1/-1;width:100%}.sel-cat-picker-actions{padding-left:14px;padding-right:14px}}
+/* Functional quick-entry states */
+.sel-category-chip.sel-category-add{border-style:dashed;cursor:pointer}
+.sel-entry-row[hidden],.sel-section-head[hidden],.sel-category-scroller[hidden]{display:none!important}
+#daily-income-source-row{min-height:56px}
+
+/* ─────────────────────────────────────────────────────────────
+   Selvam Theme System — final cross-app normalization layer
+   Keeps every newer component on the same Appearance theme.
+   ───────────────────────────────────────────────────────────── */
+body.theme-dark,
+body.theme-barclays,
+body.theme-lloyds,
+body.theme-soft-blue{color-scheme:light}
+body.theme-dark{color-scheme:dark}
+
+/* Global surfaces / typography */
+body.theme-barclays,body.theme-lloyds,body.theme-soft-blue,body.theme-dark{background:var(--bg)!important;color:var(--text)}
+body.theme-barclays .main,body.theme-lloyds .main,body.theme-soft-blue .main,body.theme-dark .main{color:var(--text)}
+body.theme-barclays .card,body.theme-lloyds .card,body.theme-soft-blue .card,body.theme-dark .card,
+body.theme-barclays .finance-card,body.theme-lloyds .finance-card,body.theme-soft-blue .finance-card,body.theme-dark .finance-card,
+body.theme-barclays .stat-card,body.theme-lloyds .stat-card,body.theme-soft-blue .stat-card,body.theme-dark .stat-card,
+body.theme-barclays .profile-card,body.theme-lloyds .profile-card,body.theme-soft-blue .profile-card,body.theme-dark .profile-card{background:var(--surface);border-color:var(--border);color:var(--text)}
+
+/* Common controls */
+body.theme-barclays input,body.theme-barclays select,body.theme-barclays textarea,
+body.theme-lloyds input,body.theme-lloyds select,body.theme-lloyds textarea,
+body.theme-soft-blue input,body.theme-soft-blue select,body.theme-soft-blue textarea,
+body.theme-dark input,body.theme-dark select,body.theme-dark textarea{background:var(--surface2);color:var(--text);border-color:var(--border2)}
+body.theme-barclays input::placeholder,body.theme-barclays textarea::placeholder,
+body.theme-lloyds input::placeholder,body.theme-lloyds textarea::placeholder,
+body.theme-soft-blue input::placeholder,body.theme-soft-blue textarea::placeholder,
+body.theme-dark input::placeholder,body.theme-dark textarea::placeholder{color:var(--muted)}
+
+/* Modern expense / income / goal / asset sheets */
+body.theme-barclays .sel-entry-sheet,body.theme-lloyds .sel-entry-sheet,body.theme-soft-blue .sel-entry-sheet,body.theme-dark .sel-entry-sheet,
+body.theme-barclays .sel-form-sheet,body.theme-lloyds .sel-form-sheet,body.theme-soft-blue .sel-form-sheet,body.theme-dark .sel-form-sheet,
+body.theme-barclays .calc-modal,body.theme-lloyds .calc-modal,body.theme-soft-blue .calc-modal,body.theme-dark .calc-modal{background:var(--surface);color:var(--text);border-color:var(--border)}
+body.theme-barclays .sel-sheet-head,body.theme-lloyds .sel-sheet-head,body.theme-soft-blue .sel-sheet-head,body.theme-dark .sel-sheet-head{background:color-mix(in srgb,var(--surface) 94%,transparent);border-color:var(--border)}
+body.theme-barclays .sel-entry-card,body.theme-lloyds .sel-entry-card,body.theme-soft-blue .sel-entry-card,body.theme-dark .sel-entry-card,
+body.theme-barclays .sel-form-card,body.theme-lloyds .sel-form-card,body.theme-soft-blue .sel-form-card,body.theme-dark .sel-form-card{background:var(--surface);border-color:var(--border);box-shadow:var(--shadow-sm)}
+body.theme-barclays .sel-entry-tabs,body.theme-lloyds .sel-entry-tabs,body.theme-soft-blue .sel-entry-tabs,body.theme-dark .sel-entry-tabs{background:color-mix(in srgb,var(--border2) 45%,transparent)}
+body.theme-barclays .sel-entry-tab.active,body.theme-lloyds .sel-entry-tab.active,body.theme-soft-blue .sel-entry-tab.active,body.theme-dark .sel-entry-tab.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm)}
+body.theme-barclays .sel-entry-tab,body.theme-lloyds .sel-entry-tab,body.theme-soft-blue .sel-entry-tab,body.theme-dark .sel-entry-tab{color:var(--muted)}
+body.theme-barclays .sel-category-chip,body.theme-lloyds .sel-category-chip,body.theme-soft-blue .sel-category-chip,body.theme-dark .sel-category-chip{background:var(--surface);border-color:var(--border2);color:var(--text2)}
+body.theme-barclays .sel-category-chip.active,body.theme-lloyds .sel-category-chip.active,body.theme-soft-blue .sel-category-chip.active,body.theme-dark .sel-category-chip.active{border-color:var(--green);background:color-mix(in srgb,var(--green) 9%,var(--surface));color:var(--green-dark)}
+body.theme-barclays .sel-save-btn,body.theme-lloyds .sel-save-btn,body.theme-soft-blue .sel-save-btn,body.theme-dark .sel-save-btn,
+body.theme-barclays .sel-see-all,body.theme-lloyds .sel-see-all,body.theme-soft-blue .sel-see-all,body.theme-dark .sel-see-all{color:var(--green)}
+body.theme-barclays .sel-form-icon,body.theme-lloyds .sel-form-icon,body.theme-soft-blue .sel-form-icon,body.theme-dark .sel-form-icon{background:var(--green-light);color:var(--green-dark)}
+body.theme-barclays .sel-form-close,body.theme-lloyds .sel-form-close,body.theme-soft-blue .sel-form-close,body.theme-dark .sel-form-close{background:var(--surface2);border-color:var(--border);color:var(--text2)}
+body.theme-barclays .sel-entry-actions,body.theme-lloyds .sel-entry-actions,body.theme-soft-blue .sel-entry-actions,body.theme-dark .sel-entry-actions,
+body.theme-barclays .sel-form-actions,body.theme-lloyds .sel-form-actions{background:color-mix(in srgb,var(--surface) 94%,transparent);border-color:var(--border)}
+body.theme-dark .sel-form-actions{background:color-mix(in srgb,var(--surface) 94%,transparent);border-color:var(--border)}
+
+/* Calculator-specific fixed light colours */
+body.theme-barclays .calc-modal-top,body.theme-lloyds .calc-modal-top,body.theme-soft-blue .calc-modal-top,body.theme-dark .calc-modal-top{background:color-mix(in srgb,var(--surface) 94%,transparent);border-color:var(--border);color:var(--text)}
+body.theme-barclays .calc-modal .calc-input,body.theme-lloyds .calc-modal .calc-input,body.theme-soft-blue .calc-modal .calc-input,body.theme-dark .calc-modal .calc-input{background:var(--surface2);color:var(--text);border-color:var(--border2)}
+
+/* Navigation / toolbar / bottom navigation */
+body.theme-barclays .topbar,body.theme-lloyds .topbar,body.theme-soft-blue .topbar,body.theme-dark .topbar{background:color-mix(in srgb,var(--surface) 80%,transparent);border-color:var(--border)}
+body.theme-barclays .bottom-nav,body.theme-lloyds .bottom-nav,body.theme-soft-blue .bottom-nav,body.theme-dark .bottom-nav{background:color-mix(in srgb,var(--surface) 90%,transparent)!important;border-color:var(--border)!important;box-shadow:var(--shadow)!important}
+body.theme-barclays .bottom-nav-item.active,body.theme-lloyds .bottom-nav-item.active,body.theme-soft-blue .bottom-nav-item.active,body.theme-dark .bottom-nav-item.active{background:var(--green-light)!important;color:var(--green-dark)!important}
+
+/* Pages with older hard-coded green/white hero treatments */
+body.theme-barclays .nw-hero,body.theme-lloyds .nw-hero,body.theme-soft-blue .nw-hero,body.theme-dark .nw-hero,
+body.theme-barclays .health-hero,body.theme-lloyds .health-hero,body.theme-soft-blue .health-hero,body.theme-dark .health-hero{background:linear-gradient(135deg,var(--green-dark),var(--green))!important}
+body.theme-barclays .logo-wrap,body.theme-lloyds .logo-wrap,body.theme-soft-blue .logo-wrap,body.theme-dark .logo-wrap{background:linear-gradient(145deg,var(--green-dark),var(--green))!important}
+
+/* Overlay tint: dark stays dark, banking themes use their own surface tint */
+body.theme-dark .sel-sheet-overlay,body.theme-dark .calc-modal-overlay{background:rgba(0,0,0,.62)}
+body.theme-barclays .sel-sheet-overlay,body.theme-barclays .calc-modal-overlay{background:rgba(0,39,70,.30)}
+body.theme-soft-blue .sel-sheet-overlay,body.theme-soft-blue .calc-modal-overlay{background:rgba(30,70,110,.25)}
+body.theme-lloyds .sel-sheet-overlay,body.theme-lloyds .calc-modal-overlay{background:rgba(0,70,35,.25)}
+
+/* Dark mode: eliminate common white/light remnants */
+body.theme-dark .modal,body.theme-dark .modal-box,body.theme-dark .dialog,body.theme-dark .overlay-box,
+body.theme-dark .settings-side-nav,body.theme-dark .settings-content,body.theme-dark .theme-option{background:var(--surface);color:var(--text);border-color:var(--border)}
+body.theme-dark .theme-preview-main{background:var(--surface2)!important}
+body.theme-dark .theme-preview-line{background:var(--green-light)!important}
+body.theme-dark .theme-preview.dark .theme-preview-main{background:var(--surface2)!important}
+
+/* Banking themes: make old green-specific controls follow the selected primary colour */
+body.theme-barclays .btn-green,body.theme-soft-blue .btn-green{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+body.theme-lloyds .btn-green{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+body.theme-dark .btn-green{background:var(--green)!important;border-color:var(--green)!important;color:#062318!important}
+
 </style>
 <script>
 (function(){
@@ -1262,9 +1344,9 @@ body{background:linear-gradient(180deg,#f7faf8 0%,#f3f6f4 48%,#eef3f0 100%);colo
 /* dashboard */
 #page-dashboard{max-width:1180px;margin:0 auto}.finance-page-head{padding:5px 2px 0;margin-bottom:18px!important}.finance-page-head .page-title{font-size:40px!important}.finance-page-head .page-sub{font-size:13px}
 #page-dashboard .finance-actions .btn{border-radius:14px}
-.everyday-intro{position:relative;overflow:hidden;margin-bottom:14px!important;padding:28px 30px!important;border:1px solid rgba(255,255,255,.85)!important;border-radius:30px!important;background:linear-gradient(135deg,#0a7d58 0%,#0b9367 58%,#14aa78 100%)!important;box-shadow:0 18px 45px rgba(8,127,89,.16)!important;color:#fff!important}
-.everyday-intro:after{content:"";position:absolute;width:260px;height:260px;right:-80px;top:-110px;border-radius:50%;background:rgba(255,255,255,.12);box-shadow:-80px 170px 0 -55px rgba(255,255,255,.08)}
-.everyday-intro-copy{position:relative;z-index:1;max-width:670px}.everyday-kicker{font-size:10px!important;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.68)!important;font-weight:800}.everyday-intro h2{font-size:31px!important;line-height:1.08;letter-spacing:-.05em;margin:6px 0 9px!important;color:#fff!important}.everyday-intro p{font-size:13px!important;line-height:1.6;color:rgba(255,255,255,.78)!important;max-width:580px}.everyday-actions{position:relative;z-index:2;margin:18px 0 0!important}.everyday-actions .btn-green{background:#fff!important;color:#087f59!important;box-shadow:0 8px 18px rgba(0,0,0,.12)!important}.everyday-actions .btn-outline{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.24)!important;color:#fff!important;box-shadow:none!important}
+.everyday-intro{position:relative;overflow:hidden;margin-bottom:14px!important;padding:28px 30px!important;border:1px solid color-mix(in srgb,var(--surface) 72%,transparent)!important;border-radius:30px!important;background:linear-gradient(135deg,color-mix(in srgb,var(--accent2) 92%,var(--text) 8%) 0%,var(--accent) 58%,color-mix(in srgb,var(--accent) 78%,var(--surface) 22%) 100%)!important;box-shadow:0 18px 45px color-mix(in srgb,var(--accent) 18%,transparent)!important;color:var(--surface)!important}
+.everyday-intro:after{content:"";position:absolute;width:260px;height:260px;right:-80px;top:-110px;border-radius:50%;background:color-mix(in srgb,var(--surface) 12%,transparent);box-shadow:-80px 170px 0 -55px color-mix(in srgb,var(--surface) 8%,transparent)}
+.everyday-intro-copy{position:relative;z-index:1;max-width:670px}.everyday-kicker{font-size:10px!important;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.68)!important;font-weight:800}.everyday-intro h2{font-size:31px!important;line-height:1.08;letter-spacing:-.05em;margin:6px 0 9px!important;color:#fff!important}.everyday-intro p{font-size:13px!important;line-height:1.6;color:rgba(255,255,255,.78)!important;max-width:580px}.everyday-actions{position:relative;z-index:2;margin:18px 0 0!important}.everyday-actions .btn-green{background:var(--surface)!important;color:var(--accent2)!important;box-shadow:0 8px 18px rgba(0,0,0,.12)!important}.everyday-actions .btn-outline{background:color-mix(in srgb,var(--surface) 12%,transparent)!important;border-color:color-mix(in srgb,var(--surface) 30%,transparent)!important;color:var(--surface)!important;box-shadow:none!important}
 .everyday-routine{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:10px!important;margin-bottom:22px!important}.routine-card{border-radius:20px!important;padding:17px!important;background:rgba(255,255,255,.88)!important;box-shadow:var(--shadow-sm)!important;border:1px solid rgba(21,33,28,.055)!important}.routine-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)!important}.routine-icon{width:42px!important;height:42px!important;border-radius:13px!important;background:#eef8f4!important}.routine-copy strong{font-size:13px!important}.routine-copy span{color:#87938d!important}
 .everyday-section-label{display:flex;align-items:baseline;justify-content:space-between;margin:25px 2px 10px!important}.everyday-section-label strong{font-size:18px;letter-spacing:-.03em}.everyday-section-label span{font-size:11px;color:#87938d}
 #dash-kpis{grid-template-columns:repeat(4,1fr)!important;gap:10px!important;margin-bottom:14px!important}.stat-card,.dash-card,.health-card,.nw-card{border-radius:21px!important;background:rgba(255,255,255,.9)!important;border:1px solid rgba(21,33,28,.055)!important;box-shadow:var(--shadow-sm)!important}.stat-card{padding:18px!important}.stat-value{font-size:25px!important;font-weight:800}.stat-label{font-size:10.5px!important;text-transform:uppercase;letter-spacing:.05em}.stat-sub{font-size:10.5px!important}
@@ -1280,26 +1362,178 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
 .modal-overlay{background:rgba(9,20,15,.38)!important;backdrop-filter:blur(13px)!important}.modal,.modal-box,.dialog{border-radius:28px!important;border:1px solid rgba(255,255,255,.85)!important;box-shadow:0 30px 80px rgba(9,20,15,.22)!important}
 /* mobile: true 2026 handheld layout */
 @media(max-width:900px){.main{margin-left:0;max-width:none;padding:12px 16px 110px}.sidebar{display:none}.topbar{top:8px;margin-bottom:17px}.finance-page-head .page-title{font-size:32px!important}.everyday-routine{grid-template-columns:1fr!important}.routine-card{min-height:72px}.everyday-intro{padding:24px 22px!important;border-radius:26px!important}.everyday-intro h2{font-size:27px!important}.finance-grid{grid-template-columns:1fr!important}#dash-kpis{grid-template-columns:repeat(2,1fr)!important}}
-@media(max-width:600px){body{background:#f4f7f5}.main{padding:8px 12px 108px}.topbar{border-radius:18px}.finance-page-head{padding-top:3px}.finance-page-head .page-title{font-size:29px!important}.finance-page-head .finance-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:7px!important}.finance-page-head .finance-actions .btn:first-child{grid-column:1/-1}.everyday-intro{margin-left:-1px;margin-right:-1px;padding:22px 19px!important;border-radius:24px!important}.everyday-intro h2{font-size:25px!important}.everyday-actions{display:grid!important;grid-template-columns:1fr 1fr}.everyday-actions .btn{width:100%}.everyday-routine{gap:8px!important}.routine-card{padding:13px!important}.routine-icon{width:40px!important;height:40px!important}.everyday-section-label{margin-top:20px!important}.everyday-section-label span{display:none}#dash-kpis{gap:8px!important}.stat-card{padding:15px!important;border-radius:18px!important}.stat-value{font-size:22px!important}.bottom-nav{left:10px!important;right:10px!important;bottom:9px!important;height:66px!important;border-radius:22px!important;background:rgba(255,255,255,.84)!important;border:1px solid rgba(255,255,255,.95)!important;box-shadow:0 16px 45px rgba(20,40,31,.14)!important;backdrop-filter:blur(24px) saturate(150%)!important}.bottom-nav-item{border-radius:16px!important}.bottom-nav-item.active{background:#e8f6f0!important;color:#087f59!important}.modal,.modal-box,.dialog{width:calc(100vw - 20px)!important;border-radius:25px!important}}
-@media(prefers-color-scheme:dark){body.theme-dark{background:#0c120f}.theme-dark .sidebar,.theme-dark .topbar{background:rgba(20,29,24,.78)}.theme-dark .everyday-routine .routine-card,.theme-dark .stat-card,.theme-dark .finance-card,.theme-dark .card{background:rgba(20,29,24,.94)!important}.theme-dark .everyday-intro{background:linear-gradient(135deg,#086d4d,#0c8f65)!important}}
+@media(max-width:600px){body{background:var(--bg)}.main{padding:8px 12px 108px}.topbar{border-radius:18px}.finance-page-head{padding-top:3px}.finance-page-head .page-title{font-size:29px!important}.finance-page-head .finance-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:7px!important}.finance-page-head .finance-actions .btn:first-child{grid-column:1/-1}.everyday-intro{margin-left:-1px;margin-right:-1px;padding:22px 19px!important;border-radius:24px!important}.everyday-intro h2{font-size:25px!important}.everyday-actions{display:grid!important;grid-template-columns:1fr 1fr}.everyday-actions .btn{width:100%}.everyday-routine{gap:8px!important}.routine-card{padding:13px!important}.routine-icon{width:40px!important;height:40px!important}.everyday-section-label{margin-top:20px!important}.everyday-section-label span{display:none}#dash-kpis{gap:8px!important}.stat-card{padding:15px!important;border-radius:18px!important}.stat-value{font-size:22px!important}.bottom-nav{left:10px!important;right:10px!important;bottom:9px!important;height:66px!important;border-radius:22px!important;background:color-mix(in srgb,var(--surface) 88%,transparent)!important;border:1px solid var(--border)!important;box-shadow:var(--shadow)!important;backdrop-filter:blur(24px) saturate(150%)!important}.bottom-nav-item{border-radius:16px!important}.bottom-nav-item.active{background:var(--green-light)!important;color:var(--green-dark)!important}.modal,.modal-box,.dialog{width:calc(100vw - 20px)!important;border-radius:25px!important}}
+@media(prefers-color-scheme:dark){body.theme-dark{background:#0c120f}.theme-dark .sidebar,.theme-dark .topbar{background:rgba(20,29,24,.78)}.theme-dark .everyday-routine .routine-card,.theme-dark .stat-card,.theme-dark .finance-card,.theme-dark .card{background:rgba(20,29,24,.94)!important}.theme-dark .everyday-intro{background:linear-gradient(135deg,var(--green-dark),var(--green))!important}}
+
+/* Selvam v2 — iOS / One UI inspired quick expense sheet */
+.sel-sheet-overlay{align-items:flex-end;padding:0;background:rgba(15,23,42,.28);backdrop-filter:blur(6px)}
+.sel-entry-sheet{width:min(680px,100%);max-height:min(92vh,900px);overflow:auto;border-radius:28px 28px 0 0;padding:14px 22px 0;background:var(--bg,#f5f7fb);box-shadow:0 -12px 40px rgba(15,23,42,.18)}
+.sel-sheet-head{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:8px;margin-bottom:14px;position:sticky;top:0;z-index:2;background:color-mix(in srgb,var(--bg,#f5f7fb) 92%,transparent);backdrop-filter:blur(12px);padding:4px 0 10px}
+.sel-sheet-title{text-align:center;font-size:22px;margin:0;font-weight:800;color:var(--text,#15213b)}
+.sel-icon-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--border,#dbe4ef);background:var(--surface,#fff);font-size:30px;line-height:1;color:var(--text,#15213b);cursor:pointer}
+.sel-save-btn{font-size:28px;color:var(--blue,#087fb8);font-weight:700}
+.sel-entry-tabs{display:grid;grid-template-columns:1fr 1fr;padding:3px;background:rgba(100,116,139,.14);border-radius:22px;margin-bottom:18px}
+.sel-entry-tab{border:0;background:transparent;border-radius:19px;padding:11px;font-size:16px;font-weight:700;color:var(--muted,#6b7280);cursor:pointer}
+.sel-entry-tab.active{background:var(--surface,#fff);color:var(--text,#111827);box-shadow:0 1px 4px rgba(15,23,42,.08)}
+.sel-entry-card{background:var(--surface,#fff);border:1px solid var(--border,#e1e8f0);border-radius:24px;margin-bottom:18px;overflow:hidden;box-shadow:0 3px 14px rgba(15,23,42,.035)}
+.sel-entry-row{min-height:64px;display:flex;align-items:center;gap:14px;padding:11px 18px}
+.sel-amount-row{min-height:88px}.sel-row-icon{width:34px;flex:0 0 34px;text-align:center;font-size:23px;color:var(--text,#111827)}
+.sel-row-main{min-width:0;flex:1}.sel-row-main label,.sel-row-main>span{display:block;font-size:16px;font-weight:650;color:var(--text,#17233b)}
+.sel-amount-input{width:100%;border:0;outline:0;background:transparent;font-size:16px;padding:5px 0 0;color:var(--text,#111827)}
+.sel-amount-input::placeholder{color:#9aa4b2}.sel-amount-preview{font-size:18px;color:var(--muted,#7b8492);white-space:nowrap}
+.sel-entry-divider{height:1px;background:var(--border,#e6ebf1);margin-left:66px}.sel-inline-select,.sel-inline-date{border:0;background:transparent;color:var(--muted,#7b8492);font-size:16px;font-weight:650;text-align:right;max-width:180px;outline:0}
+.sel-inline-date{font-weight:600}.sel-notes-input{width:100%;border:0;outline:0;background:transparent;font-size:16px;color:var(--text,#17233b)}
+.sel-section-head{display:flex;justify-content:space-between;align-items:center;margin:2px 4px 10px}.sel-section-head strong{font-size:17px}.sel-see-all{border:0;background:transparent;color:var(--blue,#087fb8);font-size:16px;font-weight:650;cursor:pointer}
+.sel-category-scroller{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 12px;margin-bottom:6px;scrollbar-width:none}.sel-category-scroller::-webkit-scrollbar{display:none}
+.sel-category-chip{flex:0 0 auto;min-width:122px;padding:14px 15px;border-radius:19px;border:2px solid var(--border,#dce5ef);background:var(--surface,#fff);font-size:15px;font-weight:700;color:var(--text,#24334f);cursor:pointer;text-align:center;white-space:nowrap}.sel-category-chip.active{border-color:var(--blue,#087fb8);background:color-mix(in srgb,var(--blue,#087fb8) 8%,var(--surface,#fff));box-shadow:0 0 0 1px color-mix(in srgb,var(--blue,#087fb8) 18%,transparent)}
+.sel-attachment-card{padding:0}.sel-attachment-row{width:100%;min-height:64px;display:flex;align-items:center;gap:14px;padding:11px 18px;border:0;background:transparent;font-size:16px;font-weight:650;color:var(--text,#17233b);text-align:left;cursor:pointer}.sel-attachment-row .sel-chevron{margin-left:auto;font-size:28px;color:var(--muted,#9aa4b2)}.sel-receipt-preview{padding:0 18px 12px}.sel-entry-actions{display:flex;justify-content:flex-end;gap:10px;padding:14px 0 4px;border-top:1px solid var(--border,#e6ebf1);position:sticky;bottom:0;background:color-mix(in srgb,var(--bg,#f5f7fb) 94%,transparent);backdrop-filter:blur(12px);z-index:3}.sel-entry-actions .btn{min-width:116px;min-height:48px;font-size:15px}.sel-sheet-bottom-space{height:20px}
+@media(max-width:600px){.sel-entry-sheet{padding:10px 14px 0;border-radius:28px 28px 0 0;max-height:94vh}.sel-sheet-head{margin-bottom:10px}.sel-entry-row{padding-left:14px;padding-right:14px}.sel-entry-divider{margin-left:62px}.sel-category-chip{min-width:112px}.sel-inline-select,.sel-inline-date{max-width:150px}}
+@media(min-width:601px){.sel-sheet-overlay{align-items:center;padding:20px}.sel-entry-sheet{border-radius:28px;max-height:88vh}}
+
+
+/* Selvam v2 — Unified modern action sheets for Goal / Asset and other primary actions */
+.sel-form-sheet{width:min(900px,calc(100vw - 40px));max-height:90vh;padding:18px 24px 10px;border-radius:30px;background:var(--surface);border:1px solid var(--border2);box-shadow:0 24px 70px rgba(15,23,42,.20);overflow-y:auto;animation:fadeUp .25s ease}
+.sel-form-head{display:grid;grid-template-columns:46px 1fr 46px;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:10px;border-bottom:1px solid var(--border)}
+.sel-form-head-copy{min-width:0}.sel-form-head-copy h2{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;font-size:24px;letter-spacing:-.035em;font-weight:780;color:var(--text)}.sel-form-head-copy p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.sel-form-icon{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--green-light);color:var(--green-dark);font-size:20px}
+.sel-form-close{width:42px;height:42px;border-radius:14px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:25px;line-height:1;cursor:pointer}
+.sel-form-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.sel-form-card{border:1px solid var(--border);border-radius:20px;background:var(--surface);padding:16px;box-shadow:var(--shadow-sm)}
+.sel-form-card-wide{grid-column:1/-1}.sel-form-card-title{font-size:13px;font-weight:760;letter-spacing:-.015em;margin-bottom:12px;color:var(--text)}
+.sel-form-card .form-grp{margin-bottom:12px}.sel-form-card .form-grp:last-child{margin-bottom:0}
+.sel-form-actions{display:flex;justify-content:flex-end;gap:10px;border-top:1px solid var(--border);padding-top:14px;margin-top:14px}
+.sel-form-actions .btn{min-height:46px;padding-inline:20px}
+.sel-form-primary{min-width:150px}
+.sel-form-sheet .form-row{gap:12px}.sel-form-sheet .form-lbl{font-size:10.5px;margin-bottom:6px}.sel-form-sheet .form-inp,.sel-form-sheet .form-sel,.sel-form-sheet .form-ta{min-height:46px;border-radius:14px!important;background:var(--surface2)!important}
+.sel-form-sheet .type-display-btn{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;min-height:46px}
+.sel-form-sheet .more-details{border:1px solid var(--border);border-radius:16px;background:var(--surface2);padding:0 12px}.sel-form-sheet .more-details summary{padding:12px 2px;font-weight:700;font-size:12px;cursor:pointer}.sel-form-sheet .more-details-body{padding:4px 0 2px}
+@media(max-width:700px){.sel-form-sheet{width:100%;max-width:none;max-height:calc(100dvh - env(safe-area-inset-top));min-height:min(620px,100dvh);padding:8px 12px calc(10px + env(safe-area-inset-bottom));border-radius:30px 30px 0 0}.sel-form-head{padding:4px 0 9px;margin-bottom:8px}.sel-form-head-copy h2{font-size:21px}.sel-form-head-copy p{font-size:11px}.sel-form-body{grid-template-columns:1fr;gap:10px}.sel-form-card,.sel-form-card-wide{grid-column:1;border-radius:20px;padding:14px}.sel-form-actions{position:sticky;bottom:0;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(14px);padding-bottom:4px}.sel-form-actions .btn{flex:1}.sel-form-primary{min-width:0}}
+
+/* Selvam v2 — Mobile-first expense capture / desktop full workspace */
+@media (min-width:701px){
+  .sel-entry-sheet{
+    width:min(1040px,calc(100vw - 56px));
+    max-height:90vh;
+    padding:18px 24px 8px;
+    border-radius:30px;
+  }
+  .sel-sheet-head{padding-bottom:12px;margin-bottom:14px}
+  .sel-entry-tabs{max-width:520px;margin:0 auto 20px}
+  .sel-entry-card{border-radius:22px}
+  .sel-amount-card{max-width:760px;margin-left:auto;margin-right:auto}
+  .sel-category-scroller{padding-bottom:14px}
+  .sel-category-chip{min-width:132px}
+  .sel-entry-row{min-height:68px}
+  .sel-sheet-bottom-space{height:8px}
+}
+@media (min-width:1000px){
+  .sel-entry-sheet{
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);
+    column-gap:24px;
+    align-content:start;
+  }
+  .sel-sheet-head,.sel-entry-tabs{grid-column:1/-1}
+  .sel-amount-card{grid-column:1/-1;width:100%;max-width:none}
+  .sel-section-head{grid-column:1}
+  .sel-category-scroller{grid-column:1}
+  .sel-entry-sheet>.form-grp,.sel-entry-sheet>.custom-cat-entry,.sel-entry-sheet>#daily-income-source-card{grid-column:1}
+  .sel-entry-sheet>.sel-entry-card:not(.sel-amount-card):not(.sel-attachment-card){grid-column:2;grid-row:3 / span 3}
+  .sel-attachment-card{grid-column:2;grid-row:6}
+  .sel-sheet-bottom-space{grid-column:1/-1}
+}
+@media (max-width:700px){
+  /* Mobile is the everyday expense-recording surface. */
+  .main{padding-bottom:116px}
+  .fab{
+    left:50%;right:auto;bottom:82px;
+    width:58px;height:58px;border:4px solid var(--surface,#fff);
+    transform:translateX(-50%);
+    box-shadow:0 10px 26px rgba(8,127,89,.28);
+  }
+  .fab:active{transform:translateX(-50%) scale(.94)}
+  .bottom-nav{height:68px;padding-left:4px;padding-right:4px}
+  .bottom-nav-fab-spacer{width:72px}
+  .bottom-nav-item{font-size:10.5px}
+  .sel-sheet-overlay{align-items:flex-end;padding:0}
+  .sel-entry-sheet{
+    width:100%;max-width:none;max-height:calc(100dvh - env(safe-area-inset-top));
+    min-height:min(620px,100dvh);padding:8px 12px calc(10px + env(safe-area-inset-bottom));
+    border-radius:30px 30px 0 0;
+  }
+  .sel-sheet-head{padding:4px 0 9px;margin-bottom:8px}
+  .sel-sheet-title{font-size:21px}
+  .sel-icon-btn{width:46px;height:46px}
+  .sel-entry-tabs{margin-bottom:12px}
+  .sel-entry-tab{padding:10px;font-size:15px}
+  .sel-entry-card{margin-bottom:12px;border-radius:20px}
+  .sel-amount-row{min-height:82px}
+  .sel-amount-input{font-size:19px;font-weight:650}
+  .sel-amount-preview{font-size:17px}
+  .sel-entry-row{min-height:58px;padding:9px 13px;gap:10px}
+  .sel-row-icon{width:30px;flex-basis:30px;font-size:21px}
+  .sel-entry-divider{margin-left:53px}
+  .sel-row-main label,.sel-row-main>span{font-size:15px}
+  .sel-inline-select,.sel-inline-date{font-size:15px;max-width:145px}
+  .sel-section-head{margin:3px 2px 7px}
+  .sel-section-head strong{font-size:16px}
+  .sel-see-all{font-size:14px}
+  .sel-category-scroller{gap:8px;padding:0 2px 9px;margin-bottom:2px}
+  .sel-category-chip{min-width:108px;padding:12px 13px;border-radius:17px;font-size:14px}
+  .sel-attachment-row{min-height:58px;padding:9px 13px;font-size:15px}
+  .sel-sheet-bottom-space{height:4px}
+}
 </style>
 
 
-<style id="selvam-dashboard-readable">
-/* Selvam v2 — everyday dashboard simplification */
-.dash-head-simple{margin-bottom:18px!important}
-.dash-money-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:14px;padding:24px;border-radius:24px;background:linear-gradient(135deg,#087f59 0%,#0c9368 55%,#139b70 100%);color:#fff;margin-bottom:16px;box-shadow:0 14px 34px rgba(8,127,89,.15);overflow:hidden;position:relative}
-.dash-money-hero:after{content:'செல்வம்';position:absolute;right:-8px;bottom:-28px;font-family:'Noto Serif Tamil',serif;font-size:100px;line-height:1;opacity:.055;pointer-events:none}
-.dash-money-main{position:relative;z-index:1;padding:5px 4px}.dash-eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:800;opacity:.72}.dash-balance-label{font-size:14px;font-weight:650;opacity:.9;margin-top:9px}.dash-balance-value{font-family:'Noto Serif Tamil',serif;font-size:44px;font-weight:850;letter-spacing:-.04em;line-height:1.05;margin-top:5px}.dash-balance-note{font-size:11.5px;opacity:.78;line-height:1.5;margin-top:8px;max-width:560px}
-.dash-money-side{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-self:stretch;position:relative;z-index:1}.dash-mini-kpi{display:flex;flex-direction:column;justify-content:center;padding:15px;border-radius:16px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.13)}.dash-mini-kpi span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:750;opacity:.7}.dash-mini-kpi strong{font-family:'Noto Serif Tamil',serif;font-size:21px;margin-top:5px;color:#fff!important}.dash-mini-kpi small{font-size:10px;opacity:.64;margin-top:2px}
-.dash-quick-title,.dash-section-label{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:18px 2px 9px}.dash-quick-title strong,.dash-section-label strong{font-size:14px;letter-spacing:-.02em}.dash-quick-title span,.dash-section-label span{font-size:10.5px;color:var(--muted)}
-.dash-quick-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.dash-quick-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:11px;text-align:left;padding:14px;border:1px solid var(--border);border-radius:18px;background:var(--surface);cursor:pointer;transition:.16s;box-shadow:var(--shadow-sm)}.dash-quick-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--green) 24%,var(--border))}.dash-quick-card.primary{border-color:color-mix(in srgb,var(--green) 28%,var(--border));background:linear-gradient(145deg,color-mix(in srgb,var(--green-light) 65%,var(--surface)),var(--surface))}.dash-quick-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--green-light);font-size:18px}.dash-quick-card strong{display:block;font-size:12.5px}.dash-quick-card small{display:block;color:var(--muted);font-size:10.5px;line-height:1.35;margin-top:2px}.dash-quick-card>b{font-size:20px;font-weight:400;color:var(--muted2)}
-.dash-primary-grid{margin-bottom:0!important}.dash-secondary-grid{margin-bottom:2px!important}.dash-flow-row{margin-bottom:16px}.dash-flow-row>div:first-child,.dash-flow-result{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px}.dash-flow-row strong,.dash-flow-result strong{font-family:'Noto Serif Tamil',serif;font-size:16px}.dash-flow-track{height:10px;background:var(--border);border-radius:999px;overflow:hidden;margin-top:7px}.dash-flow-track>span{display:block;height:100%;border-radius:999px}.dash-flow-track .income{background:var(--green)}.dash-flow-track .expense{background:var(--red)}.dash-flow-track .expense.over{background:var(--red)}.dash-flow-result{padding-top:4px}.dash-flow-note{font-size:10.5px;color:var(--muted);margin-top:7px}
-.dash-more-panel{margin-top:14px;border:1px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:var(--shadow-sm);overflow:hidden}.dash-more-panel summary{list-style:none;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-size:12px;font-weight:750}.dash-more-panel summary::-webkit-details-marker{display:none}.dash-more-panel[open] summary{border-bottom:1px solid var(--border)}.dash-more-panel summary b{font-size:17px;font-weight:500;color:var(--muted)}.dash-more-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:12px}.dash-more-grid .btn{min-height:40px;font-size:11px}
-#page-dashboard .command-centre{display:none!important}
-@media(max-width:900px){.dash-money-hero{grid-template-columns:1fr}.dash-money-side{grid-template-columns:1fr 1fr}.dash-quick-actions{grid-template-columns:1fr}.dash-more-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){#page-dashboard .page-title{font-size:29px}.dash-money-hero{padding:20px;border-radius:21px}.dash-balance-value{font-size:38px}.dash-money-side{gap:7px}.dash-mini-kpi{padding:12px}.dash-mini-kpi strong{font-size:18px}.dash-quick-card{min-height:68px}.dash-quick-title span,.dash-section-label span{display:none}.dash-more-grid{grid-template-columns:1fr 1fr;padding:10px}}
+<style id="selvam-unified-2026-ui">
+/* Selvam unified 2026 interaction layer: applies the newer entry-sheet language across the whole app. */
+.overlay:not(#modal-category-picker){background:rgba(15,23,42,.34)!important;backdrop-filter:blur(10px) saturate(115%);-webkit-backdrop-filter:blur(10px) saturate(115%);padding:20px!important}
+.overlay:not(#modal-category-picker)>.modal{width:min(760px,calc(100vw - 40px));max-width:760px!important;max-height:min(90dvh,900px);padding:18px 22px 14px!important;border-radius:30px!important;border:1px solid color-mix(in srgb,var(--border) 82%,transparent)!important;background:var(--surface)!important;box-shadow:0 30px 90px rgba(15,23,42,.22)!important;overflow-y:auto;animation:fadeUp .2s ease;}
+.overlay:not(#modal-category-picker)>.modal>.modal-title{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:21px;font-weight:800;letter-spacing:-.035em;line-height:1.2;margin:0 0 18px;padding:2px 44px 14px 2px;border-bottom:1px solid var(--border);position:relative;color:var(--text)}
+.overlay:not(#modal-category-picker)>.modal>.modal-title:before{content:'✦';position:absolute;left:0;top:2px;width:36px;height:36px;border-radius:12px;background:var(--blue-light);color:var(--blue);display:grid;place-items:center;font-size:16px}
+.overlay:not(#modal-category-picker)>.modal>.modal-title{padding-left:48px}
+.overlay:not(#modal-category-picker)>.modal>.form-row{gap:12px}
+.overlay:not(#modal-category-picker)>.modal .form-grp{margin-bottom:14px}
+.overlay:not(#modal-category-picker)>.modal .form-lbl{font-size:10.5px;font-weight:750;margin-bottom:6px;letter-spacing:.01em}
+.overlay:not(#modal-category-picker)>.modal .form-inp,
+.overlay:not(#modal-category-picker)>.modal .form-sel,
+.overlay:not(#modal-category-picker)>.modal textarea{min-height:46px;border-radius:14px!important;background:var(--surface2)!important;border:1px solid var(--border)!important;padding:11px 13px;font-size:13px;box-sizing:border-box;transition:border-color .15s,box-shadow .15s,background .15s}
+.overlay:not(#modal-category-picker)>.modal .form-inp:focus,
+.overlay:not(#modal-category-picker)>.modal .form-sel:focus,
+.overlay:not(#modal-category-picker)>.modal textarea:focus{outline:none;border-color:var(--blue)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 12%,transparent)!important;background:var(--surface)!important}
+.overlay:not(#modal-category-picker)>.modal .sel-category-trigger{min-height:62px;border-radius:16px;background:var(--surface2);border:1px solid var(--border);transition:.15s ease}
+.overlay:not(#modal-category-picker)>.modal .sel-category-trigger:hover{border-color:var(--blue);background:var(--blue-light);transform:translateY(-1px)}
+.overlay:not(#modal-category-picker)>.modal .modal-actions{display:flex;gap:10px;justify-content:flex-end;align-items:center;margin:16px -22px -14px;padding:14px 22px calc(4px + env(safe-area-inset-bottom));border-top:1px solid var(--border);background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);position:sticky;bottom:-14px;z-index:5}
+.overlay:not(#modal-category-picker)>.modal .modal-actions .btn{min-height:46px;border-radius:14px;font-size:13px;font-weight:750;padding-inline:18px}
+.overlay:not(#modal-category-picker)>.modal .modal-actions .btn-green{min-width:125px}
+.overlay:not(#modal-category-picker)>.modal .recur-check{display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 12px;margin:4px 0 14px;border:1px solid var(--border);border-radius:14px;background:var(--surface2);font-size:12px;font-weight:650}
+.overlay:not(#modal-category-picker)>.modal .recur-check input{width:18px;height:18px;accent-color:var(--green)}
+.overlay:not(#modal-category-picker)>.modal .share-opts{display:grid;gap:9px}
+.overlay:not(#modal-category-picker)>.modal .share-opt{border:1px solid var(--border);border-radius:18px!important;background:var(--surface2);padding:13px 14px!important;transition:.15s ease;cursor:pointer}
+.overlay:not(#modal-category-picker)>.modal .share-opt:hover{background:var(--blue-light);border-color:var(--blue);transform:translateY(-1px)}
+.overlay:not(#modal-category-picker)>.modal .share-ttl{font-size:13px;font-weight:760}.overlay:not(#modal-category-picker)>.modal .share-dsc{font-size:10.5px;color:var(--muted);margin-top:2px}
+.overlay:not(#modal-category-picker)>.modal [style*="max-height:50vh"]{border-radius:16px!important;overflow:auto!important}
+.overlay:not(#modal-category-picker)>.modal [style*="font-size:12.5px"]{line-height:1.55!important}
+/* Review/import dialogs get the same compact card language. */
+#modal-bank-review>.modal,#modal-zerodha-review>.modal{width:min(860px,calc(100vw - 40px));max-width:860px!important}
+#bank-review-list,#zerodha-review-list{background:var(--surface2);padding:4px}
+/* Type chooser and category chooser sit above all other sheets. */
+#type-sheet-overlay{z-index:10100!important}.type-sheet{border-radius:28px!important;box-shadow:0 30px 90px rgba(15,23,42,.24)!important}
+/* Keep the newer dedicated forms visually consistent with legacy action dialogs. */
+.sel-form-sheet,.sel-entry-sheet,.calc-modal{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+@media(max-width:700px){
+  .overlay:not(#modal-category-picker){padding:0!important;align-items:flex-end}
+  .overlay:not(#modal-category-picker)>.modal{width:100%;max-width:none!important;max-height:94dvh;border-radius:30px 30px 0 0!important;border-left:0!important;border-right:0!important;border-bottom:0!important;padding:10px 14px calc(10px + env(safe-area-inset-bottom))!important;animation:fadeUp .2s ease}
+  .overlay:not(#modal-category-picker)>.modal>.modal-title{font-size:20px;margin-bottom:14px;padding-top:4px;padding-bottom:12px}
+  .overlay:not(#modal-category-picker)>.modal .form-row{display:block}
+  .overlay:not(#modal-category-picker)>.modal .modal-actions{margin:14px -14px -10px;padding:12px 14px calc(6px + env(safe-area-inset-bottom));position:sticky;bottom:-10px}
+  .overlay:not(#modal-category-picker)>.modal .modal-actions .btn{flex:1;min-height:48px}
+  #modal-bank-review>.modal,#modal-zerodha-review>.modal{width:100%;max-width:none!important}
+}
+@media(prefers-reduced-motion:reduce){.overlay:not(#modal-category-picker)>.modal,.overlay:not(#modal-category-picker)>.modal .share-opt{animation:none;transition:none}}
 </style>
+
 </head>
 <body data-selvam-version="Everyday Personal Finance 4.0">
 
@@ -1381,7 +1615,7 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
 </nav>
 
 <!-- FAB -->
-<button class="fab" id="fab-add-expense" onclick="openAddDaily()" title="Add expense">
+<button type="button" class="fab" id="fab-add-expense" onclick="openAddDaily()" title="Add expense" data-selvam-add-expense="1">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
 </button>
 
@@ -1416,60 +1650,42 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
 <!-- DASHBOARD -->
 <div class="page active" id="page-dashboard">
   <div class="finance-shell">
-    <div class="finance-page-head dash-head-simple">
+    <div class="finance-page-head">
       <div><h1 class="page-title" id="dash-greeting-title">Your money 🌿</h1><p class="page-sub" id="dash-date"></p></div>
-      <div class="finance-actions"><button class="btn btn-green btn-sm" onclick="openAddDaily()">+ Record expense</button><button class="btn btn-outline btn-sm" onclick="openAddIncome()">+ Add income</button></div>
+      <div class="finance-actions"><button type="button" class="btn btn-green btn-sm" onclick="openAddDaily()" data-selvam-add-expense="1">+ Add expense</button><button class="btn btn-outline btn-sm" onclick="openAddIncome()">+ Add income</button><button class="btn btn-outline btn-sm" onclick="openShare()">Share</button></div>
     </div>
-
     <div id="onboarding-banner" style="display:none"></div>
-
-    <section class="dash-money-hero" aria-label="This month's money summary">
-      <div class="dash-money-main">
-        <div class="dash-eyebrow">This month</div>
-        <div class="dash-balance-label">Money left after spending</div>
-        <div class="dash-balance-value" id="dash-balance-value">—</div>
-        <div class="dash-balance-note" id="dash-balance-note">Add your income and spending to see your balance.</div>
-      </div>
-      <div class="dash-money-side" id="dash-kpis"></div>
-    </section>
-
-    <div class="dash-quick-title"><strong>What do you want to do?</strong><span>Everyday actions</span></div>
-    <div class="dash-quick-actions">
-      <button class="dash-quick-card primary" onclick="openAddDaily()"><span class="dash-quick-icon">🧾</span><span><strong>Record expense</strong><small>Add something you spent today.</small></span><b>›</b></button>
-      <button class="dash-quick-card" onclick="openAddIncome()"><span class="dash-quick-icon">💰</span><span><strong>Add income</strong><small>Salary or money you received.</small></span><b>›</b></button>
-      <button class="dash-quick-card" onclick="editTotalBudget();nav('expenses')"><span class="dash-quick-icon">🎯</span><span><strong>Set a budget</strong><small>Choose how much you plan to spend.</small></span><b>›</b></button>
+    <div class="everyday-intro">
+      <div class="everyday-intro-copy"><div class="everyday-kicker">Personal finance</div><h2>See your money. Record it. Move on.</h2><p>Selvam is designed for a simple daily habit: record what came in, record what went out, and check what is left.</p></div>
+      <div class="everyday-actions"><button type="button" class="btn btn-green btn-sm" onclick="openAddDaily()" data-selvam-add-expense="1">🧾 Record expense</button><button class="btn btn-outline btn-sm" onclick="nav('expenses')">Set budget</button></div>
     </div>
-
-    <div class="dash-section-label"><strong>Your month</strong><span>Income, spending and what remains</span></div>
-    <div class="finance-grid dash-primary-grid">
+    <div class="everyday-routine">
+      <div class="routine-card" onclick="openAddDaily()"><div class="routine-icon">🧾</div><div class="routine-copy"><strong>Record today's spending</strong><span>Add a coffee, bill, shopping or anything else.</span></div></div>
+      <div class="routine-card" onclick="openAddIncome()"><div class="routine-icon">💰</div><div class="routine-copy"><strong>Record money received</strong><span>Salary, freelance work or other income.</span></div></div>
+      <div class="routine-card" onclick="nav('dashboard')"><div class="routine-icon">👀</div><div class="routine-copy"><strong>Check what is left</strong><span>See this month's income, spending and balance.</span></div></div>
+    </div>
+    <div id="selvam-command-centre" class="command-centre"></div>
+    <div class="everyday-section-label"><strong>This month</strong><span>Your simple money picture</span></div>
+    <div class="finance-kpis" id="dash-kpis"></div>
+    <div class="finance-grid">
       <div class="finance-card">
-        <div class="finance-card-head"><div><div class="finance-card-title">Where your money went</div><div class="finance-card-sub">A simple view of this month</div></div><button class="btn btn-ghost btn-sm" onclick="nav('expenses')">View expenses →</button></div>
+        <div class="finance-card-head"><div><div class="finance-card-title">Money in and money out</div><div class="finance-card-sub">What you received, spent and have left</div></div><button class="btn btn-ghost btn-sm" onclick="nav('expenses')">Open expenses →</button></div>
         <div class="finance-card-body" id="dash-monthly"></div>
       </div>
       <div class="finance-card">
-        <div class="finance-card-head"><div><div class="finance-card-title">Spending over time</div><div class="finance-card-sub">Recent months at a glance</div></div></div>
+        <div class="finance-card-head"><div><div class="finance-card-title">Spending trend</div><div class="finance-card-sub">A simple view of recent months</div></div></div>
         <div class="finance-card-body" id="dash-trend"></div>
       </div>
     </div>
-
-    <div class="dash-section-label"><strong>Keep an eye on</strong><span>Useful information from your records</span></div>
-    <div class="finance-grid dash-secondary-grid">
+    <div class="finance-grid">
       <div class="finance-card"><div class="finance-card-head"><div><div class="finance-card-title">Recent spending</div><div class="finance-card-sub">Your latest expenses</div></div><button class="btn btn-ghost btn-sm" onclick="nav('daily')">See all →</button></div><div class="finance-card-body" id="dash-recent"></div></div>
-      <div class="finance-card"><div class="finance-card-head"><div><div class="finance-card-title">Reminders</div><div class="finance-card-sub">Things you may want to review</div></div><button class="btn btn-ghost btn-sm" onclick="nav('notifications')">See all →</button></div><div class="finance-card-body" id="dash-notif-preview"></div></div>
+      <div class="finance-card"><div class="finance-card-head"><div><div class="finance-card-title">Money checklist</div><div class="finance-card-sub">Useful things to keep your finances organised</div></div><button class="btn btn-ghost btn-sm" onclick="nav('essentials')">Open →</button></div><div class="finance-card-body" id="dash-essentials-preview"></div></div>
     </div>
-
-    <details class="dash-more-panel">
-      <summary><span>More things you can do</span><b>⌄</b></summary>
-      <div class="dash-more-grid">
-        <button class="btn btn-outline" onclick="openAddAsset()">+ Add asset</button>
-        <button class="btn btn-outline" onclick="nav('goals')">Goals</button>
-        <button class="btn btn-outline" onclick="nav('calculators')">Planning tools</button>
-        <button class="btn btn-outline" onclick="nav('calendar')">Calendar</button>
-        <button class="btn btn-outline" onclick="nav('essentials')">Money setup</button>
-      </div>
-    </details>
-
-    <div class="simple-note">🔒 <strong>Private by design:</strong> Your Selvam data stays on this device. No bank connection is required.</div>
+    <div class="finance-grid">
+      <div class="finance-card"><div class="finance-card-head"><div><div class="finance-card-title">Reminders</div><div class="finance-card-sub">Things Selvam thinks you may want to review</div></div><button class="btn btn-ghost btn-sm" onclick="nav('notifications')">See all →</button></div><div class="finance-card-body" id="dash-notif-preview"></div></div>
+      <div class="finance-card"><div class="finance-card-head"><div><div class="finance-card-title">Plan ahead</div><div class="finance-card-sub">Optional tools for your bigger financial picture</div></div></div><div class="finance-card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn btn-outline" onclick="openAddAsset()">+ Add asset</button><button class="btn btn-outline" onclick="nav('goals')">Goals</button><button class="btn btn-outline" onclick="nav('calculators')">Calculators</button><button class="btn btn-outline" onclick="nav('calendar')">Calendar</button></div></div>
+    </div>
+    <div class="simple-note">🔒 <strong>Private by design:</strong> Selvam is a personal finance record keeper. Your current HTML app stores your information locally on your device and does not require bank connections.</div>
   </div>
 </div>
 
@@ -1478,7 +1694,7 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
   <div class="page-header cal-header-v2">
     <div><h1 class="page-title">Calendar</h1><p class="page-sub">Plan spending, deadlines and important money dates</p></div>
     <div class="hdr-actions cal-actions">
-      <button class="btn btn-green btn-sm" onclick="openAddDailyForCalDay()">+ Add Expense</button>
+      <button type="button" class="btn btn-green btn-sm" onclick="openAddDailyForCalDay()">+ Add Expense</button>
       <button class="btn btn-outline btn-sm" onclick="calGoToday()">Today</button>
       <button class="icon-btn" onclick="calShiftMonth(-1)" title="Previous month" aria-label="Previous month">‹</button>
       <button class="cal-month-button" onclick="calOpenMonthPicker()" id="cal-month-label">Month</button>
@@ -1509,7 +1725,7 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
     </div>
   </div>
   <div class="card cal-day-card-v2" id="cal-day-detail-card" style="display:none;margin-top:16px">
-    <div class="card-header"><div><div class="card-title" id="cal-day-title">Day</div><div class="cal-day-summary" id="cal-day-summary"></div></div><button class="btn btn-green btn-sm" onclick="openAddDailyForCalDay()">+ Add Expense</button></div>
+    <div class="card-header"><div><div class="card-title" id="cal-day-title">Day</div><div class="cal-day-summary" id="cal-day-summary"></div></div><button type="button" class="btn btn-green btn-sm" onclick="openAddDailyForCalDay()">+ Add Expense</button></div>
     <div id="cal-day-list"></div>
   </div>
   <input type="month" id="cal-month-picker" class="cal-month-picker" onchange="calPickMonth(this.value)" aria-label="Choose month">
@@ -1535,7 +1751,15 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
   </div>
   <div class="notif-section-heading"><span>Financial activity</span><span id="notif-result-count"></span></div>
   <div id="notif-list"></div>
-  <div class="notif-settings-link card" style="padding:14px 16px;margin-top:12px"><div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><strong style="font-size:12.5px">Reminder settings</strong><div style="font-size:11px;color:var(--muted);margin-top:3px">All notification preferences are managed in Settings.</div></div><button class="btn btn-outline btn-sm" onclick="nav('profile');setTimeout(()=>showSettingsTab('notifications'),0)">Open Settings →</button></div></div>
+  <div class="card notif-preferences-card">
+    <div class="card-header"><div><div class="card-title">Notification preferences</div><div class="card-sub">Choose what Selvam should remind you about.</div></div><button class="btn btn-outline btn-sm" onclick="nav('profile');setTimeout(()=>showSettingsTab('notifications'),0)">Manage</button></div>
+    <div class="notif-preference-grid">
+      <div><span>🔔</span><div><strong>Daily expense reminder</strong><small id="notif-pref-daily">Off</small></div></div>
+      <div><span>⚠️</span><div><strong>Important alerts</strong><small id="notif-pref-alerts">Off</small></div></div>
+      <div><span>📊</span><div><strong>Weekly summary</strong><small id="notif-pref-weekly">Off</small></div></div>
+      <div><span>💾</span><div><strong>Backup reminder</strong><small id="notif-pref-backup">Off</small></div></div>
+    </div>
+  </div>
 </div>
 
 <!-- INCOME -->
@@ -1560,12 +1784,12 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
   <div class="finance-shell">
     <div class="finance-page-head">
       <div><h1 class="page-title">Expenses</h1><p class="page-sub">See your regular bills, daily spending and monthly budget in one place.</p></div>
-      <div class="finance-actions"><button class="btn btn-green" onclick="openAddFixedExp()">+ Add Expense</button></div>
+      <div class="finance-actions"><button type="button" class="btn btn-green" onclick="openAddDaily()">+ Add Expense</button></div>
     </div>
     <div class="finance-monthbar"><div class="finance-month-left"><button class="finance-nav-btn" onclick="changeMonth(-1)">‹</button><div class="finance-month-label" id="exp-month-lbl"></div><button class="finance-nav-btn" onclick="changeMonth(1)">›</button></div><button class="btn btn-outline btn-sm" onclick="S.viewMonth=new Date().toISOString().slice(0,7);renderAll()">This month</button></div>
     <div class="finance-kpis" id="exp-summary"></div>
     <div class="finance-grid">
-      <div class="finance-card"><div class="finance-card-head"><div><div class="finance-card-title">Fixed expenses</div><div class="finance-card-sub">Recurring monthly commitments</div></div><button class="btn btn-ghost btn-sm" onclick="openAddFixedExp()">+ Add</button></div><div class="finance-card-body" id="fixed-exp-list"></div></div>
+      <div class="finance-card"><div class="finance-card-head"><div><div class="finance-card-title">Fixed expenses</div><div class="finance-card-sub">Recurring monthly commitments</div></div><button class="btn btn-ghost btn-sm" onclick="openAddFixedExp()">+ Add Fixed Expense</button></div><div class="finance-card-body" id="fixed-exp-list"></div></div>
       <div class="finance-card"><div class="finance-card-head"><div><div class="finance-card-title">Daily spending</div><div class="finance-card-sub">Recent activity for this month</div></div><button class="btn btn-ghost btn-sm" onclick="nav('daily')">Open tracker →</button></div><div class="finance-card-body" id="monthly-daily-wrap"></div></div>
     </div>
     <div class="finance-card"><div class="finance-card-head"><div><div class="finance-card-title">Monthly budget</div><div class="finance-card-sub">Compare planned spending with actual spending.</div></div><button class="btn btn-outline btn-sm" onclick="editTotalBudget()">Set budget</button></div><div class="finance-card-body" id="budget-overview"></div></div>
@@ -1585,7 +1809,7 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
       <div class="daily-head-actions">
         <div class="search-wrap daily-search-wrap"><span class="search-ico">🔍</span><input class="search-inp" id="daily-search" placeholder="Search expenses…" oninput="debounceSearch(renderDailyList)"></div>
         <button class="btn btn-outline btn-sm daily-import-btn" onclick="document.getElementById('bank-statement-file').click()" title="Import a CSV statement stored on your device">⇪ Import</button>
-        <button class="btn btn-green daily-add-btn" onclick="openAddDaily()">+ Add Expense</button>
+        <button type="button" class="btn btn-green daily-add-btn" onclick="openAddDaily()" data-selvam-add-expense="1">+ Add Expense</button>
       </div>
     </div>
 
@@ -1614,7 +1838,7 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
 
     <div class="daily-content-grid">
       <div class="daily-list-panel">
-        <div class="daily-panel-head"><div><strong>Expenses</strong><span id="daily-list-count"></span></div><button class="btn btn-green btn-sm" onclick="openAddDaily()">+ Add</button></div>
+        <div class="daily-panel-head"><div><strong>Expenses</strong><span id="daily-list-count"></span></div><button type="button" class="btn btn-green btn-sm" onclick="openAddDaily()" data-selvam-add-expense="1">+ Add</button></div>
         <div class="exp-list daily-exp-list" id="daily-list"></div>
       </div>
       <aside class="daily-side-panel">
@@ -1624,7 +1848,7 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
         </div>
         <div class="daily-side-card">
           <div class="daily-side-title">Quick Actions</div>
-          <button class="daily-action primary" onclick="openAddDaily()">＋ Add Expense</button>
+          <button type="button" class="daily-action primary" onclick="openAddDaily()" data-selvam-add-expense="1">＋ Add Expense</button>
           <button class="daily-action" onclick="editTotalBudget();nav('expenses')">▣ Set Budget</button>
           <button class="daily-action" onclick="nav('expenses')">⌁ View Reports</button>
         </div>
@@ -1834,7 +2058,7 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
 <!-- PROFILE / SETTINGS -->
 <div class="page" id="page-profile">
   <div class="page-header settings-page-head">
-    <div class="settings-heading-wrap"><div><h1 class="page-title">Settings</h1><p class="page-sub">Only the settings you need to manage Selvam.</p></div>
+    <div class="settings-heading-wrap"><div><h1 class="page-title">Settings</h1><p class="page-sub">Manage your preferences, privacy, financial profile and app data.</p></div>
     <div class="settings-search-wrap"><span>⌕</span><input id="settings-search" type="search" placeholder="Search settings…" oninput="filterSettings(this.value)" aria-label="Search settings"><button type="button" id="settings-search-clear" onclick="clearSettingsSearch()" aria-label="Clear search">×</button></div></div>
   </div>
 
@@ -1842,22 +2066,23 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
     <aside class="settings-side-nav" aria-label="Settings categories">
       <div class="settings-profile-mini" onclick="showSettingsTab('personal')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showSettingsTab('personal')">
         <div class="settings-mini-avatar" id="settings-mini-avatar">W</div>
-        <div class="settings-mini-copy"><strong id="settings-mini-name">Personal</strong><small>Personal finance companion</small></div>
+        <div class="settings-mini-copy"><strong id="settings-mini-name">Wealth</strong><small>Personal finance companion</small></div>
         <span class="settings-chevron">›</span>
       </div>
-      <div class="settings-group-label">Your essentials</div>
-      <button class="settings-side-item active" data-tab="personal" onclick="showSettingsTab('personal')"><span class="settings-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"></circle><path d="M5.5 19c.7-3.4 3-5.2 6.5-5.2s5.8 1.8 6.5 5.2"></path></svg></span><div><strong>Personal</strong><small>Name, email & language</small></div><b>›</b></button>
-      <button class="settings-side-item" data-tab="currency" onclick="showSettingsTab('currency')"><span class="settings-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="2.5"></rect><path d="M7 9h8.5M7 15h5M17 12h.01"></path></svg></span><div><strong>Money & currency</strong><small>Currency, regions & rates</small></div><b>›</b></button>
-      <button class="settings-side-item" data-tab="appearance" onclick="showSettingsTab('appearance')"><span class="settings-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18l10.8-10.8 2.2 2.2L8.2 20H4z"></path><path d="M14.8 6.2l2-2a1.8 1.8 0 0 1 2.6 2.6l-2 2"></path><path d="M5 4.5h.01M8.5 3h.01M3.5 8h.01"></path></svg></span><div><strong>Appearance</strong><small>Theme & display</small></div><b>›</b></button>
-      <button class="settings-side-item" data-tab="notifications" onclick="showSettingsTab('notifications')"><span class="settings-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 10a5 5 0 0 1 10 0c0 5 2 5 2 7H5c0-2 2-2 2-7"></path><path d="M10 20h4"></path></svg></span><div><strong>Reminders</strong><small>Notifications & reminders</small></div><b>›</b></button>
-      <button class="settings-side-item" data-tab="privacy" onclick="showSettingsTab('privacy')"><span class="settings-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg></span></span><div><strong>Privacy & security</strong><small>App lock & privacy controls</small></div><b>›</b></button>
-      <button class="settings-side-item" data-tab="backup" onclick="showSettingsTab('backup')"><span class="settings-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h12l2 2v14H5z"></path><path d="M8 4v6h8V4M9 15h6v5H9z"></path></svg></span><div><strong>Backup & data</strong><small>Save, restore or move your data</small></div><b>›</b></button>
-      <details class="settings-more">
-        <summary class="settings-more-summary"><span>More settings</span><span>⌄</span></summary>
-        <button class="settings-side-item" data-tab="behavior" onclick="showSettingsTab('behavior')"><span class="settings-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19 12a7 7 0 0 0-.1-1.2l1.7-1.3-1.7-3-2 .8a7 7 0 0 0-2.1-1.2L14.5 4h-5l-.3 2.1a7 7 0 0 0-2.1 1.2l-2-.8-1.7 3 1.7 1.3A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-1.7 1.3 1.7 3 2-.8a7 7 0 0 0 2.1 1.2l.3 2.1h5l.3-2.1a7 7 0 0 0 2.1-1.2l2 .8 1.7-3-1.7-1.3c.1-.4.1-.8.1-1.2z"></path></svg></span><div><strong>Advanced</strong><small>Performance & accessibility</small></div><b>›</b></button>
-        <button class="settings-side-item" data-tab="activity" onclick="showSettingsTab('activity')"><span class="settings-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 10v6M12 7h.01"></path></svg></span><div><strong>About Selvam</strong><small>Activity, updates & app information</small></div><b>›</b></button>
-      </details>
-      <div class="settings-privacy-note"><span>🛡️</span><div><strong>Your data stays on this device</strong><small>No bank connection. Backup and restore only when you choose.</small></div></div>
+      <div class="settings-side-search-hint" id="settings-search-hint">Choose a section</div>
+      <div class="settings-group-label">Account & profile</div>
+      <button class="settings-side-item active" data-tab="personal" data-search="personal information name email language profile account" onclick="showSettingsTab('personal')"><span class="settings-icon">👤</span><div><strong>Personal information</strong><small>Name, email & language</small></div><span class="settings-value" id="settings-value-personal">›</span></button>
+      <button class="settings-side-item" data-tab="financial" data-search="financial profile income age risk budget" onclick="showSettingsTab('financial')"><span class="settings-icon">💰</span><div><strong>Financial profile</strong><small>Income, age & risk preferences</small></div><span class="settings-value" id="settings-value-financial">›</span></button>
+      <button class="settings-side-item" data-tab="currency" data-search="currency regions countries exchange rates portfolio" onclick="showSettingsTab('currency')"><span class="settings-icon">💱</span><div><strong>Currency & regions</strong><small>Currency, countries & portfolio</small></div><span class="settings-value" id="settings-value-currency">›</span></button>
+      <div class="settings-group-label">App experience</div>
+      <button class="settings-side-item" data-tab="appearance" data-search="appearance theme light dark display hide balances" onclick="showSettingsTab('appearance')"><span class="settings-icon">🎨</span><div><strong>Appearance</strong><small>Theme & display</small></div><span class="settings-value" id="settings-value-appearance">›</span></button>
+      <button class="settings-side-item" data-tab="behavior" data-search="performance accessibility compact animations layout optimize app" onclick="showSettingsTab('behavior')"><span class="settings-icon">⚙️</span><div><strong>App behaviour</strong><small>Performance, layout & accessibility</small></div><span class="settings-value" id="settings-value-behavior">›</span></button>
+      <button class="settings-side-item" data-tab="notifications" data-search="notifications reminders alerts weekly backup" onclick="showSettingsTab('notifications')"><span class="settings-icon">🔔</span><div><strong>Notifications</strong><small>Reminders, alerts & updates</small></div><span class="settings-value" id="settings-value-notifications">›</span></button>
+      <button class="settings-side-item" data-tab="privacy" data-search="privacy security lock pin app lock balance local data" onclick="showSettingsTab('privacy')"><span class="settings-icon">🔒</span><div><strong>Privacy & security</strong><small>App lock, privacy & balances</small></div><span class="settings-value" id="settings-value-privacy">›</span></button>
+      <button class="settings-side-item" data-tab="backup" data-search="data backup restore storage export import delete" onclick="showSettingsTab('backup')"><span class="settings-icon">💾</span><div><strong>Data & backup</strong><small>Backup, restore & storage</small></div><span class="settings-value" id="settings-value-backup">›</span></button>
+      <div class="settings-group-label">About</div>
+      <button class="settings-side-item" data-tab="activity" data-search="activity about whats new version history updates" onclick="showSettingsTab('activity')"><span class="settings-icon">ⓘ</span><div><strong>Activity & about</strong><small>History, updates & app information</small></div><span class="settings-value" id="settings-value-activity">›</span></button>
+      <div class="settings-privacy-note"><span>🛡️</span><div><strong>Your data stays on this device</strong><small>No bank connection. Export or restore only when you choose.</small></div></div>
     </aside>
 
     <main class="settings-content">
@@ -1867,7 +2092,7 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
       </div>
       <div class="settings-profile-hero" onclick="showSettingsTab('personal')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showSettingsTab('personal')">
         <div class="settings-hero-avatar" id="settings-hero-avatar">W</div>
-        <div class="settings-hero-copy"><strong id="settings-hero-name">Personal</strong><span>Private personal finance companion</span></div>
+        <div class="settings-hero-copy"><strong id="settings-hero-name">Wealth</strong><span>Private personal finance companion</span></div>
         <span class="settings-hero-chevron">›</span>
       </div>
       <!-- PERSONAL -->
@@ -1924,6 +2149,23 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
         </div>
       </div>
 
+      <!-- FINANCIAL -->
+      <div class="settings-tab-panel" id="settings-panel-financial">
+        <div class="profile-card">
+          <div class="settings-section-title">Financial profile</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Optional information used by Selvam's planning features, such as emergency-fund and retirement projections.</div>
+          <div class="form-row">
+            <div class="form-grp"><label class="form-lbl">Monthly Income (approx)</label><input class="form-inp" id="p-income" type="number" placeholder="e.g. 2000" oninput="saveProfile()"></div>
+            <div class="form-grp"><label class="form-lbl">Age</label><input class="form-inp" id="p-age" type="number" placeholder="e.g. 32" oninput="saveProfile()"></div>
+          </div>
+          <div class="form-grp"><label class="form-lbl">Risk Tolerance</label><select class="form-sel" id="p-risk" onchange="saveProfile()"><option value="conservative">Conservative</option><option value="moderate" selected>Moderate</option><option value="aggressive">Aggressive</option></select></div>
+        </div>
+        <div class="profile-card">
+          <div class="settings-section-title">Budget preferences</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6">Monthly budgets and category budgets are managed from Expenses, where you can set the amount and currency for each budget.</div>
+        </div>
+      </div>
+
       <!-- CURRENCY & REGIONS -->
       <div class="settings-tab-panel" id="settings-panel-currency">
         <div class="profile-card">
@@ -1947,7 +2189,7 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
         <div class="profile-card">
           <div class="settings-section-title" id="hdr-exchange-rates">Exchange Rates</div>
           <div style="font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.6">Manage the exchange rates Selvam uses for multi-currency totals.</div>
-          <div id="currency-manager"></div>
+          <div id="currency-manager"></div><div class="cur-add-row" style="margin-top:12px;gap:8px;flex-wrap:wrap"><select class="form-sel" id="cur-add-select" style="max-width:220px"><option value="">Add a currency…</option></select><button class="btn btn-outline btn-sm" onclick="addCurFromSelect()">+ Add</button></div>
         </div>
       </div>
 
@@ -2007,97 +2249,60 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
         <div class="profile-card"><div class="settings-section-title">Reset interface</div><div class="setting-row"><div><div class="setting-title">Reset appearance & layout preferences</div><div class="setting-desc">Restores the default theme, balance visibility, compact layout and animation preference. Your financial records are not deleted.</div></div><button class="btn btn-outline btn-sm" onclick="resetInterfacePreferences()">Reset</button></div></div>
       </div>
 
-      <!-- ABOUT -->
+      <!-- ACTIVITY & ABOUT -->
       <div class="settings-tab-panel" id="settings-panel-activity">
-        <div class="profile-card">
-          <div class="settings-section-title">About Selvam</div>
-          <div style="font-size:14px;font-weight:750;color:var(--text);margin-bottom:5px">Selvam Personal Finance</div>
-          <div style="font-size:11.5px;color:var(--muted);line-height:1.6">A privacy-first personal finance tool for everyday money tracking, planning and understanding.</div>
-          <div style="margin-top:12px;font-size:11.5px;color:var(--muted)">Version 2026.09</div>
-        </div>
-        <div class="profile-card">
-          <div class="settings-section-title">What's new</div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:4px;line-height:1.6">Recent changes to Selvam.</div>
-          <div class="whatsnew-month-label">September 2026</div>
-          <div class="whatsnew-list"><div class="whatsnew-item"><div class="whatsnew-ico">📜</div><div><div class="whatsnew-title">Activity Log</div><div class="whatsnew-desc">History of additions, edits and removals, filterable by type.</div></div></div><div class="whatsnew-item"><div class="whatsnew-ico">🧮</div><div><div class="whatsnew-title">Financial Calculators</div><div class="whatsnew-desc">SIP, Lumpsum, CAGR, EMI, SWP and XIRR tools.</div></div></div><div class="whatsnew-item"><div class="whatsnew-ico">💰</div><div><div class="whatsnew-title">Smarter Budgeting</div><div class="whatsnew-desc">Overall and category budgets with multi-currency support.</div></div></div><div class="whatsnew-item"><div class="whatsnew-ico">🔒</div><div><div class="whatsnew-title">Privacy & local backup</div><div class="whatsnew-desc">Your records remain on this device unless you export them.</div></div></div></div>
-        </div>
-        <div class="profile-card">
-          <div class="settings-section-title">Activity log</div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Everything you've added, edited or removed recently.</div>
-          <div class="filter-bar" id="activity-filters"></div>
-          <div id="activity-list"></div>
-        </div>
+        <div class="profile-card"><div class="settings-section-title">Activity Log</div><div style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">Everything you've added, edited or removed recently.</div><div class="filter-bar" id="activity-filters"></div><div id="activity-list"></div></div>
+        <div class="profile-card" style="max-width:680px"><div class="settings-section-title">About Selvam</div><div style="font-size:12px;color:var(--muted);line-height:1.7">Selvam is a privacy-oriented personal finance tracker. Your records are designed to remain on your device unless you deliberately export them.</div><div style="margin-top:12px;font-size:11.5px;color:var(--muted)">Version 2026.09</div></div>
+        <div class="profile-card" style="max-width:680px"><div class="settings-section-title">What's New</div><div style="font-size:12px;color:var(--muted);margin-bottom:4px;line-height:1.6">Recent changes to Selvam.</div><div class="whatsnew-month-label">September 2026</div><div class="whatsnew-list"><div class="whatsnew-item"><div class="whatsnew-ico">📜</div><div><div class="whatsnew-title">Activity Log</div><div class="whatsnew-desc">History of additions, edits and removals, filterable by type.</div></div></div><div class="whatsnew-item"><div class="whatsnew-ico">🧮</div><div><div class="whatsnew-title">Financial Calculators</div><div class="whatsnew-desc">SIP, Lumpsum, CAGR, EMI, SWP and XIRR tools.</div></div></div><div class="whatsnew-item"><div class="whatsnew-ico">💰</div><div><div class="whatsnew-title">Smarter Budgeting</div><div class="whatsnew-desc">Overall and category budgets with multi-currency support.</div></div></div><div class="whatsnew-item"><div class="whatsnew-ico">🔒</div><div><div class="whatsnew-title">Privacy & local backup</div><div class="whatsnew-desc">Local storage, restore points and manual exports remain central to the app.</div></div></div></div></div>
       </div>
     </main>
   </div>
 </div>
 <!-- ADD ASSET MODAL -->
-<div class="overlay" id="modal-asset">
-<div class="modal">
-  <h2 class="modal-title" id="modal-asset-title">Add Asset</h2>
-  <div class="form-grp">
-    <label class="form-lbl">Asset Class</label>
-    <button type="button" class="form-sel type-display-btn" id="a-type-display-btn" onclick="openAssetTypeSheet()">
-      <span id="a-type-display-label">🏦 Bank / FD / RD / Savings</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <select id="a-type" style="display:none" onchange="updateAssetFields()">
-      <option value="bank">🏦 Bank / FD / RD / Savings</option>
-      <option value="equity">📈 Stocks / Equity</option>
-      <option value="mf">📊 Mutual Funds / SIP</option>
-      <option value="realestate">🏠 Real Estate</option>
-      <option value="insurance">🛡️ Insurance</option>
-      <option value="loan">📉 Liability / Loan</option>
-      <option value="epf" id="a-type-epf">🏛️ EPF</option>
-      <option value="ppf" id="a-type-ppf">🏛️ PPF</option>
-      <option value="nps" id="a-type-nps">🏛️ NPS</option>
-      <option value="pension">🏛️ Pension (other)</option>
-      <option value="sgb" id="a-type-sgb">🪙 SGBs / Gold Bonds</option>
-      <option value="gold">🪙 Physical Gold</option>
-      <option value="vehicle">🚗 Vehicle</option>
-      <option value="crypto">₿ Crypto</option>
-      <option value="other">📋 Other</option>
-    </select>
-  </div>
-  <div class="form-row">
-    <div class="form-grp"><label class="form-lbl">Name / Label</label><input class="form-inp" id="a-name" placeholder="e.g. SBI Savings, HDFC RD"></div>
-    <div class="form-grp"><label class="form-lbl" id="a-inst-label">Institution</label><input class="form-inp" id="a-inst" placeholder="e.g. SBI, Zerodha"></div>
-  </div>
-  <div class="form-row">
-    <div class="form-grp" id="a-value-wrap"><label class="form-lbl" id="a-value-label">Current Value</label><input class="form-inp" id="a-value" type="number" placeholder="0.00"></div>
-    <div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="a-cur"></select></div>
-  </div>
-  <div class="form-grp"><label class="form-lbl">Region (optional)</label>
-    <select class="form-sel" id="a-region">
-      <option value="">🌍 Not specified</option>
-      <option value="india">🇮🇳 India</option>
-      <option value="uk">🇬🇧 UK</option>
-      <option value="usa">🇺🇸 USA</option>
-      <option value="other">🌐 Other</option>
-    </select>
-  </div>
-  <div id="a-recur-wrap">
-    <label class="recur-check"><input type="checkbox" id="a-recur-enabled" onchange="toggleRecurContributionFields()"> <span>🔁 Add a recurring contribution (RD, SIP top-up, PPF, gold plan…)</span></label>
-    <div id="a-recur-fields" style="display:none">
-      <div class="form-row">
-        <div class="form-grp"><label class="form-lbl">Contribution Amount</label><input class="form-inp" id="a-recur-amount" type="number" placeholder="e.g. 5000"></div>
-        <div class="form-grp"><label class="form-lbl">Frequency</label>
-          <select class="form-sel" id="a-recur-freq">
-            <option value="monthly">Monthly</option>
-            <option value="quarterly">Quarterly</option>
+<div class="overlay sel-sheet-overlay" id="modal-asset">
+  <div class="modal sel-form-sheet">
+    <div class="sel-form-head">
+      <div class="sel-form-icon">◈</div>
+      <div class="sel-form-head-copy"><h2 id="modal-asset-title">Add Asset</h2><p>Record an asset, investment or liability in Selvam</p></div>
+      <button class="sel-form-close" type="button" onclick="closeModal('modal-asset')" aria-label="Close">×</button>
+    </div>
+    <div class="sel-form-body">
+      <div class="sel-form-card sel-form-card-wide">
+        <div class="sel-form-card-title">What are you adding?</div>
+        <div class="form-grp" style="margin-bottom:0">
+          <label class="form-lbl">Asset Class</label>
+          <button type="button" class="form-sel type-display-btn" id="a-type-display-btn" onclick="openAssetTypeSheet()">
+            <span id="a-type-display-label">🏦 Bank / FD / RD / Savings</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <select id="a-type" style="display:none" onchange="updateAssetFields()">
+            <option value="bank">🏦 Bank / FD / RD / Savings</option><option value="equity">📈 Stocks / Equity</option><option value="mf">📊 Mutual Funds / SIP</option><option value="realestate">🏠 Real Estate</option><option value="insurance">🛡️ Insurance</option><option value="loan">📉 Liability / Loan</option><option value="epf" id="a-type-epf">🏛️ EPF</option><option value="ppf" id="a-type-ppf">🏛️ PPF</option><option value="nps" id="a-type-nps">🏛️ NPS</option><option value="pension">🏛️ Pension (other)</option><option value="sgb" id="a-type-sgb">🪙 SGBs / Gold Bonds</option><option value="gold">🪙 Physical Gold</option><option value="vehicle">🚗 Vehicle</option><option value="crypto">₿ Crypto</option><option value="other">📋 Other</option>
           </select>
         </div>
       </div>
-      <div style="font-size:11px;color:var(--muted);margin-top:-8px;margin-bottom:14px">Each time this falls due, the amount is automatically added to this asset's Current Value above, and logged in your Activity Log — so this asset keeps growing without you having to update it by hand.</div>
+
+      <div class="sel-form-card">
+        <div class="sel-form-card-title">Basic details</div>
+        <div class="form-grp"><label class="form-lbl">Name / Label</label><input class="form-inp" id="a-name" placeholder="e.g. SBI Savings, HDFC RD"></div>
+        <div class="form-grp"><label class="form-lbl" id="a-inst-label">Institution</label><input class="form-inp" id="a-inst" placeholder="e.g. SBI, Zerodha"></div>
+      </div>
+
+      <div class="sel-form-card">
+        <div class="sel-form-card-title">Value & location</div>
+        <div class="form-row"><div class="form-grp" id="a-value-wrap"><label class="form-lbl" id="a-value-label">Current Value</label><input class="form-inp" id="a-value" type="number" placeholder="0.00"></div><div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="a-cur"></select></div></div>
+        <div class="form-grp" style="margin-bottom:0"><label class="form-lbl">Region (optional)</label><select class="form-sel" id="a-region"><option value="">🌍 Not specified</option><option value="india">🇮🇳 India</option><option value="uk">🇬🇧 UK</option><option value="usa">🇺🇸 USA</option><option value="uae">🇦🇪 UAE</option><option value="other">🌐 Other</option></select></div>
+      </div>
+
+      <div class="sel-form-card sel-form-card-wide" id="a-recur-wrap">
+        <div class="sel-form-card-title">Recurring contribution</div>
+        <label class="recur-check" style="margin-bottom:0"><input type="checkbox" id="a-recur-enabled" onchange="toggleRecurContributionFields()"> <span>🔁 Add a recurring contribution (RD, SIP top-up, PPF, gold plan…)</span></label>
+        <div id="a-recur-fields" style="display:none;margin-top:12px"><div class="form-row"><div class="form-grp"><label class="form-lbl">Contribution Amount</label><input class="form-inp" id="a-recur-amount" type="number" placeholder="e.g. 5000"></div><div class="form-grp"><label class="form-lbl">Frequency</label><select class="form-sel" id="a-recur-freq"><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option></select></div></div><div style="font-size:11px;color:var(--muted);line-height:1.5">Selvam can add the contribution to this asset when it becomes due and record it in Activity Log.</div></div>
+      </div>
+
+      <div class="sel-form-card sel-form-card-wide"><div class="sel-form-card-title">Additional details</div><div id="a-extra"></div><div class="form-grp" style="margin-top:12px;margin-bottom:0"><label class="form-lbl">Notes</label><textarea class="form-ta" id="a-notes" placeholder="Any details…" rows="2"></textarea></div></div>
     </div>
+    <div class="sel-form-actions"><button class="btn btn-outline" type="button" onclick="closeModal('modal-asset')">Cancel</button><button class="btn btn-green sel-form-primary" onclick="saveAsset()" id="save-asset-btn">Save Asset</button></div>
   </div>
-  <div id="a-extra"></div>
-  <div class="form-grp"><label class="form-lbl">Notes</label><textarea class="form-ta" id="a-notes" placeholder="Any details…" rows="2"></textarea></div>
-  <div class="modal-actions">
-    <button class="btn btn-outline" onclick="closeModal('modal-asset')">Cancel</button>
-    <button class="btn btn-green" onclick="saveAsset()" id="save-asset-btn">Save Asset</button>
-  </div>
-</div>
 </div>
 
 <!-- ASSET TYPE SHEET -->
@@ -2109,25 +2314,9 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
   </div>
 </div>
 
-<!-- ADD INCOME MODAL -->
-<div class="overlay" id="modal-income">
-<div class="modal">
-  <h2 class="modal-title" id="income-modal-ttl">Add Income</h2>
-  <div class="form-row">
-    <div class="form-grp"><label class="form-lbl">Label</label><input class="form-inp" id="i-name" placeholder="e.g. Salary, Freelance"></div>
-    <div class="form-grp"><label class="form-lbl">Source</label><input class="form-inp" id="i-source" placeholder="e.g. Company name"></div>
-  </div>
-  <div class="form-row">
-    <div class="form-grp"><label class="form-lbl">Amount</label><input class="form-inp" id="i-amount" type="number" placeholder="0.00"></div>
-    <div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="i-cur"></select></div>
-  </div>
-  <div class="form-grp"><label class="form-lbl">Date Received</label><input class="form-inp" id="i-date" type="date"></div>
-  <label class="recur-check"><input type="checkbox" id="i-recurring"> <span>🔁 Repeats every month</span></label>
-  <div class="modal-actions">
-    <button class="btn btn-outline" onclick="closeModal('modal-income')">Cancel</button>
-    <button class="btn btn-green" id="save-income-btn" onclick="saveIncome()">Save Income</button>
-  </div>
-</div>
+<!-- LEGACY ADD INCOME MODAL (kept hidden for backwards compatibility; the app now uses the unified entry sheet) -->
+<div class="overlay" id="modal-income" hidden aria-hidden="true">
+  <div class="modal" aria-hidden="true"></div>
 </div>
 
 <!-- ADD FIXED EXPENSE MODAL -->
@@ -2137,17 +2326,10 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
   <div class="form-row">
     <div class="form-grp"><label class="form-lbl">Description</label><input class="form-inp" id="fe-name" placeholder="e.g. Rent, EMI"></div>
     <div class="form-grp"><label class="form-lbl">Category</label>
-      <select class="form-sel" id="fe-cat" onchange="handleExpenseCategoryChange('fixed')">
-        <option>🏠 Rent / EMI</option><option>📱 Subscriptions</option>
-        <option>⚡ Utilities</option><option>🎓 Education</option>
-        <option>💊 Insurance Premium</option><option>💳 Loan EMI</option>
-        <option>💰 Other</option>
-        <option value="__new__">＋ Add new category manually…</option>
-      </select>
-      <div class="custom-cat-entry" id="fixed-custom-cat" hidden>
-        <div class="custom-cat-row"><input class="form-inp" id="fe-custom-cat" maxlength="60" placeholder="e.g. 🎁 Gifts, 🐕 Pet care" onkeydown="if(event.key==='Enter'){event.preventDefault();addCustomExpenseCategory('fixed')}"><button class="btn btn-outline btn-sm" type="button" onclick="addCustomExpenseCategory('fixed')">Add</button></div>
-        <div class="custom-cat-help">Create your own category. It will be available for future expenses too.</div>
-      </div>
+      <button type="button" class="sel-category-trigger" id="fixed-category-trigger" onclick="openCategoryPicker('fixed')">
+        <span class="sel-category-trigger-main"><span class="sel-category-trigger-icon" id="fixed-category-trigger-icon">🏠</span><span class="sel-category-trigger-copy"><strong id="fixed-category-trigger-name">Rent / EMI</strong><span>Choose a category</span></span></span><span class="sel-category-trigger-arrow">›</span>
+      </button>
+      <select class="form-sel" id="fe-cat" style="display:none"></select>
     </div>
   </div>
   <div class="form-row">
@@ -2172,69 +2354,162 @@ th{background:#f5f8f6!important}td{padding:14px!important}tbody tr:hover td{back
 </div>
 </div>
 
-<!-- ADD DAILY EXPENSE MODAL -->
-<div class="overlay" id="modal-daily">
-<div class="modal">
-  <h2 class="modal-title" id="daily-modal-ttl">Add Daily Expense</h2>
-  <div class="form-row">
-    <div class="form-grp"><label class="form-lbl">Description</label><input class="form-inp" id="d-name" placeholder="e.g. Lunch, Auto fare"></div>
-    <div class="form-grp"><label class="form-lbl">Category</label>
-      <select class="form-sel" id="d-cat" onchange="handleExpenseCategoryChange('daily')"></select>
-      <div class="custom-cat-entry" id="daily-custom-cat" hidden>
-        <div class="custom-cat-row"><input class="form-inp" id="d-custom-cat" maxlength="60" placeholder="e.g. 🎁 Gifts, 🐕 Pet care" onkeydown="if(event.key==='Enter'){event.preventDefault();addCustomExpenseCategory('daily')}"><button class="btn btn-outline btn-sm" type="button" onclick="addCustomExpenseCategory('daily')">Add</button></div>
-        <div class="custom-cat-help">Create your own category. It will be available for future expenses too.</div>
-      </div>
+<!-- ADD DAILY EXPENSE / INCOME SHEET -->
+<div class="overlay sel-sheet-overlay" id="modal-daily">
+<div class="modal sel-entry-sheet">
+  <div class="sel-sheet-head">
+    <button class="sel-icon-btn" type="button" onclick="closeModal('modal-daily')" aria-label="Close">×</button>
+    <h2 class="sel-sheet-title" id="daily-modal-ttl">New</h2>
+    <button class="sel-icon-btn sel-save-btn" type="button" onclick="saveDaily()" aria-label="Save">✓</button>
+  </div>
+  <div class="sel-entry-tabs" role="tablist" aria-label="Entry type">
+    <button class="sel-entry-tab active" id="daily-type-expense" type="button" onclick="setDailyEntryType('expense')">Expense</button>
+    <button class="sel-entry-tab" id="daily-type-income" type="button" onclick="openIncomeFromEntrySheet()">Income</button>
+  </div>
+
+  <div class="sel-entry-card sel-amount-card">
+    <div class="sel-entry-row sel-amount-row">
+      <span class="sel-row-icon">▤</span>
+      <div class="sel-row-main"><label for="d-amount">Amount *</label><input class="sel-amount-input" id="d-amount" type="number" inputmode="decimal" placeholder="0.00" aria-label="Amount"></div>
+      <span class="sel-amount-preview" id="d-amount-preview">−₹0</span>
+    </div>
+    <div class="sel-entry-divider"></div>
+    <div class="sel-entry-row">
+      <span class="sel-row-icon">◉</span>
+      <div class="sel-row-main"><span>Currency</span></div>
+      <select class="sel-inline-select" id="d-cur" aria-label="Currency"></select>
     </div>
   </div>
-  <div class="form-row">
-    <div class="form-grp"><label class="form-lbl">Amount</label><input class="form-inp" id="d-amount" type="number" placeholder="0.00"></div>
-    <div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="d-cur"></select></div>
+
+  <div class="sel-entry-card" id="daily-income-source-card" hidden>
+    <div class="sel-entry-row">
+      <span class="sel-row-icon">⌂</span>
+      <div class="sel-row-main"><label for="d-source">Source</label><input class="sel-notes-input" id="d-source" placeholder="e.g. Salary, Freelance, Business, Investment" aria-label="Income source"></div>
+    </div>
   </div>
-  <div class="form-row">
-    <div class="form-grp"><label class="form-lbl">Date</label><input class="form-inp" id="d-date" type="date"></div>
-    <div class="form-grp"><label class="form-lbl">Notes</label><input class="form-inp" id="d-notes" placeholder="Optional"></div>
+
+  <div class="sel-section-head" id="daily-category-head"><strong>Category *</strong></div>
+  <button type="button" class="sel-category-trigger" id="daily-category-trigger" onclick="openCategoryPicker('daily')">
+    <span class="sel-category-trigger-main"><span class="sel-category-trigger-icon" id="daily-category-trigger-icon">🍽️</span><span class="sel-category-trigger-copy"><strong id="daily-category-trigger-name">Food</strong><span>Choose a category</span></span></span><span class="sel-category-trigger-arrow">›</span>
+  </button>
+  <div class="form-grp" style="display:none"><select class="form-sel" id="d-cat"></select></div>
+
+  <div class="sel-entry-card">
+    <div class="sel-entry-row">
+      <span class="sel-row-icon">⌁</span>
+      <div class="sel-row-main"><span>Description</span><input class="sel-notes-input" id="d-name" placeholder="e.g. Lunch, Tesco, Bus fare" aria-label="Description"></div>
+    </div>
+    <div class="sel-entry-divider"></div>
+    <div class="sel-entry-row">
+      <span class="sel-row-icon">▣</span>
+      <div class="sel-row-main"><span>Date</span></div>
+      <input class="sel-inline-date" id="d-date" type="date" aria-label="Date">
+    </div>
+    <div class="sel-entry-divider"></div>
+    <div class="sel-entry-row">
+      <span class="sel-row-icon">↻</span>
+      <div class="sel-row-main"><span>Recurring</span></div>
+      <select class="sel-inline-select sel-recurring-select" id="d-recurring" aria-label="Recurring"><option value="never">Never</option><option value="weekly">Every week</option><option value="monthly">Every month</option></select>
+    </div>
+    <div class="sel-entry-divider"></div>
+    <div class="sel-entry-row sel-notes-row">
+      <span class="sel-row-icon">□</span>
+      <div class="sel-row-main"><input class="sel-notes-input" id="d-notes" placeholder="Notes…" aria-label="Notes"></div>
+    </div>
   </div>
-  <div class="form-grp">
-    <label class="form-lbl">Receipt / Bill (optional)</label>
-    <input type="file" id="d-receipt-input" accept="image/*,.pdf" style="display:none" onchange="handleReceiptSelect(this,'daily')">
-    <div id="d-receipt-preview"></div>
+
+  <div class="sel-entry-card sel-attachment-card" id="daily-attachment-card">
+    <input type="file" id="d-receipt-camera" accept="image/*" capture="environment" style="display:none" onchange="handleReceiptSelect(this,'daily')">
+    <input type="file" id="d-receipt-file" accept="image/*,.pdf" style="display:none" onchange="handleReceiptSelect(this,'daily')">
+    <button type="button" class="sel-attachment-row" onclick="document.getElementById('d-receipt-camera').click()"><span class="sel-row-icon">▧</span><span>Take photo / scan receipt</span><span class="sel-chevron">›</span></button>
+    <div class="sel-entry-divider"></div>
+    <button type="button" class="sel-attachment-row" onclick="document.getElementById('d-receipt-file').click()"><span class="sel-row-icon">▤</span><span>Choose file</span><span class="sel-chevron">›</span></button>
+    <div id="d-receipt-preview" class="sel-receipt-preview"></div>
   </div>
-  <div class="modal-actions">
-    <button class="btn btn-outline" onclick="closeModal('modal-daily')">Cancel</button>
-    <button class="btn btn-green" onclick="saveDaily()" id="save-daily-btn">Save</button>
+  <div class="sel-entry-actions" id="sel-entry-actions">
+    <button type="button" class="btn btn-outline" onclick="closeModal('modal-daily')">Cancel</button>
+    <button type="button" class="btn btn-green" id="sel-entry-save-btn" onclick="saveDaily()">Save Expense</button>
   </div>
+  <div class="sel-sheet-bottom-space"></div>
 </div>
 </div>
 
-<!-- ADD GOAL MODAL -->
-<div class="overlay" id="modal-goal">
-<div class="modal">
-  <h2 class="modal-title" id="modal-goal-title">Add Goal</h2>
-  <div class="form-row">
-    <div class="form-grp"><label class="form-lbl">Goal Name</label><input class="form-inp" id="g-name" placeholder="e.g. Retirement, Emergency Fund"></div>
-    <div class="form-grp"><label class="form-lbl">Category</label>
-      <select class="form-sel" id="g-cat">
-        <option>🏖️ Retirement</option><option>🆘 Emergency Fund</option>
-        <option>🎓 Child Education</option><option>🏠 Home Purchase</option>
-        <option>✈️ Travel</option><option>🚗 Vehicle</option><option>💰 Other</option>
-      </select>
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="form-grp"><label class="form-lbl">Target Amount</label><input class="form-inp" id="g-target" type="number" placeholder="0.00"></div>
-    <div class="form-grp"><label class="form-lbl">Current Saved</label><input class="form-inp" id="g-current" type="number" placeholder="0.00"></div>
-  </div>
-  <div class="form-row">
-    <div class="form-grp"><label class="form-lbl">Currency</label><select class="form-sel" id="g-cur"></select></div>
-    <div class="form-grp"><label class="form-lbl">Target Date</label><input class="form-inp" id="g-date" type="date"></div>
-  </div>
-  <div class="form-grp"><label class="form-lbl">Expected Return (% p.a., optional)</label><input class="form-inp" id="g-return" type="number" step="0.1" placeholder="e.g. 8"></div>
-  <div class="form-grp"><label class="form-lbl">Remind me (days before deadline)</label><input class="form-inp" id="g-reminddays" type="number" min="0" max="90" placeholder="30" value="30" style="max-width:140px"></div>
-  <div class="modal-actions">
-    <button class="btn btn-outline" onclick="closeModal('modal-goal')">Cancel</button>
-    <button class="btn btn-green" onclick="saveGoal()">Save Goal</button>
+<!-- ADD EXPENSE ENTRY POINT FALLBACK -->
+<script>
+// Keep the primary everyday action available even if a later optional UI module fails during startup.
+window.openAddDaily = window.openAddDaily || function(id){
+  const modal=document.getElementById('modal-daily');
+  if(!modal)return;
+  modal.classList.add('open');
+  try{
+    if(typeof S!=='undefined') S.editDailyId=id||null;
+    const e=(id && typeof S!=='undefined' && Array.isArray(S.dailyExps)) ? S.dailyExps.find(x=>x.id===id) : null;
+    const set=(key,value)=>{const el=document.getElementById(key);if(el)el.value=value??'';};
+    const ttl=document.getElementById('daily-modal-ttl');if(ttl)ttl.textContent=id?'Edit Expense':'New';
+    set('d-name',e?.name||'');
+    set('d-amount',e?.amount||'');
+    set('d-notes',e?.notes||'');
+    set('d-date',e?.date||new Date().toISOString().slice(0,10));
+    set('d-recurring',e?.recurring?(e.recurringFrequency||'monthly'):'never');
+    if(typeof renderCategoryOptions==='function')renderCategoryOptions();
+    set('d-cat',e?.category||'🍽️ Food');
+    if(typeof syncCategoryTrigger==='function')syncCategoryTrigger('daily');
+    if(typeof renderCurBtns==='function')renderCurBtns();
+    set('d-cur',e?.currency||((typeof S!=='undefined'&&S.displayCur)||'INR'));
+    if(typeof pendingReceipt!=='undefined')pendingReceipt.daily=e?.receipt||null;
+    if(typeof renderReceiptPreview==='function')renderReceiptPreview('daily');
+    if(typeof setDailyEntryType==='function')setDailyEntryType('expense');
+    if(typeof updateDailyAmountPreview==='function')updateDailyAmountPreview();
+    const amount=document.getElementById('d-amount');
+    const cur=document.getElementById('d-cur');
+    if(amount&&typeof updateDailyAmountPreview==='function')amount.oninput=updateDailyAmountPreview;
+    if(cur&&typeof updateDailyAmountPreview==='function')cur.onchange=updateDailyAmountPreview;
+    setTimeout(()=>amount?.focus(),80);
+  }catch(err){console.error('[Selvam] Add Expense fallback setup error',err);}
+};
+</script>
+
+<!-- SHARED CATEGORY PICKER -->
+<div class="overlay" id="modal-category-picker" onclick="if(event.target===this)closeCategoryPicker()">
+  <div class="sel-cat-picker">
+    <div class="sel-cat-picker-head"><div><h3>Choose category</h3><p id="category-picker-subtitle">Pick one for this entry</p></div><button type="button" class="sel-cat-picker-close" onclick="closeCategoryPicker()">×</button></div>
+    <div class="sel-cat-picker-search"><input id="category-picker-search" type="search" placeholder="Search categories" oninput="renderCategoryPicker()" autocomplete="off"></div>
+    <div class="sel-cat-picker-grid" id="category-picker-grid"></div>
+    <div class="sel-cat-new" id="category-picker-new" hidden><div class="sel-cat-new-row"><input class="sel-cat-icon-input" id="category-new-icon" maxlength="2" value="🏷️" aria-label="Category icon"><input class="sel-cat-name-input" id="category-new-name" maxlength="50" placeholder="Category name" onkeydown="if(event.key==='Enter'){event.preventDefault();savePickerCategory()}"><button class="btn btn-green" type="button" onclick="savePickerCategory()">Add category</button></div><div class="sel-cat-new-help">This category will be available throughout Selvam for future expenses.</div></div>
+    <div class="sel-cat-picker-actions"><button type="button" class="btn btn-outline" onclick="closeCategoryPicker()">Cancel</button></div>
   </div>
 </div>
+
+<!-- ADD GOAL MODAL -->
+<div class="overlay sel-sheet-overlay" id="modal-goal">
+  <div class="modal sel-form-sheet">
+    <div class="sel-form-head">
+      <div class="sel-form-icon">🎯</div>
+      <div class="sel-form-head-copy"><h2 id="modal-goal-title">Add Goal</h2><p>Set a target and let Selvam track your progress</p></div>
+      <button class="sel-form-close" type="button" onclick="closeModal('modal-goal')" aria-label="Close">×</button>
+    </div>
+    <div class="sel-form-body">
+      <div class="sel-form-card sel-form-card-wide">
+        <div class="sel-form-card-title">Goal details</div>
+        <div class="form-row"><div class="form-grp"><label class="form-lbl">Goal Name</label><input class="form-inp" id="g-name" placeholder="e.g. Emergency Fund, Home Purchase"></div><div class="form-grp"><label class="form-lbl">Category</label><select class="form-sel" id="g-cat"><option>🏖️ Retirement</option><option>🆘 Emergency Fund</option><option>🎓 Child Education</option><option>🏠 Home Purchase</option><option>✈️ Travel</option><option>🚗 Vehicle</option><option>💰 Other</option></select></div></div>
+      </div>
+      <div class="sel-form-card">
+        <div class="sel-form-card-title">Money</div>
+        <div class="form-row"><div class="form-grp"><label class="form-lbl">Target Amount</label><input class="form-inp" id="g-target" type="number" placeholder="0.00"></div><div class="form-grp"><label class="form-lbl">Current Saved</label><input class="form-inp" id="g-current" type="number" placeholder="0.00"></div></div>
+        <div class="form-grp" style="margin-bottom:0"><label class="form-lbl">Currency</label><select class="form-sel" id="g-cur"></select></div>
+      </div>
+      <div class="sel-form-card">
+        <div class="sel-form-card-title">Timeline</div>
+        <div class="form-grp"><label class="form-lbl">Target Date</label><input class="form-inp" id="g-date" type="date"></div>
+        <div class="form-grp" style="margin-bottom:0"><label class="form-lbl">Remind me (days before deadline)</label><input class="form-inp" id="g-reminddays" type="number" min="0" max="90" placeholder="30" value="30"></div>
+      </div>
+      <div class="sel-form-card sel-form-card-wide">
+        <div class="sel-form-card-title">Planning (optional)</div>
+        <div class="form-grp" style="margin-bottom:0"><label class="form-lbl">Expected Return (% p.a.)</label><input class="form-inp" id="g-return" type="number" step="0.1" placeholder="e.g. 8"></div>
+      </div>
+    </div>
+    <div class="sel-form-actions"><button class="btn btn-outline" type="button" onclick="closeModal('modal-goal')">Cancel</button><button class="btn btn-green sel-form-primary" type="button" onclick="saveGoal()">Save Goal</button></div>
+  </div>
 </div>
 
 <!-- GOAL PROGRESS MODAL -->
@@ -2366,7 +2641,7 @@ let S = {
   customAllocationTarget:null,
   appLock:{enabled:false,pinHash:null},
   showNativeCurrency:false,
-  portfolioRegions:['india','usa','uk'],
+  portfolioRegion:'all',
   lastUpdatedAt:{},
   remittances:[],
   backupLog:[],
@@ -2458,17 +2733,11 @@ function migrateRatesConvention(){
 function normalizeState(){
   const arrays=['assets','incomes','fixedExps','dailyExps','goals','snapshots','remittances','backupLog','activityLog','customCategories'];
   arrays.forEach(k=>{if(!Array.isArray(S[k]))S[k]=[];});
-  S.currencies=['INR','USD','GBP'];
+  if(!S.currencies||!Array.isArray(S.currencies))S.currencies=['INR','USD','GBP'];
+  if(!S.currencies.includes('INR'))S.currencies.unshift('INR');
   if(!S.displayCur||!S.currencies.includes(S.displayCur))S.displayCur='INR';
   if(!S.rates||typeof S.rates!=='object')S.rates={INR:1,USD:83,GBP:105};
   S.rates.INR=1;
-  if(!Array.isArray(S.portfolioRegions)){
-    const legacy=S.portfolioRegions[0];
-    S.portfolioRegions=(legacy==='all'||!legacy)?['india','usa','uk']:(['india','usa','uk'].includes(legacy)?[legacy]:['india','usa','uk']);
-  }
-  S.portfolioRegions=S.portfolioRegions.filter(r=>['india','usa','uk'].includes(r));
-  if(!S.portfolioRegions.length)S.portfolioRegions=['india','usa','uk'];
-  delete S.portfolioRegions[0];
   if(!S.profile||typeof S.profile!=='object')S.profile={name:'',email:'',income:0,age:'',riskTolerance:'moderate'};
   if(!S.budgets||typeof S.budgets!=='object')S.budgets={total:0,currency:S.displayCur,categories:{}};
   if(!S.budgets.categories||typeof S.budgets.categories!=='object')S.budgets.categories={};
@@ -2570,10 +2839,6 @@ function lockNow(){
   sessionStorage.removeItem('selvam_unlocked');
   // Reload so decrypted financial data is removed from the JavaScript heap while locked.
   location.reload();
-  return;
-  const ov=document.getElementById('lock-overlay');
-  ov.style.display='flex';
-  document.getElementById('lock-pin-input').focus();
 }
 function checkAppLockOnInit(onUnlocked){
   if(pendingEncryptedBlob){
@@ -2663,11 +2928,63 @@ function logActivity(action,category,name,amount,currency){
   S.activityLog.push({ts:Date.now(),action,category,name,amount,currency});
   if(S.activityLog.length>300)S.activityLog=S.activityLog.slice(-300);
 }
-function persistToElectron(content){
-  if(window.electronAPI&&window.electronAPI.isElectron&&window.electronAPI.saveData){
-    window.electronAPI.saveData(content).catch(()=>{/* Electron file write failed — localStorage copy already saved */});
+async function persistToElectron(content){
+  if(!(window.electronAPI&&window.electronAPI.isElectron&&window.electronAPI.saveData)) return {ok:true,skipped:true};
+  let lastError=null;
+  // The Windows app uses a real file outside the HTML resource folder. Treat that
+  // file write as part of the durable save, not as fire-and-forget background work.
+  for(let attempt=1;attempt<=3;attempt++){
+    try{
+      const result=await window.electronAPI.saveData(content);
+      window.SelvamRuntime={...(window.SelvamRuntime||{}),electronSaveAt:Date.now(),electronSaveAttempts:attempt,electronSaveError:null};
+      return {ok:true,result};
+    }catch(err){
+      lastError=err;
+      if(attempt<3) await new Promise(r=>setTimeout(r,150*attempt));
+    }
+  }
+  window.SelvamRuntime={...(window.SelvamRuntime||{}),electronSaveError:String(lastError?.message||lastError||'Windows data file could not be written')};
+  throw lastError||new Error('Windows data file could not be written');
+}
+// Durable storage helper. The save pipeline relies on this function; keep the primary
+// copy authoritative and make the mirror best-effort so a full/blocked mirror cannot
+// make an otherwise successful save fail.
+function persistLocalEnvelope(envelope){
+  const raw=JSON.stringify(envelope);
+  let primarySaved=false;
+  try{
+    localStorage.setItem('selvam_v1',raw);
+    primarySaved=true;
+  }catch(primaryErr){
+    // Restore points can consume a large portion of the browser quota. Prune them
+    // before giving the main save one more chance.
+    try{
+      const rawPoints=localStorage.getItem('selvam_restore_points');
+      const points=rawPoints?JSON.parse(rawPoints):[];
+      if(Array.isArray(points)&&points.length){
+        while(points.length>1)points.shift();
+        localStorage.setItem('selvam_restore_points',JSON.stringify(points));
+      }
+      localStorage.setItem('selvam_v1',raw);
+      primarySaved=true;
+    }catch(retryErr){
+      // Fall through to the mirror attempt below.
+    }
+  }
+  if(primarySaved){
+    try{localStorage.setItem('selvam_v1_mirror',raw);}catch(_mirrorErr){/* best effort */}
+    return raw;
+  }
+  // If the primary key is unavailable, try the recovery mirror as the last local
+  // persistence path. Throw only when no durable browser copy could be written.
+  try{
+    localStorage.setItem('selvam_v1_mirror',raw);
+    return raw;
+  }catch(mirrorErr){
+    throw mirrorErr;
   }
 }
+
 // Stable, coalescing save pipeline: rapid edits produce one durable snapshot instead of a long queue.
 let saveGeneration=0,saveDirty=false,saveTimer=null,saveInFlight=false,saveWaiters=[];
 function save(){
@@ -2700,7 +3017,10 @@ async function flushSave(){
           envelope={version:2,encrypted:false,checksum,data:json,savedAt:Date.now()};
         }
         const raw=persistLocalEnvelope(envelope);
-        persistToElectron(raw);
+        // Wait for the Windows data file write. This prevents the app from
+        // reporting a successful change while the external C:/ data file is
+        // still unwritten when the user closes the .exe.
+        await persistToElectron(raw);
         lastSaveTime=Date.now();
         try{localStorage.setItem('selvam_last_save_ts',String(lastSaveTime));}catch(e){}
         updateBackupStatusUI();
@@ -2744,19 +3064,23 @@ async function maybeCreateRestorePoint(force){
 function getRestorePoints(){
   try{return JSON.parse(localStorage.getItem('selvam_restore_points')||'[]');}catch(e){return[];}
 }
-function backupNow(){
+async function backupNow(){
   const btn=document.getElementById('backup-now-btn');
   if(btn){btn.disabled=true;btn.textContent='Backing up…';}
-  save();
-  maybeCreateRestorePoint(true);
-  renderRestorePoints();
-  updateBackupStatusUI();
-  const dot=document.getElementById('backup-status-dot');
-  if(dot){dot.classList.add('flash');setTimeout(()=>dot.classList.remove('flash'),900);}
-  setTimeout(()=>{
-    if(btn){btn.disabled=false;btn.textContent='Backup Now';}
+  try{
+    await save();
+    await maybeCreateRestorePoint(true);
+    renderRestorePoints();
+    updateBackupStatusUI();
+    const dot=document.getElementById('backup-status-dot');
+    if(dot){dot.classList.add('flash');setTimeout(()=>dot.classList.remove('flash'),900);}
     showToast('Backup created just now ✓','success');
-  },350);
+  }catch(e){
+    console.error('[Selvam] Backup failed',e);
+    showToast('Backup could not be created. Please try again.','error');
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent='Backup Now';}
+  }
 }
 function updateBackupStatusUI(){
   const dot=document.getElementById('backup-status-dot');
@@ -2897,6 +3221,11 @@ function renderCurBtns(){
     const el=document.getElementById(id);
     if(el)el.innerHTML=S.currencies.map(c=>`<option value="${c}" ${c===S.displayCur?'selected':''}>${c}</option>`).join('');
   });
+  const addSel=document.getElementById('cur-add-select');
+  if(addSel){
+    const available=COMMON_CURRENCIES.filter(c=>!S.currencies.includes(c.code));
+    addSel.innerHTML='<option value="">Add a currency…</option>'+available.map(c=>`<option value="${c.code}">${c.code} — ${c.name}</option>`).join('');
+  }
   renderCurrencyManager();
   renderNativeCurToggle();
 }
@@ -2920,24 +3249,17 @@ function toggleNativeCurrency(){
   save();renderNativeCurToggle();renderAll();
   showToast(S.showNativeCurrency?'Now showing entries in their original currency':'Now converting everything to '+S.displayCur,'success');
 }
-function portfolioAllSelected(){return S.portfolioRegions.length===3;}
-function portfolioHas(region){return S.portfolioRegions.includes(region);}
-function getPortfolioAssets(){return portfolioAllSelected()?S.assets:S.assets.filter(a=>S.portfolioRegions.includes(a.region));}
-function portfolioLabel(){return S.portfolioRegions.map(r=>({india:'🇮🇳 India',usa:'🇺🇸 USA',uk:'🇬🇧 UK'}[r]||r)).join(' + ');}
 function renderRegionFilterBtns(){
   const el=document.getElementById('region-filter-btns');
   if(!el)return;
-  const options=[{key:'india',label:'🇮🇳 India'},{key:'usa',label:'🇺🇸 USA'},{key:'uk',label:'🇬🇧 UK'}];
-  el.innerHTML=options.map(o=>`<button class="cur-btn ${portfolioHas(o.key)?'active':''}" onclick="setPortfolioRegion('${o.key}')">${o.label}</button>`).join('');
+  const options=[{key:'all',label:'All'},{key:'india',label:'🇮🇳 India'},{key:'uk',label:'🇬🇧 UK'},{key:'usa',label:'🇺🇸 USA'},{key:'uae',label:'🇦🇪 UAE'}];
+  el.innerHTML=options.map(o=>`<button class="cur-btn ${S.portfolioRegion===o.key?'active':''}" onclick="setPortfolioRegion('${o.key}')">${o.label}</button>`).join('');
 }
 function setPortfolioRegion(region){
-  if(!['india','usa','uk'].includes(region))return;
-  if(portfolioHas(region)){
-    if(S.portfolioRegions.length===1){showToast('Keep at least one region selected','error');return;}
-    S.portfolioRegions=S.portfolioRegions.filter(r=>r!==region);
-  }else{S.portfolioRegions=[...S.portfolioRegions,region];}
+  S.portfolioRegion=region;
   save();renderRegionFilterBtns();renderAll();
-  showToast(portfolioAllSelected()?'Showing India, USA and UK':`Showing ${portfolioLabel()}`,'success');
+  const labels={all:t('toast_region_all'),india:t('toast_region_india'),uk:t('toast_region_uk'),usa:t('toast_region_usa'),uae:t('toast_region_uae')};
+  showToast(labels[region]||t('toast_region_updated'),'success');
 }
 function renderCurrencyManager(){
   const el=document.getElementById('currency-manager');
@@ -2969,8 +3291,26 @@ function updateCurRate(code,val){
   markUpdated('rate_'+code);
   save();renderAll();showToast(code+' rate updated','success');
 }
-function removeCurrency(code){return;}
+function removeCurrency(code){
+  if(code==='INR'||S.currencies.length<=1)return;
+  if(S.displayCur===code){showToast('Switch away from this currency first','error');return;}
+  const inUse=[...S.assets,...S.incomes,...S.fixedExps,...S.dailyExps,...S.goals].some(x=>x.currency===code);
+  if(inUse&&!confirm(`Some entries still use ${code}. Remove it from the picker anyway? Their amounts will keep converting using its last saved rate.`))return;
+  S.currencies=S.currencies.filter(c=>c!==code);
+  save();renderCurBtns();showToast(code+' removed','success');
+}
 function setDisplayCur(c){S.displayCur=c;save();renderCurBtns();renderAll();}
+function addCurFromSelect(){
+  const sel=document.getElementById('cur-add-select');
+  const code=sel.value;
+  if(!code)return;
+  if(S.currencies.includes(code)){showToast(code+' is already added','error');return;}
+  S.currencies.push(code);
+  if(!S.rates[code])S.rates[code]=1;
+  sel.value='';
+  save();renderCurBtns();
+  showToast(code+' added — set its rate below (1 '+code+' = how many ₹)','success');
+}
 
 // ── NAV ──
 let currentPage='dashboard';
@@ -3160,40 +3500,28 @@ function dismissOnboarding(){
 }
 function renderDashboard(){
   renderOnboardingBanner();
+  renderCommandCentre();
   const today=new Date();
   const dashDate=document.getElementById('dash-date');
   if(dashDate)dashDate.textContent=today.toLocaleDateString(lang==='ta'?'ta-IN':'en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   const greetEl=document.getElementById('dash-greeting-title');
-  if(greetEl)greetEl.textContent=lang==='ta'?'செல்வம் 🌿':(S.profile.name?`Welcome, ${S.profile.name} 🌿`:'Your money 🌿');
-
+  if(greetEl)greetEl.textContent=lang==='ta'?'செல்வம் 🌿':(S.profile.name?`Welcome, ${S.profile.name} 🌿`:'Your Wealth 🌿');
   const m=new Date().toISOString().slice(0,7),mt=getMonthTotals(m),sr=mt.savingsRate;
-  const balanceEl=document.getElementById('dash-balance-value');
-  const noteEl=document.getElementById('dash-balance-note');
-  if(balanceEl)balanceEl.textContent=fmt(mt.balance);
-  if(noteEl){
-    if(mt.inc===0&&mt.totalExp===0)noteEl.textContent='Add income and spending to see your monthly picture.';
-    else if(mt.balance>=0)noteEl.textContent=`${fmt(mt.inc)} received · ${fmt(mt.totalExp)} spent · ${sr}% kept`;
-    else noteEl.textContent=`You have spent ${fmt(Math.abs(mt.balance))} more than recorded income this month.`;
-  }
-
   const k=document.getElementById('dash-kpis');
   if(k)k.innerHTML=`
-    <div class="dash-mini-kpi"><span>Money in</span><strong style="color:var(--green-dark)">${fmt(mt.inc)}</strong><small>Income</small></div>
-    <div class="dash-mini-kpi"><span>Money out</span><strong style="color:var(--red)">${fmt(mt.totalExp)}</strong><small>Spending</small></div>`;
-
+    <div class="finance-kpi green"><div class="finance-kpi-label">Income</div><div class="finance-kpi-value" style="color:var(--green-dark)">${fmt(mt.inc)}</div><div class="finance-kpi-note">Money received this month</div></div>
+    <div class="finance-kpi red"><div class="finance-kpi-label">Expenses</div><div class="finance-kpi-value" style="color:var(--red)">${fmt(mt.totalExp)}</div><div class="finance-kpi-note">Fixed + daily spending</div></div>
+    <div class="finance-kpi blue"><div class="finance-kpi-label">Remaining</div><div class="finance-kpi-value" style="color:${mt.balance>=0?'var(--blue)':'var(--red)'}">${fmt(mt.balance)}</div><div class="finance-kpi-note">Income minus expenses</div></div>
+    <div class="finance-kpi amber"><div class="finance-kpi-label">Savings rate</div><div class="finance-kpi-value" style="color:${sr>=30?'var(--green-dark)':sr>=0?'var(--amber)':'var(--red)'}">${sr}%</div><div class="finance-kpi-note">For ${fmtMonth(m)}</div></div>`;
   const monthly=document.getElementById('dash-monthly');
-  if(monthly)monthly.innerHTML=`
-    <div class="dash-flow-row"><div><span>Income</span><strong style="color:var(--green-dark)">${fmt(mt.inc)}</strong></div><div class="dash-flow-track"><span class="income" style="width:100%"></span></div></div>
-    <div class="dash-flow-row"><div><span>Spending</span><strong style="color:var(--red)">${fmt(mt.totalExp)}</strong></div><div class="dash-flow-track"><span class="expense ${mt.inc&&mt.totalExp>mt.inc?'over':''}" style="width:${mt.inc?Math.min(100,Math.max(0,mt.totalExp/mt.inc*100)):0}%"></span></div></div>
-    <div class="dash-flow-result"><span>Left this month</span><strong style="color:${mt.balance>=0?'var(--green-dark)':'var(--red)'}">${fmt(mt.balance)}</strong></div>
-    <div class="dash-flow-note">${fmtMonth(m)} · ${sr}% of recorded income remains after spending.</div>`;
-
+  if(monthly)monthly.innerHTML=`<div class="sr-row"><span>Income</span><strong style="color:var(--green)">${fmt(mt.inc)}</strong></div><div class="finance-progress"><div class="finance-progress-fill" style="width:100%"></div></div><div class="sr-row" style="margin-top:16px"><span>Expenses</span><strong style="color:var(--red)">${fmt(mt.totalExp)}</strong></div><div class="finance-progress"><div class="finance-progress-fill ${mt.inc&&mt.totalExp>mt.inc?'over':''}" style="width:${mt.inc?Math.min(100,Math.max(0,mt.totalExp/mt.inc*100)):0}%"></div></div><div style="display:flex;justify-content:space-between;margin-top:16px;font-size:13px"><span>Remaining</span><strong style="color:${mt.balance>=0?'var(--green-dark)':'var(--red)'}">${fmt(mt.balance)}</strong></div><div style="font-size:11px;color:var(--muted);margin-top:6px">${fmtMonth(m)} · ${sr}% savings rate</div>`;
   renderDashTrend();
-  const recent=S.dailyExps.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,5),dr=document.getElementById('dash-recent');
-  if(dr)dr.innerHTML=recent.length?`<div class="finance-list">${recent.map(e=>`<div class="finance-row"><div class="finance-row-icon">${e.category?.split(' ')[0]||'•'}</div><div class="finance-row-main"><div class="finance-row-name">${escapeHtml(e.name||'Expense')}</div><div class="finance-row-meta">${escapeHtml(e.category||'Other')} · ${fmtDate(e.date)}</div></div><div class="finance-row-amount neg">−${fmtNative(e.amount,e.currency)}</div></div>`).join('')}</div>`:`<div class="finance-empty"><div class="finance-empty-icon">🧾</div><div class="finance-empty-title">No expenses yet</div><div class="finance-empty-sub">Record your first expense to start seeing your spending here.</div></div>`;
-
+  const recent=S.dailyExps.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).slice(0,6),dr=document.getElementById('dash-recent');
+  if(dr)dr.innerHTML=recent.length?`<div class="finance-list">${recent.map(e=>`<div class="finance-row"><div class="finance-row-icon">${e.category?.split(' ')[0]||'•'}</div><div class="finance-row-main"><div class="finance-row-name">${escapeHtml(e.name||'Expense')}</div><div class="finance-row-meta">${escapeHtml(e.category||'Other')} · ${fmtDate(e.date)}</div></div><div class="finance-row-amount neg">−${fmtNative(e.amount,e.currency)}</div></div>`).join('')}</div>`:`<div class="finance-empty"><div class="finance-empty-icon">🧾</div><div class="finance-empty-title">No expenses yet</div><div class="finance-empty-sub">Add your first expense to start building your spending picture.</div></div>`;
   const notifs=generateNotifications().slice(0,3),dn=document.getElementById('dash-notif-preview');
   if(dn)dn.innerHTML=notifs.length?notifs.map(n=>`<div class="insight-card ${n.level}" style="margin-bottom:8px"><div class="insight-txt"><strong>${escapeHtml(n.title)}</strong><br>${escapeHtml(n.message)}</div></div>`).join(''):`<div class="finance-empty"><div class="finance-empty-icon">✓</div><div class="finance-empty-title">You're all caught up</div></div>`;
+  const essItems=computeEssentials(),essOk=essItems.filter(i=>i.ok).length,ep=document.getElementById('dash-essentials-preview');
+  if(ep)ep.innerHTML=`<div style="display:flex;align-items:center;gap:14px;margin-bottom:14px"><div style="font-family:'Noto Serif Tamil',serif;font-size:25px;font-weight:800;color:${essOk===essItems.length?'var(--green)':'var(--text)'}">${essOk}/${essItems.length}</div><div style="flex:1"><div class="finance-progress"><div class="finance-progress-fill" style="width:${essItems.length?essOk/essItems.length*100:0}%;background:${essOk===essItems.length?'var(--green)':'var(--amber)'}"></div></div><div style="font-size:11px;color:var(--muted);margin-top:5px">Essential checks completed</div></div></div>${essItems.filter(i=>!i.ok).slice(0,3).map(i=>`<div style="font-size:12px;padding:8px 0;border-top:1px solid var(--border);color:var(--muted)">• ${escapeHtml(i.label.replace(/^\S+\s/,''))}: ${escapeHtml(i.badge)}</div>`).join('')||'<div style="font-size:12px;color:var(--green-dark)">All essentials covered ✓</div>'}`;
   updateNotifBadge();
 }
 function renderDashTrend(){
@@ -3266,6 +3594,37 @@ function materializeRecurring(targetMonth){
     S.fixedExps.push({id:uid(),name:latest.name,amount:latest.amount,currency:latest.currency,category:latest.category,month:targetMonth,recurring:true,seriesId:latest.seriesId});
     changed=true;
   });
+  const dailySeries={};
+  S.dailyExps.forEach(x=>{if(!x.seriesId||!x.recurring)return;const xDate=x.date||'';if(!dailySeries[x.seriesId]||xDate>dailySeries[x.seriesId].date)dailySeries[x.seriesId]={entry:x,date:xDate};});
+  Object.values(dailySeries).forEach(({entry:latest,date:latestDate})=>{
+    const freq=latest.recurringFrequency||'monthly';
+    if(freq==='weekly'){
+      let cursor=new Date(latestDate+'T00:00:00');
+      if(Number.isNaN(cursor.getTime()))return;
+      const targetStart=new Date(targetMonth+'-01T00:00:00');
+      const targetEnd=new Date(targetStart.getFullYear(),targetStart.getMonth()+1,0);
+      const today=new Date(); today.setHours(0,0,0,0);
+      const end=targetMonth===today.toISOString().slice(0,7)?today:targetEnd;
+      while(cursor<targetStart)cursor.setDate(cursor.getDate()+7);
+      while(cursor<=end){
+        const iso=cursor.toISOString().slice(0,10);
+        const exists=S.dailyExps.some(x=>x.seriesId===latest.seriesId&&x.date===iso);
+        if(!exists && iso!==latestDate){
+          S.dailyExps.push({id:uid(),name:latest.name,amount:latest.amount,currency:latest.currency,category:latest.category,date:iso,notes:latest.notes||'',receipt:null,recurring:true,recurringFrequency:'weekly',seriesId:latest.seriesId});
+          changed=true;
+        }
+        cursor.setDate(cursor.getDate()+7);
+      }
+      return;
+    }
+    const latestMonth=latestDate.slice(0,7);
+    if(latestMonth>=targetMonth)return;
+    const exists=S.dailyExps.some(x=>x.seriesId===latest.seriesId&&(x.date||'').startsWith(targetMonth));
+    if(exists)return;
+    const oldDay=Math.max(1,Math.min(28,parseInt(latestDate.slice(8,10))||1));
+    S.dailyExps.push({id:uid(),name:latest.name,amount:latest.amount,currency:latest.currency,category:latest.category,date:`${targetMonth}-${String(oldDay).padStart(2,'0')}`,notes:latest.notes||'',receipt:null,recurring:true,recurringFrequency:'monthly',seriesId:latest.seriesId});
+    changed=true;
+  });
   if(changed)save();
 }
 function renderIncome(){
@@ -3300,17 +3659,75 @@ function renderExpenses(){
 const BASE_BUDGET_CATEGORIES=['🍽️ Food','🚌 Transport','🛒 Groceries','💊 Health','🎮 Entertainment','👗 Shopping','📱 Bills','🎓 Education','🏠 Home','💰 Other'];
 function getAllCategories(){return[...BASE_BUDGET_CATEGORIES,...(S.customCategories||[])];}
 const FIXED_EXPENSE_CATEGORIES=['🏠 Rent / EMI','📱 Subscriptions','⚡ Utilities','🎓 Education','💊 Insurance Premium','💳 Loan EMI','💰 Other'];
+let categoryPickerKind=null;
+function categoryParts(cat){const m=String(cat||'').match(/^(\S+)\s*(.*)$/);return{icon:m?m[1]:'🏷️',name:m?m[2]||cat:cat||'Other'};}
+function syncCategoryTrigger(kind){
+  const sel=document.getElementById(kind==='fixed'?'fe-cat':'d-cat'); if(!sel)return;
+  const value=sel.value||''; const p=categoryParts(value);
+  const prefix=kind==='fixed'?'fixed':'daily';
+  const icon=document.getElementById(prefix+'-category-trigger-icon'),name=document.getElementById(prefix+'-category-trigger-name');
+  if(icon)icon.textContent=p.icon; if(name)name.textContent=p.name||'Choose category';
+}
+function openCategoryPicker(kind){
+  categoryPickerKind=kind==='fixed'?'fixed':'daily';
+  const sel=document.getElementById(categoryPickerKind==='fixed'?'fe-cat':'d-cat');
+  if(!sel)return;
+  const search=document.getElementById('category-picker-search'); if(search)search.value='';
+  const sub=document.getElementById('category-picker-subtitle'); if(sub)sub.textContent=categoryPickerKind==='fixed'?'Choose a recurring expense category':'Choose a category for this expense';
+  document.getElementById('category-picker-new').hidden=true;
+  renderCategoryPicker();
+  document.getElementById('modal-category-picker').classList.add('open');
+  setTimeout(()=>document.getElementById('category-picker-search')?.focus(),80);
+}
+function closeCategoryPicker(){document.getElementById('modal-category-picker')?.classList.remove('open');categoryPickerKind=null;}
+function renderCategoryPicker(){
+  const grid=document.getElementById('category-picker-grid'); if(!grid||!categoryPickerKind)return;
+  const sel=document.getElementById(categoryPickerKind==='fixed'?'fe-cat':'d-cat');
+  const cats=categoryPickerKind==='fixed'?[...FIXED_EXPENSE_CATEGORIES,...(S.customCategories||[])].filter((c,i,a)=>a.indexOf(c)===i):getAllCategories();
+  const q=(document.getElementById('category-picker-search')?.value||'').trim().toLowerCase();
+  const filtered=cats.filter(c=>c.toLowerCase().includes(q));
+  grid.innerHTML=filtered.map(c=>{const p=categoryParts(c);return `<button type="button" class="sel-cat-option ${sel.value===c?'active':''}" data-category="${escapeHtml(c)}" onclick="choosePickerCategory(this.dataset.category)"><span class="sel-cat-option-icon">${escapeHtml(p.icon)}</span><span class="sel-cat-option-name">${escapeHtml(p.name)}</span></button>`}).join('');
+  grid.innerHTML+=`<button type="button" class="sel-cat-option sel-cat-add-card" onclick="showNewCategoryInPicker()"><span class="sel-cat-option-icon">＋</span><span class="sel-cat-option-name">Add category</span></button>`;
+  if(!filtered.length)grid.innerHTML=`<div style="grid-column:1/-1;padding:24px;text-align:center;color:var(--muted);font-size:12px">No category found.</div>`+grid.innerHTML;
+}
+function choosePickerCategory(value){
+  const sel=document.getElementById(categoryPickerKind==='fixed'?'fe-cat':'d-cat'); if(!sel)return;
+  sel.value=value;
+  syncCategoryTrigger(categoryPickerKind);
+  document.getElementById('category-picker-new').hidden=true;
+  closeCategoryPicker();
+}
+function showNewCategoryInPicker(){
+  const box=document.getElementById('category-picker-new'); box.hidden=false;
+  const name=document.getElementById('category-new-name'); name.value='';
+  setTimeout(()=>name.focus(),50);
+}
+function savePickerCategory(){
+  const nameInput=document.getElementById('category-new-name'),iconInput=document.getElementById('category-new-icon');
+  let name=(nameInput?.value||'').trim().replace(/\s+/g,' '); if(!name){nameInput?.focus();showToast('Enter a category name','error');return;}
+  if(name.length>50){showToast('Category name is too long','error');return;}
+  let icon=(iconInput?.value||'').trim(); if(!icon)icon='🏷️';
+  const value=`${icon} ${name}`;
+  const all=[...getAllCategories(),...FIXED_EXPENSE_CATEGORIES];
+  if(all.some(c=>c.toLowerCase()===value.toLowerCase() || categoryParts(c).name.toLowerCase()===name.toLowerCase())){showToast('That category already exists','error');return;}
+  if(!S.customCategories)S.customCategories=[]; S.customCategories.push(value); save();
+  renderCategoryOptions(); renderFixedCategoryOptions();
+  const sel=document.getElementById(categoryPickerKind==='fixed'?'fe-cat':'d-cat'); if(sel)sel.value=value;
+  syncCategoryTrigger(categoryPickerKind); closeCategoryPicker(); showToast('Category added ✓','success');
+}
 function renderCategoryOptions(){
   const sel=document.getElementById('d-cat');if(!sel)return;
   const current=sel.value,cats=getAllCategories();
   sel.innerHTML=cats.map(c=>`<option value="${c}">${c}</option>`).join('')+`<option value="__new__">＋ Add new category manually…</option>`;
   if(current&&cats.includes(current))sel.value=current;else if(current==='__new__')sel.value='__new__';
+  if(sel.id==='d-cat')syncCategoryTrigger('daily');
 }
 function renderFixedCategoryOptions(){
   const sel=document.getElementById('fe-cat');if(!sel)return;
   const current=sel.value,cats=[...FIXED_EXPENSE_CATEGORIES,...(S.customCategories||[])].filter((c,i,a)=>a.indexOf(c)===i);
   sel.innerHTML=cats.map(c=>`<option value="${c}">${c}</option>`).join('')+`<option value="__new__">＋ Add new category manually…</option>`;
   if(current&&cats.includes(current))sel.value=current;else if(current==='__new__')sel.value='__new__';
+  syncCategoryTrigger('fixed');
 }
 function handleExpenseCategoryChange(kind){
   const fixed=kind==='fixed',sel=document.getElementById(fixed?'fe-cat':'d-cat'),box=document.getElementById(fixed?'fixed-custom-cat':'daily-custom-cat');if(!sel||!box)return;
@@ -3512,7 +3929,7 @@ function renderDailyList(){
   const groups={}; filtered.forEach(e=>(groups[e.date]??=[]).push(e));
   const dates=Object.keys(groups).sort((a,b)=>b.localeCompare(a));
   const html=dates.map(date=>{const items=groups[date];const dayTotal=items.reduce((sum,e)=>sum+toDisplay(Number(e.amount)||0,e.currency),0);const d=new Date(date+'T12:00:00');const isToday=date===today;const heading=isToday?'Today':date===new Date(Date.now()-86400000).toISOString().slice(0,10)?'Yesterday':fmtDate(date);return `<div class="daily-day-group"><div class="daily-day-head"><div><strong>${heading}</strong><span> · ${fmtDate(date)}</span></div><strong>${fmt(dayTotal)}</strong></div>${items.map(e=>`<div class="exp-item daily-exp-item"><div class="exp-cat-dot" style="background:${CAT_BG[e.category]||'#edf1f7'}">${CAT_ICON[e.category]||e.category?.split(' ')[0]||'•'}</div><div class="exp-info"><div class="exp-name">${escapeHtml(e.name||'Expense')}${e.receipt?` <button class="receipt-badge" onclick="viewReceipt('${e.receipt.dataUrl}')" title="View attached receipt">📎</button>`:''}</div><div class="exp-meta">${escapeHtml(e.category||'Other')} · ${escapeHtml(e.notes||'No note')}</div></div><div class="daily-exp-time">${e.time?escapeHtml(e.time):''}</div><div class="exp-amt">${fmtNative(e.amount,e.currency)}</div><div class="action-cell"><button class="daily-row-btn" onclick="editDaily('${e.id}')" title="Edit">✎</button><button class="daily-row-btn danger" onclick="deleteDaily('${e.id}')" title="Delete">⌫</button></div></div>`).join('')}</div>`;}).join('');
-  document.getElementById('daily-list').innerHTML=html||`<div class="daily-empty"><div class="daily-empty-icon">🛒</div><strong>No expenses found</strong><span>Try another date, category or search term.</span><button class="btn btn-green btn-sm" onclick="openAddDaily()">+ Add expense</button></div>`;
+  document.getElementById('daily-list').innerHTML=html||`<div class="daily-empty"><div class="daily-empty-icon">🛒</div><strong>No expenses found</strong><span>Try another date, category or search term.</span><button type="button" class="btn btn-green btn-sm" onclick="openAddDaily()" data-selvam-add-expense="1">+ Add expense</button></div>`;
 }
 
 // ── ASSETS ──
@@ -3566,11 +3983,11 @@ function renderPortfolioInsights(regionAssets){
 }
 
 function renderAssetFilters(){
-  const regionAssets=getPortfolioAssets();
+  const regionAssets=S.portfolioRegion==='all'?S.assets:S.assets.filter(a=>a.region===S.portfolioRegion);
   const{totalA}=getTotals(regionAssets);
   const q=(document.getElementById('asset-search')||{}).value?.toLowerCase()||'';
   const INDIA_ONLY_TYPES=['epf','ppf','nps','sgb'];
-  const hideIndiaOnly=!portfolioHas('india');
+  const hideIndiaOnly=S.portfolioRegion!=='all'&&S.portfolioRegion!=='india';
   let types=['all','bank','equity','mf','epf','ppf','nps','pension','sgb','gold','realestate','vehicle','crypto','loan','other'];
   if(hideIndiaOnly){
     types=types.filter(t=>!INDIA_ONLY_TYPES.includes(t));
@@ -3609,7 +4026,7 @@ function renderAssetFilters(){
   }
 }
 function renderAssets(){
-  const regionAssets=getPortfolioAssets();
+  const regionAssets=S.portfolioRegion==='all'?S.assets:S.assets.filter(a=>a.region===S.portfolioRegion);
   const{totalA,totalL,netWorth}=getTotals(regionAssets);
   document.getElementById('nw-value').textContent=fmt(netWorth);
   document.getElementById('nw-sub2').textContent=`${fmt(totalA)} ${t('dash_assets_lbl')} · ${fmt(totalL)} ${t('dash_liab_lbl')}${S.showNativeCurrency?' (converted total — see by-currency breakdown below)':''}`;
@@ -3650,18 +4067,18 @@ function renderAssets(){
   const regionLabels={all:'',india:'🇮🇳 India',uk:'🇬🇧 UK',usa:'🇺🇸 USA',uae:'🇦🇪 UAE'};
   const bannerEl=document.getElementById('region-banner');
   if(bannerEl){
-    if(portfolioAllSelected()){
+    if(S.portfolioRegion==='all'){
       bannerEl.style.display='none';
     }else{
       const untagged=S.assets.filter(a=>!a.region).length;
       bannerEl.style.display='flex';
-      bannerEl.innerHTML=`<span>Showing <strong>${portfolioLabel()}</strong></span>${untagged?`<span style="color:var(--muted)">${untagged} unassigned asset${untagged!==1?'s':''} hidden</span>`:''}<button class="btn btn-outline btn-sm" onclick="S.portfolioRegions=['india','usa','uk'];save();renderAll()">Show All</button>`;
+      bannerEl.innerHTML=`<span>Showing <strong>${regionLabels[S.portfolioRegion]}</strong> only</span>${untagged?`<span style="color:var(--muted)">${untagged} asset${untagged!==1?'s':''} without a region tag ${untagged!==1?'are':'is'} hidden</span>`:''}<button class="btn btn-outline btn-sm" onclick="setPortfolioRegion('all')">Show All</button>`;
     }
   }
 
   const q=(document.getElementById('asset-search')||{}).value?.toLowerCase()||'';
   const INDIA_ONLY_TYPES=['epf','ppf','nps','sgb'];
-  const hideIndiaOnly=!portfolioHas('india');
+  const hideIndiaOnly=S.portfolioRegion!=='all'&&S.portfolioRegion!=='india';
   if(hideIndiaOnly&&INDIA_ONLY_TYPES.includes(S.assetFilter))S.assetFilter='all';
   renderAssetFilters();
   renderSnapshots();
@@ -4057,7 +4474,7 @@ function handleReceiptSelect(input,kind){
 }
 function renderReceiptPreview(kind){
   const el=document.getElementById(kind==='daily'?'d-receipt-preview':'fe-receipt-preview');
-  const inputId=kind==='daily'?'d-receipt-input':'fe-receipt-input';
+  const inputId=kind==='daily'?'d-receipt-file':'fe-receipt-input';
   const r=pendingReceipt[kind];
   if(!el)return;
   if(!r){
@@ -4075,7 +4492,7 @@ function renderReceiptPreview(kind){
 }
 function removeReceipt(kind){
   pendingReceipt[kind]=null;
-  const inputId=kind==='daily'?'d-receipt-input':'fe-receipt-input';
+  const inputId=kind==='daily'?'d-receipt-file':'fe-receipt-input';
   const inp=document.getElementById(inputId);
   if(inp)inp.value='';
   renderReceiptPreview(kind);
@@ -4602,17 +5019,32 @@ function openCalc(type){
   const panel=document.getElementById('calc-panel');
   if(!panel)return;
   activeCalcType=type;
+  const calcMeta={
+    xirr:{title:'XIRR Calculator',sub:'Work out annualised returns from investments and withdrawals on different dates.',icon:'↗'},
+    sip:{title:'SIP Calculator',sub:'Estimate the future value of regular monthly investing, with optional step-up.',icon:'↗'},
+    lumpsum:{title:'Lumpsum Calculator',sub:'See how a one-time investment could grow over your chosen period.',icon:'₹'},
+    cagr:{title:'CAGR Calculator',sub:'Calculate the annual growth rate between a starting and ending value.',icon:'% '},
+    emi:{title:'EMI Calculator',sub:'Estimate monthly payments, interest and principal for a loan.',icon:'₹'},
+    swp:{title:'SWP with Inflation',sub:'Explore how long a corpus may last as withdrawals rise with inflation.',icon:'↓'},
+    retirement:{title:'Retirement Calculator',sub:'Estimate a target corpus and the monthly investing needed to reach it.',icon:'◎'},
+    compound:{title:'Compound Interest',sub:'Model growth from a starting balance and regular contributions.',icon:'%'},
+    debt:{title:'Debt Payoff Planner',sub:'Explore payoff time and estimated interest under different payments.',icon:'↘'}
+  };
   if(!document.getElementById('calc-modal-overlay')){
     calcModalHome=panel.parentNode;
     calcModalNext=panel.nextSibling;
     const overlay=document.createElement('div');
     overlay.id='calc-modal-overlay'; overlay.className='calc-modal-overlay'; overlay.setAttribute('role','dialog'); overlay.setAttribute('aria-modal','true');
-    overlay.innerHTML=`<div class="calc-modal" role="document"><div class="calc-modal-top"><div style="font-size:12px;font-weight:800;color:var(--muted)">Calculator</div><button type="button" class="calc-modal-close" onclick="closeCalcModal()" aria-label="Close calculator">×</button></div><div id="calc-modal-content"></div></div>`;
+    overlay.innerHTML=`<div class="calc-modal" role="document"><div class="calc-modal-top"><div class="calc-modal-brand" id="calc-modal-brand">%</div><div class="calc-modal-heading"><div class="calc-modal-kicker">Planning tool</div><div class="calc-modal-title" id="calc-modal-title">Calculator</div><div class="calc-modal-subtitle" id="calc-modal-subtitle">Enter your details and calculate when ready.</div></div><button type="button" class="calc-modal-close" onclick="closeCalcModal()" aria-label="Close calculator">×</button></div><div id="calc-modal-content"></div></div>`;
     overlay.addEventListener('click',e=>{if(e.target===overlay)closeCalcModal();});
     document.body.appendChild(overlay);
     document.getElementById('calc-modal-content').appendChild(panel);
   }
   panel.style.display='block';
+  const meta=calcMeta[type]||{title:'Calculator',sub:'Enter your details and calculate when ready.',icon:'%'};
+  const titleEl=document.getElementById('calc-modal-title'); if(titleEl)titleEl.textContent=meta.title;
+  const subEl=document.getElementById('calc-modal-subtitle'); if(subEl)subEl.textContent=meta.sub;
+  const brandEl=document.getElementById('calc-modal-brand'); if(brandEl)brandEl.textContent=meta.icon;
   const renderers={xirr:renderXIRRCalc,sip:renderSIPCalc,lumpsum:renderLumpsumCalc,cagr:renderCAGRCalc,emi:renderEMICalc,swp:renderSWPCalc,retirement:renderRetirementCalc,compound:renderCompoundCalc,debt:renderDebtCalc};
   if(renderers[type])renderers[type]();
   setupManualCalculator(type);
@@ -5212,7 +5644,7 @@ function settingsBackAction(){
   nav('dashboard');
 }
 function showSettingsTab(tabName){
-  const aliases={general:'personal',financial:'personal',activity:'activity',whatsnew:'activity'};
+  const aliases={general:'personal',activity:'activity',whatsnew:'activity'};
   tabName=aliases[tabName]||tabName;
   document.querySelectorAll('.settings-tab,.settings-side-item').forEach(b=>b.classList.toggle('active',b.dataset.tab===tabName));
   document.querySelectorAll('.settings-tab-panel').forEach(p=>p.classList.toggle('active',p.id==='settings-panel-'+tabName));
@@ -5221,8 +5653,6 @@ function showSettingsTab(tabName){
   localStorage.setItem('selvam_settings_tab',tabName);
   if(tabName==='activity')markWhatsNewSeen();
   renderSettingsMeta();
-  const more=document.querySelector('.settings-more');
-  if(more && (tabName==='behavior'||tabName==='activity'))more.open=true;
   if(tabName==='behavior')refreshSettingsDiagnostics();
 }
 function showSettingsList(){
@@ -5253,6 +5683,7 @@ function renderSettingsMeta(){
   const vals={appearance:theme,behavior:(document.body.classList.contains('selvam-compact')?'Compact':'Standard'),currency:currency,privacy:locked,notifications:localStorage.getItem('selvam_push_alerts_enabled')==='1'?'On':'Off',backup:(localStorage.getItem('selvam_last_save_ts')?'Ready':'Not yet')};
   Object.keys(vals).forEach(k=>{const e=document.getElementById('settings-value-'+k);if(e)e.textContent=vals[k];});
   const p=document.getElementById('settings-value-personal');if(p)p.textContent=langName;
+  const f=document.getElementById('settings-value-financial');if(f)f.textContent=S.profile.income?fmt(S.profile.income)+'/mo':'Optional';
   const a=document.getElementById('settings-value-activity');if(a)a.textContent='›';
 }
 function applyInterfacePreferences(){
@@ -5289,11 +5720,11 @@ function markWhatsNewSeen(){
   checkWhatsNewBadge();
 }
 function renderProfile(){
-  const pName=document.getElementById('p-name'); if(pName)pName.value=S.profile.name||'';
-  const pEmail=document.getElementById('p-email'); if(pEmail)pEmail.value=S.profile.email||'';
-  const pIncome=document.getElementById('p-income'); if(pIncome)pIncome.value=S.profile.income||'';
-  const pAge=document.getElementById('p-age'); if(pAge)pAge.value=S.profile.age||'';
-  const pRisk=document.getElementById('p-risk'); if(pRisk)pRisk.value=S.profile.riskTolerance||'moderate';
+  document.getElementById('p-name').value=S.profile.name||'';
+  document.getElementById('p-email').value=S.profile.email||'';
+  document.getElementById('p-income').value=S.profile.income||'';
+  document.getElementById('p-age').value=S.profile.age||'';
+  document.getElementById('p-risk').value=S.profile.riskTolerance||'moderate';
   updateProfileDisplay();
   renderRestorePoints();
   updateBackupStatusUI();
@@ -5316,20 +5747,15 @@ function renderSettingsControls(){
 }
 
 function saveProfile(){
-  const nameEl=document.getElementById('p-name');
-  const emailEl=document.getElementById('p-email');
-  const incomeEl=document.getElementById('p-income');
-  const ageEl=document.getElementById('p-age');
-  const riskEl=document.getElementById('p-risk');
-  if(nameEl)S.profile.name=nameEl.value;
-  if(emailEl)S.profile.email=emailEl.value;
-  if(incomeEl)S.profile.income=parseFloat(incomeEl.value)||0;
-  if(ageEl)S.profile.age=ageEl.value;
-  if(riskEl)S.profile.riskTolerance=riskEl.value;
+  S.profile.name=document.getElementById('p-name').value;
+  S.profile.email=document.getElementById('p-email').value;
+  S.profile.income=parseFloat(document.getElementById('p-income').value)||0;
+  S.profile.age=document.getElementById('p-age').value;
+  S.profile.riskTolerance=document.getElementById('p-risk').value;
   save();updateProfileDisplay();
 }
 function updateProfileDisplay(){
-  const n=S.profile.name||(lang==='ta'?'தனிப்பட்டது':'Personal');
+  const n=S.profile.name||(lang==='ta'?'செல்வம்':'Wealth');
   document.getElementById('profile-name').textContent=n;
   document.getElementById('profile-email').textContent=S.profile.email||'Not set';
   document.getElementById('profile-av').textContent=n[0]||(lang==='ta'?'ச':'W');
@@ -5380,7 +5806,7 @@ function toggleAssetTypeSheetMore(){
   renderTypeSheetList();
 }
 function renderTypeSheetList(){
-  const hideIndiaOnly=!portfolioHas('india');
+  const hideIndiaOnly=S.portfolioRegion!=='all'&&S.portfolioRegion!=='india';
   const indiaOnlyTypes=['epf','ppf','nps','sgb'];
   const currentVal=document.getElementById('a-type').value;
   const rowHtml=type=>{
@@ -5412,13 +5838,15 @@ function openAddAsset(presetType,presetInsType){
   document.getElementById('save-asset-btn').textContent='Save Asset';
   document.getElementById('a-name').value='';document.getElementById('a-inst').value='';
   document.getElementById('a-value').value='';document.getElementById('a-notes').value='';
-  document.getElementById('a-region').value=(S.portfolioRegions.length===1)?S.portfolioRegions[0]:'';
-  const hideIndiaOnly=!portfolioHas('india');
+  document.getElementById('a-region').value=(S.portfolioRegion!=='all')?S.portfolioRegion:'';
+  const hideIndiaOnly=S.portfolioRegion!=='all'&&S.portfolioRegion!=='india';
   document.getElementById('a-type').value=(hideIndiaOnly&&['epf','ppf','nps','sgb'].includes(presetType))?'bank':(presetType||'bank');
   syncAssetTypeDisplayButton();
   renderCurBtns();
+  const ac=document.getElementById('a-cur'); if(ac&&!ac.value)ac.value=S.displayCur||'INR';
   updateAssetFields(presetInsType?{instype:presetInsType}:undefined);
   document.getElementById('modal-asset').classList.add('open');
+  setTimeout(()=>document.getElementById('a-name')?.focus(),80);
 }
 function openEditAsset(id){
   const a=S.assets.find(x=>x.id===id);if(!a)return;
@@ -5621,18 +6049,34 @@ function deleteAsset(id){if(!confirm(t('confirm_delete')))return;const a=S.asset
 
 // ── INCOME CRUD ──
 function openAddIncome(id){
+  const modal=document.getElementById('modal-daily');
+  if(!modal){console.error('[Selvam] Unified entry sheet is missing (#modal-daily)');return;}
   S.editIncomeId=id||null;
+  S.editDailyId=null;
+  dailyEntryType='income';
+  modal.classList.add('open');
   const x=id?S.incomes.find(i=>i.id===id):null;
-  document.getElementById('income-modal-ttl').textContent=id?'Edit Income':'Add Income';
-  document.getElementById('save-income-btn').textContent=id?'Update':'Save Income';
-  document.getElementById('i-name').value=x?.name||'';
-  document.getElementById('i-source').value=x?.source||'';
-  document.getElementById('i-amount').value=x?.amount||'';
-  document.getElementById('i-date').value=x?.date||(S.viewMonth+'-01');
-  document.getElementById('i-recurring').checked=!!x?.recurring;
-  renderCurBtns();document.getElementById('i-cur').value=x?.currency||S.displayCur;
-  document.getElementById('modal-income').classList.add('open');
+  const set=(key,value)=>{const el=document.getElementById(key);if(el)el.value=value??'';};
+  set('d-name',x?.name||'');
+  set('d-amount',x?.amount||'');
+  set('d-notes',x?.notes||'');
+  set('d-date',x?.date||new Date().toISOString().slice(0,10));
+  set('d-recurring',x?.recurring?'monthly':'never');
+  set('d-source',x?.source||'');
+  try{renderCurBtns();}catch(err){console.error('[Selvam] Currency setup failed while opening Add Income',err);}
+  set('d-cur',x?.currency||S.displayCur);
+  pendingReceipt.daily=null;
+  try{renderReceiptPreview('daily');}catch(err){}
+  setDailyEntryType('income');
+  updateDailyAmountPreview();
+  const amount=document.getElementById('d-amount');
+  const cur=document.getElementById('d-cur');
+  if(amount)amount.oninput=updateDailyAmountPreview;
+  if(cur)cur.onchange=updateDailyAmountPreview;
+  updateUnifiedEntryActions();
+  setTimeout(()=>amount?.focus(),80);
 }
+
 function editIncome(id){openAddIncome(id);}
 function saveIncome(){
   const name=document.getElementById('i-name').value.trim(),amount=parseFloat(document.getElementById('i-amount').value);
@@ -5662,6 +6106,7 @@ function openAddFixedExp(id){
   document.getElementById('fe-amount').value=x?.amount||'';
   renderFixedCategoryOptions();
   document.getElementById('fe-cat').value=x?.category||'🏠 Rent / EMI';
+  syncCategoryTrigger('fixed');
   document.getElementById('fixed-custom-cat').hidden=true;
   document.getElementById('fe-month').value=x?.month||S.viewMonth;
   document.getElementById('fe-dueday').value=x?.dueDay||'';
@@ -5695,42 +6140,134 @@ function saveFixedExp(){
 function deleteFixedExp(id){if(!confirm(t('confirm_delete')))return;const x=S.fixedExps.find(f=>f.id===id);S.fixedExps=S.fixedExps.filter(x=>x.id!==id);if(x)logActivity('deleted','expense',x.name,x.amount,x.currency);save();renderExpenses();renderDashboard();}
 
 // ── DAILY CRUD ──
-function openAddDaily(id){
-  S.editDailyId=id||null;
-  const e=id?S.dailyExps.find(x=>x.id===id):null;
-  document.getElementById('daily-modal-ttl').textContent=id?'Edit Expense':'Add Daily Expense';
-  document.getElementById('save-daily-btn').textContent=id?'Update':'Save';
-  document.getElementById('d-name').value=e?.name||'';
-  document.getElementById('d-amount').value=e?.amount||'';
-  document.getElementById('d-notes').value=e?.notes||'';
-  document.getElementById('d-date').value=e?.date||calPrefillDate||new Date().toISOString().slice(0,10);
-  calPrefillDate=null;
-  renderCategoryOptions();renderFixedCategoryOptions();
-  document.getElementById('d-cat').value=e?.category||'🍽️ Food';
-  document.getElementById('daily-custom-cat').hidden=true;
-  renderCurBtns();document.getElementById('d-cur').value=e?.currency||S.displayCur;
-  pendingReceipt.daily=e?.receipt||null;
-  renderReceiptPreview('daily');
-  document.getElementById('modal-daily').classList.add('open');
+let dailyEntryType='expense';
+let dailyCategoriesExpanded=false;
+function setDailyEntryType(type){
+  dailyEntryType=type==='income'?'income':'expense';
+  document.getElementById('daily-type-expense').classList.toggle('active',dailyEntryType==='expense');
+  document.getElementById('daily-type-income').classList.toggle('active',dailyEntryType==='income');
+  document.getElementById('daily-modal-ttl').textContent=dailyEntryType==='income'?'New Income':'New';
+  const catHead=document.getElementById('daily-category-head');
+  const catTrigger=document.getElementById('daily-category-trigger');
+  const catSelect=document.getElementById('d-cat');
+  const custom=document.getElementById('daily-custom-cat');
+  const sourceCard=document.getElementById('daily-income-source-card');
+  const attachment=document.getElementById('daily-attachment-card');
+  const desc=document.getElementById('d-name');
+  const isIncome=dailyEntryType==='income';
+  if(catHead)catHead.hidden=isIncome;
+  if(catTrigger)catTrigger.hidden=isIncome;
+  if(catSelect)catSelect.disabled=isIncome;
+  if(custom)custom.hidden=true;
+  if(sourceCard)sourceCard.hidden=!isIncome;
+  if(attachment)attachment.hidden=isIncome;
+  if(desc)desc.placeholder=isIncome?'e.g. Salary, Freelance, Gift':'e.g. Lunch, Tesco, Bus fare';
+  updateDailyAmountPreview();
+  updateUnifiedEntryActions();
 }
+function updateUnifiedEntryActions(){
+  const saveBtn=document.getElementById('sel-entry-save-btn');
+  const title=document.getElementById('daily-modal-ttl');
+  if(!saveBtn)return;
+  const isIncome=dailyEntryType==='income';
+  const editingIncome=!!S.editIncomeId;
+  const editingExpense=!!S.editDailyId;
+  if(title)title.textContent=isIncome?(editingIncome?'Edit Income':'Add Income'):(editingExpense?'Edit Expense':'Add Expense');
+  saveBtn.textContent=isIncome?(editingIncome?'Update Income':'Save Income'):(editingExpense?'Update Expense':'Save Expense');
+}
+function openIncomeFromEntrySheet(){S.editIncomeId=null; S.editDailyId=null; setDailyEntryType('income'); updateUnifiedEntryActions();}
+
+function renderDailyCategoryChips(){syncCategoryTrigger('daily');}
+function selectDailyCategory(value){
+  if(value==='__new__'){openCategoryPicker('daily');showNewCategoryInPicker();return;}
+  const select=document.getElementById('d-cat');select.value=value;syncCategoryTrigger('daily');
+  const box=document.getElementById('daily-custom-cat');
+  if(box)box.hidden=value!=='__new__';
+  renderDailyCategoryChips();
+  if(value==='__new__'){const inp=document.getElementById('d-custom-cat');if(inp)setTimeout(()=>inp.focus(),0);}
+}
+function toggleDailyCategories(){dailyCategoriesExpanded=!dailyCategoriesExpanded;const btn=document.getElementById('daily-see-all');if(btn)btn.textContent=dailyCategoriesExpanded?'Show less':'See All';renderDailyCategoryChips();}
+function updateDailyAmountPreview(){const el=document.getElementById('d-amount-preview'),a=parseFloat(document.getElementById('d-amount')?.value)||0,cur=document.getElementById('d-cur')?.value||S.displayCur||'INR';if(el)el.textContent=(dailyEntryType==='income'?'+':'−')+fmtNative(a,cur);}
+
+function openAddDaily(id){
+  // Open the sheet immediately. Everything else is optional setup so one broken module cannot make Add Expense appear dead.
+  const modal=document.getElementById('modal-daily');
+  if(!modal){console.error('[Selvam] Add Expense sheet is missing (#modal-daily)');return false;}
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  try{
+    if(typeof S!=='undefined'){
+      S.editDailyId=id||null;
+      S.editIncomeId=null;
+    }
+  }catch(err){console.error('[Selvam] Could not initialise expense edit state',err);}
+  const e=(id&&typeof S!=='undefined'&&Array.isArray(S.dailyExps))?S.dailyExps.find(x=>x.id===id):null;
+  dailyEntryType='expense';dailyCategoriesExpanded=false;
+  const set=(id,value)=>{const el=document.getElementById(id);if(el)el.value=value??'';return el;};
+  const ttl=document.getElementById('daily-modal-ttl'); if(ttl)ttl.textContent=id?'Edit Expense':'New';
+  set('d-name',e?.name||'');
+  set('d-amount',e?.amount||'');
+  set('d-notes',e?.notes||'');
+  set('d-date',e?.date||calPrefillDate||new Date().toISOString().slice(0,10));
+  set('d-recurring',e?.recurring?(e.recurringFrequency||'monthly'):'never');
+  set('d-source',e?.source||'');
+  calPrefillDate=null;
+  try{renderCategoryOptions();renderFixedCategoryOptions();}catch(err){console.error('[Selvam] Category setup failed while opening Add Expense',err);}
+  const cat=set('d-cat',e?.category||'🍽️ Food');
+  if(cat && !cat.value)cat.value=e?.category||'🍽️ Food';
+  try{syncCategoryTrigger('daily');}catch(err){console.error('[Selvam] Category display failed',err);}
+  const custom=document.getElementById('daily-custom-cat'); if(custom)custom.hidden=true;
+  try{renderCurBtns();}catch(err){console.error('[Selvam] Currency setup failed',err);}
+  set('d-cur',e?.currency||((typeof S!=='undefined'&&S.displayCur)||'INR'));
+  pendingReceipt.daily=e?.receipt||null;
+  try{renderReceiptPreview('daily');}catch(err){console.error('[Selvam] Receipt preview failed',err);}
+  try{setDailyEntryType('expense');renderDailyCategoryChips();updateDailyAmountPreview();}catch(err){console.error('[Selvam] Add Expense display setup failed',err);}
+  const amount=document.getElementById('d-amount');
+  const cur=document.getElementById('d-cur');
+  if(amount)amount.oninput=updateDailyAmountPreview;
+  if(cur)cur.onchange=updateDailyAmountPreview;
+  setTimeout(()=>amount?.focus(),80);
+  return true;
+}
+window.openAddDaily=openAddDaily;
+window.SelvamOpenExpenseSheet=openAddDaily;
 function editDaily(id){openAddDaily(id);}
 function saveDaily(){
-  const name=document.getElementById('d-name').value.trim(),amount=parseFloat(document.getElementById('d-amount').value);
+  const name=(document.getElementById('d-name').value.trim()|| (dailyEntryType==='income'?'Income':'Expense'));
+  const amount=parseFloat(document.getElementById('d-amount').value);
   const date=document.getElementById('d-date').value;
-  if(!name||!Number.isFinite(amount)||amount<=0||!date){showToast('Enter a valid description, amount and date','error');return;}
-  if(name.length>120){showToast('Description is too long','error');return;}
+  if(!Number.isFinite(amount)||amount<=0||!date){showToast('Enter a valid amount and date','error');return;}
   const cur=document.getElementById('d-cur').value;
   const notes=document.getElementById('d-notes').value.trim().slice(0,500);
+  if(dailyEntryType==='income'){
+    const source=document.getElementById('d-source').value.trim().slice(0,120)||'Manual entry';
+    const editId=S.editIncomeId||S.editDailyId||null;
+    const existing=editId?S.incomes.find(i=>i.id===editId):null;
+    const wasEdit=!!existing;
+    const recurring=document.getElementById('d-recurring')?.value==='monthly';
+    const entry={id:existing?.id||uid(),name:name.slice(0,120),amount,currency:cur,source,date,recurring,seriesId:recurring?(existing?.seriesId||uid()):null,notes};
+    if(existing){
+      const idx=S.incomes.findIndex(i=>i.id===existing.id);
+      if(idx>=0)S.incomes[idx]=entry;
+    }else{
+      S.incomes.push(entry);
+    }
+    logActivity(wasEdit?'edited':'added','income',name,amount,cur);
+    save();closeModal('modal-daily');showToast(wasEdit?'Income updated ✓':'Income added ✓','success');S.editIncomeId=null;S.editDailyId=null;pendingReceipt.daily=null;renderIncome();renderDashboard();return;
+  }
   const dailyCategory=document.getElementById('d-cat').value;
-  if(dailyCategory==='__new__'){showToast('Add or select a category before saving','error');return;}
-  const entry={id:S.editDailyId||uid(),name:name.slice(0,120),amount,currency:cur,category:dailyCategory,date,notes,receipt:pendingReceipt.daily||null};
+  if(dailyCategory==='__new__'||!dailyCategory){showToast('Choose a category before saving','error');return;}
+  const frequency=document.getElementById('d-recurring').value;
+  const recurring=frequency!=='never';
+  const existing=S.editDailyId?S.dailyExps.find(e=>e.id===S.editDailyId):null;
+  const seriesId=recurring?(existing?.seriesId||uid()):(existing?.seriesId||null);
+  const entry={id:S.editDailyId||uid(),name:name.slice(0,120),amount,currency:cur,category:dailyCategory,date,notes,receipt:pendingReceipt.daily||null,recurring,recurringFrequency:recurring?frequency:null,seriesId:recurring?seriesId:null};
   const wasEdit=!!S.editDailyId;
   if(S.editDailyId){const idx=S.dailyExps.findIndex(e=>e.id===S.editDailyId);if(idx>=0)S.dailyExps[idx]=entry;}
   else S.dailyExps.push(entry);
   logActivity(wasEdit?'edited':'added','daily',name,amount,cur);
-  save();closeModal('modal-daily');showToast('Saved ✓','success');S.editDailyId=null;pendingReceipt.daily=null;renderDaily();renderExpenses();renderDashboard();
-  if(currentPage==='calendar')renderCalendar();
-  if(currentPage==='notifications')renderNotifications();
+  save();closeModal('modal-daily');showToast(wasEdit?'Expense updated ✓':'Expense added ✓','success');S.editDailyId=null;pendingReceipt.daily=null;renderDaily();renderExpenses();renderDashboard();
+  if(currentPage==='calendar')renderCalendar();if(currentPage==='notifications')renderNotifications();
 }
 function deleteDaily(id){if(!confirm(t('confirm_del_daily')))return;const e=S.dailyExps.find(x=>x.id===id);S.dailyExps=S.dailyExps.filter(e=>e.id!==id);if(e)logActivity('deleted','daily',e.name,e.amount,e.currency);save();renderDaily();renderExpenses();renderDashboard();if(currentPage==='calendar')renderCalendar();}
 
@@ -5742,8 +6279,10 @@ function openAddGoal(presetCategory,presetName,presetTarget){
   document.getElementById('g-date').value='';
   document.getElementById('g-return').value='';
   renderCurBtns();
+  const gc=document.getElementById('g-cur'); if(gc&&!gc.value)gc.value=S.displayCur||'INR';
   if(presetCategory)document.getElementById('g-cat').value=presetCategory;
   document.getElementById('modal-goal').classList.add('open');
+  setTimeout(()=>document.getElementById('g-name')?.focus(),80);
 }
 function saveGoal(){const name=document.getElementById('g-name').value.trim(),target=parseFloat(document.getElementById('g-target').value),current=parseFloat(document.getElementById('g-current').value)||0;if(!name||isNaN(target)){showToast('Fill all fields','error');return;}const cur=document.getElementById('g-cur').value;const reminderDays=document.getElementById('g-reminddays').value===''?30:parseInt(document.getElementById('g-reminddays').value);S.goals.push({id:uid(),name,target,current,currency:cur,category:document.getElementById('g-cat').value,targetDate:document.getElementById('g-date').value,expectedReturn:parseFloat(document.getElementById('g-return').value)||null,reminderDays});logActivity('added','goal',name,target,cur);save();closeModal('modal-goal');showToast('Goal added ✓','success');renderGoals();}
 function computeGoalSIP(g){
@@ -6750,6 +7289,35 @@ function startApp(){
   })();
 }
 startApp();
+</script>
+
+<script>
+// Selvam Add Expense safety binding: keeps the primary expense action usable even if an inline handler is disrupted.
+(function(){
+  function bindExpenseActions(){
+    document.querySelectorAll('[data-selvam-add-expense], .daily-add-btn, #fab-add-expense').forEach(function(btn){
+      if(btn.dataset.selvamExpenseBound==='1') return;
+      btn.dataset.selvamExpenseBound='1';
+      btn.addEventListener('click',function(e){
+        // Open the sheet at the very start of the click lifecycle.  This makes the
+        // Expenses -> Add Expense action resilient even if optional setup code fails.
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var modal=document.getElementById('modal-daily');
+        if(modal){
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden','false');
+        }
+        try{
+          if(typeof window.openAddDaily==='function') window.openAddDaily();
+        }catch(err){
+          console.error('[Selvam] Add Expense initialisation failed after sheet opened',err);
+        }
+      },true);
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindExpenseActions,{once:true}); else bindExpenseActions();
+})();
 </script>
 </body>
 </html>
